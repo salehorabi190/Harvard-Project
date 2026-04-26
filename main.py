@@ -1546,3 +1546,70 @@ if beneficiary in maqasid_map:
     ### 🛡️ Audit Trail | سجل التدقيق الشرعي
     كل عملية تتم داخل هذه المنظومة تُسجل في **سلسلة الكتلة (Audit Trail)**، مما يمنع "مزاحمة السلطان" أو التدخل البشري في شروط الواقفين، ويحقق الشفافية المطلقة.
     """)
+# --- 31. بروتوكول أمانة (المحاكاة الرقمية والسبق المعرفي) ---
+if domain == "Amanah Protocol (بروتوكول أمانة)":
+    st.header("🌐 Amanah Protocol | بروتوكول أمانة السيادي")
+    st.info("الخريطة الذهنية والمحاكاة الرقمية الشاملة لـ (الذكاء الاستخلافي).")
+
+    # تصميم الخريطة الذهنية عبر أعمدة
+    st.subheader("🧠 Mind Map: The Sovereign Leap | الخريطة الذهنية للسبق المعرفي")
+    
+    col_in, col_core, col_metric = st.columns(3)
+    
+    with col_in:
+        st.markdown("### 1. المدخلات (Inputs)")
+        st.write("- **الأصل:** مشروع زراعي ($1M)")
+        st.write("- **الأطراف:** (منتج + ممول)")
+        st.write("- **تكويد:** الغنم بالغرم (40/60)")
+        
+    with col_core:
+        st.markdown("### 2. المحرك (Core Engine)")
+        st.write("- **فلتر الغزالي:** حظر الربا آلياً")
+        st.write("- **حسبة ابن تيمية:** مراقبة الاحتكار")
+        st.write("- **الزكاة:** تحويل تلقائي (2.5%)")
+        
+    with col_metric:
+        st.markdown("### 3. المؤشرات (Metrics)")
+        st.write("- **التداول (Wc):** +30% كفاءة")
+        st.write("- **انقباض الآمال (Ei):** خفض الرسوم")
+        st.write("- **البركة (Bi):** الأثر التنموي")
+
+    st.markdown("---")
+
+    # محاكاة مؤشر البركة (Bi)
+    st.subheader("✨ Barakah Index (Bi) Simulation | محاكاة مؤشر البركة")
+    st.latex(r"B_i = \frac{\sum (U_v \cdot S_t)}{H_w + D_i}")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.write("**Variables | المتغيرات**")
+        uv_utility = st.slider("Uv (Utility Value - النفع المتعدي)", 0, 100, 85)
+        st_sust = st.slider("St (Sustainability - استدامة الأثر)", 0, 100, 90)
+        hw_waste = st.slider("Hw (Wasted Resources - الهدر)", 1, 50, 10)
+        di_debt = st.slider("Di (Debt/Inflation - الديون الوهمية)", 1, 50, 5)
+        
+    with col2:
+        # حساب مؤشر البركة برمجياً
+        barakah_result = (uv_utility * st_sust) / (hw_waste + di_debt)
+        
+        st.metric("Barakah Index Score (Bi)", f"{barakah_result:.2f}")
+        
+        # رسم بياني يوضح العلاقة بين النفع والهدر
+        fig_bi = go.Figure(go.Scatter(
+            x=[hw_waste + di_debt], 
+            y=[uv_utility * st_sust],
+            mode='markers+text',
+            marker=dict(size=[barakah_result * 2], color=['gold']),
+            text=["Point of Barakah"],
+            textposition="top center"
+        ))
+        fig_bi.update_layout(
+            title="The Barakah Space: Utility vs. Waste",
+            xaxis_title="Friction (Waste + Debt)",
+            yaxis_title="Value (Utility * Sustainability)",
+            xaxis_range=[0, 100], yaxis_range=[0, 10000]
+        )
+        st.plotly_chart(fig_bi)
+
+    st.success(f"الخلاصة الهندسيّة: تزداد 'البركة' برمجياً كلما انخفضت الديون الوهمية ($D_i$). هذا المشروع يحقق كفاءة استخلافية قدرها {barakah_result:.2f} نقطة.")
