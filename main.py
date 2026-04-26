@@ -438,3 +438,47 @@ if domain == "Tazkiyah Value Added (ZVA)":
     - في قطاع **التعليم**، تحقق النية التزكوية قفزة في الـ ZVA بنسبة **{((zva_sectors[0]-eva_sectors[0])/eva_sectors[0])*100:.1f}%**.
     - الفجوة بين العمود الرمادي (المادي) والأخضر (التزكوي) هي المساحة التي تضيع في الاقتصاد التقليدي وتستعيدها **هندسة الاستخلاف**.
     """)
+# --- 8. نموذج هندسة السوق: من التبادل إلى التزكية ---
+if domain == "Market Engineering (هندسة السوق)":
+    st.header("⚖️ Market Engineering: From Exchange to Tazkiyah")
+    st.info("تحويل السوق من ساحة لتبادل المنافع المادية فقط إلى فضاء لتحقيق العدالة الرمزية والتزكية.")
+
+    # المعادلة المقترحة لعدالة السوق
+    st.subheader("The Market Justice Equation | معادلة العدالة التزكوية")
+    st.latex(r"V_m = \alpha (P_m + \Delta B) + \beta Q_s + \gamma J")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Market Dynamics | ديناميكيات السوق")
+        p_material = st.slider("Pm (Material Price - السعر المادي)", 10, 1000, 500)
+        barakah_coeff = st.slider("ΔB (Barakah/Social Impact - معامل البركة)", 0.0, 2.0, 1.5, 0.1)
+        intent_quality = st.slider("Qs (Intent Quality - جودة نية البائع)", 0, 100, 80)
+        justice_idx = st.slider("J (Justice & Fair Trade - مؤشر العدالة)", 0, 100, 90)
+        
+    with col2:
+        st.subheader("Sovereign Market Value (Vm) Analysis")
+        # حساب القيمة التزكوية للسوق
+        sovereign_value = (p_material * barakah_coeff) + (1.2 * intent_quality) + (2.0 * justice_idx)
+        
+        st.metric("Total Market Value (Vm)", f"{sovereign_value:.2f}", delta=f"{sovereign_value - p_material:.2f} Spiritual Premium")
+        
+        # رسم بياني لمقارنة "التبادل المادي" مقابل "القيمة السيادية"
+        fig_market = go.Figure()
+        fig_market.add_trace(go.Scatter(
+            x=[0, p_material], y=[0, p_material],
+            mode='lines', name='Traditional Exchange (Linear)',
+            line=dict(color='gray', dash='dash')
+        ))
+        fig_market.add_trace(go.Scatter(
+            x=[0, p_material], y=[0, sovereign_value],
+            mode='lines+markers', name='Tazkiyah Value (Integrated)',
+            line=dict(color='orange', width=4)
+        ))
+        
+        fig_market.update_layout(title_text="Material Exchange vs. Tazkiyah Transformation")
+        st.plotly_chart(fig_market)
+
+    st.success(f"النتيجة: بفضل 'معامل البركة' والعدالة، تحولت القيمة من مجرد سعر مادي ({p_material}) إلى قيمة سيادية ({sovereign_value:.2f}).")
