@@ -38,7 +38,7 @@ L = {
 }
 txt = L[st.session_state.lang]
 
-# --- 3. الفهرس (كل النماذج التي أرسلتها مفعلة الآن) ---
+# --- 3. الفهرس (تصحيح الأخطاء الكتابية هنا) ---
 st.sidebar.title(txt["choose"])
 menu = {
     "1. نموذج الوظيفة الرسالية (Pᵣ)": "m1",
@@ -51,9 +51,8 @@ menu = {
     "8. سنة الشكر (Y)": "s1",
     "9. سنة الظلم (R)": "s2",
     "10. سنة التداول (GINI)": "s3",
-    "11. سنة التمكين (R)": "s4"
     "11. سنة التمكين (R)": "s4",
-    "12. سياسة مكافحة الفقر": "poverty"  # <-- أضف هذا السطر هنا
+    "12. سياسة مكافحة الفقر": "poverty"
 }
 choice_key = st.sidebar.selectbox("", list(menu.keys()))
 model = menu[choice_key]
@@ -133,6 +132,7 @@ elif model == "s4":
     st.latex(r"R = \theta_0 + \theta_1 M + \theta_2 S + \theta_3 P + \epsilon")
     m_val = st.slider("M (مؤشر التمكين)", 0, 100, 85)
     st.metric("R (الاستقلال)", f"{m_val * 1.1:.2f}")
+
 # --- نموذج سياسة مكافحة الفقر ---
 elif model == "poverty":
     st.markdown(f"<h1 class='header-style'>سياسة مكافحة الفقر</h1>", unsafe_allow_html=True)
@@ -140,12 +140,9 @@ elif model == "poverty":
     
     col1, col2 = st.columns([1.2, 1])
     with col1:
-        # المؤشرات من جدول (10) الخاص بك
         zd = st.slider("الزكاة الموزعة (Zd)", 0, 100, 70)
         mfv = st.slider("حجم التمويل الأصغر (MFv)", 0, 100, 65)
         bi = st.slider("مؤشر البركة (BI)", 0, 100, 80)
-        
-        # حساب النتيجة بناءً على مدخلاتك
         y_poor = (0.5 * zd) + (0.3 * mfv) + (0.2 * bi)
         st.metric("التغير في دخل الفقراء (ΔY poor)", f"{y_poor:.2f}%")
         
@@ -158,5 +155,6 @@ elif model == "poverty":
         • BI: مؤشر البركة (Baraka Index)
         </div>
         """, unsafe_allow_html=True)
+
 st.sidebar.markdown("---")
 st.sidebar.write(txt["sidebar_info"])
