@@ -611,3 +611,16 @@ if domain == "Adequacy Pricing (سعر الكفاية)":
         pk_price = 10 + (1.1 * c_cost) + (c_cost * mr_profit) + (0.5 * as_adequacy)
         st.metric("Adequacy Price (Pk)", f"${pk_price:.2f}")
         st.info("هذا السعر يضمن حياة كريمة للمنتج دون إرهاق المستهلك.")
+if domain == "Merciful Supply (العرض الرحيم)":
+    st.header("🤝 Merciful Supply Model | نموذج العرض الرحيم")
+    st.latex(r"Q_S = \gamma_0 + \gamma_1 H + \gamma_2 I + \gamma_3 S + \epsilon")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        h_need = st.slider("H (Social Need - الحاجة المجتمعية)", 0, 100, 80)
+        i_intent = st.slider("I (Ihsan Intent - نية الإحسان)", 0, 100, 90)
+        s_stock = st.number_input("S (Inventory - الوفرة)", 100, 10000, 1000)
+    with col2:
+        qs_supply = 50 + (0.6 * h_need) + (0.4 * i_intent) + (0.2 * s_stock)
+        st.metric("Merciful Supply Quantity (Qs)", f"{qs_supply:.0f} Units")
+        st.write("لاحظ: في الأزمات (ارتفاع H)، يزداد العرض الرحيم بدافع الإحسان.")
