@@ -12,17 +12,17 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- 2. تصحيح نظام اللغات (Session State Fix) ---
+# --- 2. نظام اللغات (Session State Fix) ---
 if 'lang' not in st.session_state:
     st.session_state.lang = "العربية"
 
 # وضع زر تغيير اللغة في القائمة الجانبية
-st.session_state.lang = st.sidebar.radio("Language / اللغة", ["العربية", "English"], index=0 if st.session_state.lang == "العربية" else 1)
+selected_lang = st.sidebar.radio("Language / اللغة", ["العربية", "English"], index=0 if st.session_state.lang == "العربية" else 1)
+st.session_state.lang = selected_lang
 
 L = {
     "العربية": {
         "title": "🏛️ بروتوكول هندسة الاستخلاف الاقتصادي الرقمي",
-        "subtitle": "رؤية هارفارد 2026: من الفلسفة الحضارية إلى السيادة البرمجية",
         "sidebar_title": "💎 فهرس النماذج السيادية",
         "choose": "اختر نموذج الدراسة:",
         "overview": "الرئيسية (Overview)",
@@ -43,7 +43,6 @@ L = {
     },
     "English": {
         "title": "🏛️ Sovereign Stewardship Engineering Protocol",
-        "subtitle": "Harvard 2026: From Civilization Philosophy to Programmatic Sovereignty",
         "sidebar_title": "💎 Sovereign Models Index",
         "choose": "Choose Economic Domain:",
         "overview": "Overview (الرئيسية)",
@@ -91,7 +90,6 @@ domain = st.sidebar.selectbox(txt["choose"], [
 # --- الصفحة الرئيسية ---
 if domain == txt["overview"]:
     st.title(txt["title"])
-    st.subheader(txt["subtitle"])
     col1, col2 = st.columns([2, 1])
     with col1:
         st.markdown(f"""
@@ -152,5 +150,5 @@ elif domain == txt["fortification"]:
 
 # --- تذييل الصفحة ---
 st.sidebar.markdown("---")
-st.sidebar.write(f"✍️ **Design:** Dr. Saleh Orabi (2026)")
+st.sidebar.write(f"✍️ **Design:** Prof. Dr. Saleh Orabi (2026)")
 st.sidebar.write("⚡ Powered by Amanah Engine")
