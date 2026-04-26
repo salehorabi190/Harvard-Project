@@ -376,3 +376,65 @@ if domain == "Existential Realization (التحقق الوجودي)":
     ### 📝 Research Insight | رؤية بحثية
     في هذا النموذج، نجد أن **نية الفرد ($N_r$)** هي المحرك الأكبر للتحقق الوجودي. عندما تتلاقى نية الموظف مع نية المؤسسة ($\alpha$)، يحدث ما نسميه **"الانسجام الوجودي"**، وهو ما يفسر النتائج غير التقليدية (البركة $\epsilon_r$) التي تعجز النظريات المادية عن تفسيرها.
     """)
+# --- 7. نموذج القيمة التزكوية المضافة (ZVA) ---
+if domain == "Tazkiyah Value Added (ZVA)":
+    st.header("💎 Tazkiyah Value Added (ZVA) | القيمة التزكوية المضافة")
+    st.info("مفهوم ثوري يعيد تعريف القيمة الاقتصادية من خلال دمج أثر التزكية (النية، الانسجام، الرسالة) في الأداء المادي.")
+
+    # عرض المعادلات الرياضية بوضوح
+    st.subheader("The Sovereign Value Equations | معادلات القيمة السيادية")
+    col_math1, col_math2 = st.columns(2)
+    with col_math1:
+        st.markdown("**Traditional EVA Model:**")
+        st.latex(r"EVA = \alpha F + \beta C + \gamma M + \delta Z + \epsilon")
+    with col_math2:
+        st.markdown("**Tazkiyah Value Added (Proposed):**")
+        st.latex(r"ZVA = EVA + \lambda Z")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Sovereign Indicators | المؤشرات السيادية")
+        f_val = st.slider("F (Institutional Efficiency - الفاعلية)", 0, 100, 70)
+        c_val_zva = st.slider("C (Human Capital - رأس المال البشري)", 0, 100, 65)
+        m_val_zva = st.slider("M (Institutional Morale - المعنوية والرسالة)", 0, 100, 80)
+        z_val_zva = st.slider("Z (Tazkiyah Index - مؤشر التزكية والنية)", 0, 100, 90)
+        
+        st.divider()
+        st.subheader("Coefficients | المعاملات")
+        lambda_val = st.slider("λ (Conversion Factor - معامل التحويل القيمي)", 0.0, 2.0, 1.2, 0.1)
+        delta_z = st.slider("δ (Tazkiyah Weight in EVA)", 0.0, 1.0, 0.4, 0.05)
+        
+    with col2:
+        st.subheader("ZVA vs. EVA Comprehensive Analysis")
+        # حساب EVA التقليدي (بناءً على المعادلة المقترحة)
+        # نفترض معاملات افتراضية للتوضيح
+        eva_score = (0.3 * f_val) + (0.2 * c_val_zva) + (0.1 * m_val_zva) + (delta_z * z_val_zva)
+        
+        # حساب ZVA (القيمة المضافة التزكوية)
+        zva_score = eva_score + (lambda_val * z_val_zva)
+        
+        col_res1, col_res2 = st.columns(2)
+        col_res1.metric("Economic Value Added (EVA)", f"{eva_score:.2f}")
+        col_res2.metric("Tazkiyah Value Added (ZVA)", f"{zva_score:.2f}", delta=f"{zva_score - eva_score:.2f} Value Gain")
+        
+        # رسم بياني لمقارنة القطاعات (محاكاة لاختبار النموذج في التعليم والصحة)
+        sectors = ['Education (التعليم)', 'Health (الصحة)', 'Social Inv. (الاستثمار)']
+        eva_sectors = [eva_score * 0.9, eva_score * 1.1, eva_score * 0.8]
+        zva_sectors = [eva_sectors[0] + (lambda_val * 85), eva_sectors[1] + (lambda_val * 70), eva_sectors[2] + (lambda_val * 95)]
+        
+        fig_zva = go.Figure()
+        fig_zva.add_trace(go.Bar(x=sectors, y=eva_sectors, name='Traditional EVA', marker_color='#94a3b8'))
+        fig_zva.add_trace(go.Bar(x=sectors, y=zva_sectors, name='Proposed ZVA', marker_color='#10b981'))
+        
+        fig_zva.update_layout(title_text="ZVA Testing Across Selected Egyptian Sectors", barmode='group')
+        st.plotly_chart(fig_zva)
+
+    st.markdown(f"""
+    ### 🔬 Strategic Conclusion | الخلاصة الاستراتيجية
+    يُظهر النموذج أن **معامل التحويل ($\lambda$)** هو المحرك الأساسي للدولة لتحويل القيم الروحية إلى أثر اقتصادي ملموس. 
+    - في قطاع **التعليم**، تحقق النية التزكوية قفزة في الـ ZVA بنسبة **{((zva_sectors[0]-eva_sectors[0])/eva_sectors[0])*100:.1f}%**.
+    - الفجوة بين العمود الرمادي (المادي) والأخضر (التزكوي) هي المساحة التي تضيع في الاقتصاد التقليدي وتستعيدها **هندسة الاستخلاف**.
+    """)
