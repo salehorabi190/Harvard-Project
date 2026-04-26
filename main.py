@@ -4,7 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 
-# --- 1. إعدادات الهوية البصرية والسيادية ---
+# --- 1. إعدادات الهوية البصرية ---
 st.set_page_config(
     page_title="بروتوكول هندسة الاستخلاف الاقتصادي الرقمي",
     page_icon="⚖️",
@@ -12,9 +12,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- 2. نظام اللغات المتعددة (Multi-Language Support) ---
-if 'lang' not in st.sidebar:
-    st.sidebar.radio("Language / اللغة", ["العربية", "English"], key='lang')
+# --- 2. تصحيح نظام اللغات (Session State Fix) ---
+if 'lang' not in st.session_state:
+    st.session_state.lang = "العربية"
+
+# وضع زر تغيير اللغة في القائمة الجانبية
+st.session_state.lang = st.sidebar.radio("Language / اللغة", ["العربية", "English"], index=0 if st.session_state.lang == "العربية" else 1)
 
 L = {
     "العربية": {
@@ -66,10 +69,11 @@ txt = L[st.session_state.lang]
 # --- 3. تصميم الواجهة (CSS) ---
 st.markdown(f"""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+    html, body, [class*="css"] {{ font-family: 'Cairo', sans-serif; }}
     .main {{ background-color: #f8f9fa; }}
     .stMetric {{ background-color: #ffffff; padding: 15px; border-radius: 10px; border-left: 5px solid #d4af37; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }}
-    h1, h2, h3 {{ color: #1e4d2b; font-family: 'Cairo', sans-serif; }}
-    .sidebar .sidebar-content {{ background-image: linear-gradient(#1e4d2b, #11301a); color: white; }}
+    h1, h2, h3 {{ color: #1e4d2b; font-weight: bold; }}
     </style>
     """, unsafe_allow_html=True)
 
