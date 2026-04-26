@@ -1217,3 +1217,56 @@ if domain == "Joint Waqf Fund (الصندوق الوقفي المشترك)":
     - **الاستدامة التكافلية ($B_{it}$):** جزء من الربح يعود لتنمية الوقف نفسه، مما يضمن نمو الصندوق ذاتياً مع الزمن.
     - **تمويل بلا رهن:** يحل هذا النموذج معضلة "الفقير الذي لا يملك ضماناً"، فالوقف هو ضامنه أمام المصرف.
     """)
+# --- 26. نموذج الإجارة الوقفية الموصوفة في الذمة ---
+if domain == "Endowment Leasing (الإجارة الوقفية)":
+    st.header("🏠 Endowment Leasing Model | الإجارة الوقفية الموصوفة في الذمة")
+    st.info("توفير المنافع الأساسية (سكن، تعليم، علاج) للفئات المحرومة عبر أصول وقفية، مع الحفاظ على كرامة المستفيد واستقرار حياته.")
+
+    st.subheader("The Dignity-Based Empowerment Equation")
+    st.latex(r"H_{it} = \omega + \sigma_1 E_{it} + \sigma_2 Q_{it} + \sigma_3 K_{it} + \varsigma_{it}")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Service Parameters")
+        e_rent = st.number_input("E (Paid Rent/Fee - قيمة الأجرة المدفوعة)", 100, 10000, 1500)
+        q_quality = st.slider("Q (Quality of Benefit - جودة المنفعة)", 0, 100, 80)
+        k_dignity = st.slider("K (Dignity & Stability - مؤشر الكرامة والاستقرار)", 0, 100, 95)
+        
+        benefit_type = st.selectbox("Benefit Type (نوع المنفعة):", ["Housing (سكن)", "Higher Ed (تعليم)", "Critical Health (علاج)"])
+        
+    with col2:
+        st.subheader("Dignity & Empowerment Analysis")
+        
+        # حساب مؤشر التمكين الوقفي Hit
+        # الجودة والكرامة لهما الوزن الأكبر في تحقيق التمكين الحقيقي
+        hit_score = 15 + (0.25 * e_rent/100) + (0.35 * q_quality) + (0.4 * k_dignity)
+        
+        st.metric(f"Empowerment & Dignity Index (H) in {benefit_type}", f"{hit_score:.2f}")
+
+        # رسم بياني راداري يوضح أثر المنفعة على حياة المستفيد
+        fig_dignity = go.Figure()
+        fig_dignity.add_trace(go.Scatterpolar(
+            r=[q_quality, k_dignity, 85, hit_score, 90], # 85 و 90 قيم افتراضية للاستقرار والخصوصية
+            theta=['Quality', 'Dignity', 'Stability', 'Overall Impact', 'Privacy'],
+            fill='toself',
+            name='Dignity Profile',
+            line_color='teal'
+        ))
+        fig_dignity.update_layout(
+            polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+            showlegend=False,
+            title=f"The {benefit_type} Empowerment Radar"
+        )
+        st.plotly_chart(fig_dignity)
+
+    st.success(f"النتيجة: توفير {benefit_type} بجودة {q_quality}% وبمؤشر كرامة {k_dignity}% يرفع مؤشر التمكين الكلي إلى {hit_score:.2f}، مما يضمن استدامة استقرار الأسرة.")
+
+    st.markdown("""
+    ### 🛡️ Why it Works | لماذا ينجح هذا النموذج؟
+    - **مؤشر الكرامة ($K_{it}$):** في هارفارد، نؤمن أن الشعور بالأمان والخصوصية يرفع الإنتاجية؛ هذا النموذج يجعل الفقير "مستأجراً" كامل الحقوق وليس "طالباً للصدقة".
+    - **الاستدامة الوقفية:** الأصل يبقى ملكاً للوقف، مما يعني أن المنفعة ستستمر لأجيال قادمة دون أن تُستهلك الأصول.
+    - **وصف الذمة:** يضمن الجودة العالية؛ فالمواصفات محددة مسبقاً (Quality Control) ولا تخضع للمزاجية.
+    """)
