@@ -1755,3 +1755,77 @@ if domain == "Living Economy (الاقتصاد الحي)":
         st.write("🎓 120 Edu-Hours Verified")
 
     st.success("الخلاصة: بروتوكول 'أمانة' يحول الاقتصاد من 'سجن للديون' إلى 'دافع للحركة' عبر حماية الكود للمورد.")
+# --- 34. بنية بروتوكول أمانة (السيادة البرمجية) ---
+if domain == "Amanah Protocol Infrastructure (بنية البروتوكول)":
+    st.header("🛡️ Amanah Protocol: Sovereign Infrastructure")
+    st.info("بناء الطبقة الأولى (Layer 1) المستقلة: تحويل قواعد الائتمان الاستخلافي إلى كود برمجي سيادي.")
+
+    # 1. خوارزمية برهان الائتمان (Proof of Stewardship - PoS)
+    st.subheader("🔗 Proof of Stewardship (PoS) | برهان الائتمان")
+    st.write("بديل سيادي لـ (Proof of Work) و (Proof of Stake)؛ حيث القوة لمن يُنتج لا لمن يملك.")
+    
+    col_layer1, col_layer2, col_layer3 = st.columns(3)
+    
+    with col_layer1:
+        st.markdown("🔹 **طبقة الهوية**")
+        st.caption("Identity Layer")
+        st.write("بصمة الأمانة الحيوية: التحقق من المستخلف الحقيقي.")
+        st.checkbox("Verify Biometric ID", value=True)
+        
+    with col_layer2:
+        st.markdown("🔹 **طبقة قياس الأثر**")
+        st.caption("Impact Analysis")
+        st.write("ربط الجهد بالتوأمة الرقمية وإنترنت الأشياء.")
+        st.progress(85, text="Productivity Impact Verified")
+        
+    with col_layer3:
+        st.markdown("🔹 **طبقة المصادقة**")
+        st.caption("Consensus Layer")
+        st.write("الشهود الرقمي: مصادقة العقد السيادية المجاورة.")
+        st.success("Consensus Achieved via 1,000+ Nodes")
+
+    st.markdown("---")
+
+    # 2. العقود الائتمانية الذكية (SCC) - المحتسب الرقمي
+    st.subheader("📜 Stewardship Smart Contracts | المحتسب الرقمي")
+    st.write("عقود ذاتية التنفيذ تمنع الربا والمضاربة برمجياً.")
+    
+    contract_logic = st.radio("Contract Strategy | استراتيجية العقد:", 
+                              ["General Production (إنتاج عام)", "Waqf Expansion (توسعة وقفية)", "Speculative Trade (تجارة مضاربية)"])
+    
+    if contract_logic == "Speculative Trade (تجارة مضاربية)":
+        st.error("🚨 [Transaction Rejected: Non-Productive Flow] - المحتسب الرقمي حظر العملية")
+        st.latex(r"Status = \begin{cases} Execute & \text{if } Impact > 0 \\ Terminate & \text{if } Speculation = 1 \end{cases}")
+    else:
+        st.success("✅ Transaction Verified: Purpose Aligned with Maqasid.")
+
+    st.markdown("---")
+
+    # 3. بوابة التزكية الآلية (Automated Zakat Outlet)
+    st.subheader("💰 Automated Zakat & Waqf Channels | بوابة التزكية الآلية")
+    st.write("تحويل التطهير من 'اختيار بشري' إلى 'شرط صحة برمجي' لاستمرار حيازة الائتمان.")
+    
+    col_z1, col_z2 = st.columns([1, 2])
+    with col_z1:
+        idle_credit = st.number_input("Idle Credit (رصيد راكد)", 1000, 100000, 50000)
+        houl_timer = st.slider("Digital Fiscal Year % (الحول الرقمي)", 0, 100, 95)
+        
+    with col_z2:
+        if houl_timer > 90:
+            st.warning("⚠️ Warning: Digital Houl Approaching. Stagnation detected.")
+            st.progress(houl_timer)
+            if houl_timer == 100:
+                zakat_amt = idle_credit * 0.025
+                st.error(f"Zakat Triggered: ${zakat_amt:.2f} transferred to Social SMI.")
+                st.latex(r"Transfer = Credit \times 0.025 \iff Time \ge Houl")
+        else:
+            st.success("Liquidity Flow: Active. No Zakat Triggered yet.")
+
+    st.markdown("---")
+
+    # 4. الشبكة الائتمانية الموزعة (DCN) - استعادة السيادة
+    st.subheader("🛰️ Distributed Credit Network | استعادة السيادة المعلوماتية")
+    st.image("https://img.icons8.com/color/96/network-topology.png", width=60)
+    st.write("- **رفض المركزية السحابية:** البيانات لا تمر عبر خوادم أجنبية.")
+    st.write("- **السيادة الجغرافية:** الثروات الرقمية محفوظة داخل (عقد سيادية) محلية.")
+    st.info("Status: Sovereign Cloud Active. Data Encrypted in Geo-Waqf Domains.")
