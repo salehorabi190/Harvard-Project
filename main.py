@@ -598,3 +598,16 @@ domain = st.sidebar.selectbox("Choose Economic Domain:", [
     "Fair Demand (الطلب العادل)",
     "Maqasid Intervention (التدخل المقاصدي)"
 ])
+if domain == "Adequacy Pricing (سعر الكفاية)":
+    st.header("⚖️ Adequacy Pricing Model | نموذج سعر الكفاية")
+    st.latex(r"P_k = \delta_0 + \delta_1 C + \delta_2 M_r + \delta_3 A_s + \epsilon")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        c_cost = st.number_input("C (Production Cost - التكلفة)", 10, 1000, 100)
+        mr_profit = st.slider("Mr (Legitimate Profit % - الربح المشروع)", 0.0, 0.5, 0.15)
+        as_adequacy = st.slider("As (Adequacy Coeff - معامل الكفاية)", 0, 100, 50)
+    with col2:
+        pk_price = 10 + (1.1 * c_cost) + (c_cost * mr_profit) + (0.5 * as_adequacy)
+        st.metric("Adequacy Price (Pk)", f"${pk_price:.2f}")
+        st.info("هذا السعر يضمن حياة كريمة للمنتج دون إرهاق المستهلك.")
