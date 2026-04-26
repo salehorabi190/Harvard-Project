@@ -1169,3 +1169,51 @@ if domain == "Social Mudaraba (المضاربة الاجتماعية)":
     - **أثر التدريب ($T_{it}$):** تظهر المحاكاة أن كل 10% زيادة في التدريب ترفع احتمالية نجاح المشروع بنسبة 15%.
     - **التكافل المستدام:** نسبة المجتمع ($G_{it}$) تضمن تمويل تدريب "فوج جديد" من الفقراء، مما يخلق دورة تمكين لا تنتهي.
     """)
+# --- 25. نموذج صندوق الوقف التمكيني المشترك ---
+if domain == "Joint Waqf Fund (الصندوق الوقفي المشترك)":
+    st.header("🏢 Joint Empowerment Waqf Fund | صندوق الوقف التمكيني المشترك")
+    st.info("صندوق سيادي يجمع بين أموال الوقف كمؤمن وضامن، وأموال المستثمرين كمحرك للنمو، لتمويل الإنتاجية الاجتماعية.")
+
+    st.subheader("The Joint Impact Equation | معادلة الأثر التمكيني المشترك")
+    st.latex(r"Q_{it} = \psi + \eta_1 V_{it} + \eta_2 D_{it} + \eta_3 B_{it} + \xi_{it}")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Fund Composition")
+        v_finance = st.number_input("V (Total Financing Value - قيمة التمويل)", 1000, 1000000, 50000)
+        d_guarantee = st.slider("D (Waqf Guarantee % - نسبة الضمان الوقفي)", 10, 100, 50)
+        b_reinvest = st.slider("B (Profit Re-invested in Waqf % - العائد للوقف)", 5, 50, 15)
+        
+        st.write("**Fund Governance:** Independent Sharia Board")
+        
+    with col2:
+        st.subheader("Sovereign Empowerment Analysis")
+        
+        # حساب مؤشر الأثر التمكيني Qit
+        # الضمان الوقفي (D) هو مفتاح الأمان الذي يرفع قدرة الصندوق على التوسع
+        empowerment_q = 20 + (0.35 * v_finance/1000) + (0.45 * d_guarantee) + (0.2 * b_reinvest)
+        
+        st.metric("Global Empowerment Score (Q)", f"{empowerment_q:.2f}")
+
+        # رسم بياني يوضح هيكل الصندوق (المخاطر مقابل الأمان)
+        fig_fund = go.Figure()
+        fig_fund.add_trace(go.Bar(
+            x=['Market Risk (Fixed)', 'Waqf Safety Net (D)'],
+            y=[100 - d_guarantee, d_guarantee],
+            marker_color=['#f87171', '#34d399'],
+            name='Stability Structure'
+        ))
+        fig_fund.update_layout(title="Fund Risk Mitigation via Waqf Guarantee", barmode='stack')
+        st.plotly_chart(fig_fund)
+
+    st.success(f"الرؤية السيادية: الصندوق يحقق حماية ضد التعثر بنسبة {d_guarantee}%، مما يسمح بتمويل الفئات المحرومة دون الحاجة لرهونات عقارية أو ورقية.")
+
+    st.markdown("""
+    ### 🏛️ Fund Mechanisms | آليات الصندوق
+    - **الضمان الوقفي ($D_{it}$):** يعمل كـ "وسادة أمان" تمتص الصدمات الائتمانية، مما يشجع المستثمرين على الدخول في مشاريع اجتماعية.
+    - **الاستدامة التكافلية ($B_{it}$):** جزء من الربح يعود لتنمية الوقف نفسه، مما يضمن نمو الصندوق ذاتياً مع الزمن.
+    - **تمويل بلا رهن:** يحل هذا النموذج معضلة "الفقير الذي لا يملك ضماناً"، فالوقف هو ضامنه أمام المصرف.
+    """)
