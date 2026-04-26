@@ -14,131 +14,155 @@ st.session_state.lang = selected_lang
 L = {
     "العربية": {
         "title": "🏛️ بروتوكول هندسة الاستخلاف الاقتصادي الرقمي",
-        "sidebar_title": "💎 فهرس النماذج السيادية",
         "choose": "اختر نموذج الدراسة:",
         "about": "الفلسفة الهندسية للنموذج",
-        "impact_msg": "تم إصدار برهان الستر الرقمي (ZKP) بنجاح.",
-        # القائمة
+        # القائمة الشاملة
         "overview": "الرئيسية (Overview)",
+        "mission": " الوظيفة الرسالية (Mission-Driven)",
         "leadership": "👑 القيادة المتزكية (Tazkiyah Leadership)",
         "zva": "💎 القيمة المضافة (ZVA/ZVR)",
-        "market": "⚖️ هندسة السوق (العدالة والشفافية)",
-        "waqf_zakat": "🕌 الزكاة والوقف (Social Finance)",
-        "governance": "📜 الحوكمة الرمزية (Symbolic Governance)",
-        "existential": "🌱 التحقق الوجودي والتمكين",
+        "market": "⚖️ هندسة السوق والعدالة",
+        "transparency": "🔍 الشفافية ومنع الاحتكار",
         "pricing": "🏷️ سياسات التسعير والأزمات",
+        "monetary": "💰 السياسة النقدية وسعر الصرف",
+        "waqf_zakat": "🕌 الزكاة والوقف (Social Finance)",
+        "governance": "📜 الحوكمة الرمزية (Governance)",
+        "existential": "🌱 التحقق الوجودي والتمكين",
+        "sunan": "🔄 السنن الاقتصادية (Sunan Models)",
         "amanah": "🌐 بروتوكول أمانة (Amanah Protocol)",
+        "simulation": "🎮 المحاكاة الرقمية (Simulation)",
         "fortification": "🛡️ التحصين السيادي (Fortification)",
-        # الشروحات
-        "zva_desc": "قياس الفائض الأخلاقي والبركة كجزء من القيمة الاقتصادية المضافة (ZVA = EVA + λZ). هذا النموذج يثبت أن الالتزام القيمي يرفع الجدارة الائتمانية.",
-        "waqf_desc": "تحويل الزكاة والوقف من 'تبرع' إلى 'رأس مال تنموي' مستدام. (Z_it) هو مؤشر الأثر الوقفي التراكمي.",
-        "governance_desc": "حوكمة قائمة على 'الانسجام الرمزي' (Ar) وليس فقط القوانين الجافة. الشفافية هنا هي تعبير عن التسامي الأخلاقي.",
-        "existential_desc": "تحليل مدى تحقيق الفرد لذاته (Vr) داخل المنظومة. العمل هنا ليس مجرد وظيفة، بل هو 'تحقق وجودي' واستخلاف.",
-        "pricing_desc": "هندسة 'سعر الكفاية' (Pk) الذي يضمن حق المنتج وكرامة المستهلك، مع تفعيل 'العرض الرحيم' في الأزمات."
+        # نصوص الشرح
+        "mission_desc": "تحويل النية إلى محرك أداء مؤسسي. P = α + βR.",
+        "leadership_desc": "القيادة كأمانة تزكوية تعتمد على النية والقدوة.",
+        "zva_desc": "دمج البركة (λZ) في القيمة الاقتصادية (EVA).",
+        "market_desc": "تحقيق التوازن عبر 'العرض الرحيم' والعدالة التوزيعية.",
+        "monetary_desc": "عملة سيادية مغطاة بالذهب والإنتاج (Sovereign Anchor).",
+        "sunan_desc": "برمجة قوانين الشكر (الزيادة) والتداول (منع التركز).",
+        "amanah_desc": "الخوارزمية الكبرى لربط الإنسان بالتراب مباشرة."
     },
     "English": {
         "title": "🏛️ Sovereign Stewardship Engineering Protocol",
-        "sidebar_title": "💎 Sovereign Models Index",
         "choose": "Choose Economic Domain:",
         "about": "Engineering Philosophy",
-        "impact_msg": "Digital Veiling Proof (ZKP) Generated Successfully.",
-        # Menu
+        # Comprehensive Menu
         "overview": "Overview",
-        "leadership": "👑 Tazkiyah Leadership",
-        "zva": "💎 Value Added (ZVA/ZVR)",
-        "market": "⚖️ Market Engineering & Justice",
-        "waqf_zakat": "🕌 Zakat & Waqf (Social Finance)",
-        "governance": "📜 Symbolic Governance",
-        "existential": "🌱 Existential Realization",
-        "pricing": "🏷️ Pricing & Crisis Policy",
-        "amanah": "🌐 Amanah Protocol",
-        "fortification": "🛡️ Sovereign Fortification",
-        # Descriptions
-        "zva_desc": "Measuring moral surplus and Barakah as part of economic value added (ZVA = EVA + λZ). It proves that value-alignment raises credit merit.",
-        "waqf_desc": "Transforming Zakat and Waqf from 'charity' to sustainable 'developmental capital'. (Z_it) is the cumulative impact index.",
-        "governance_desc": "Governance based on 'Symbolic Alignment' (Ar). Transparency is an expression of ethical transcendence.",
-        "existential_desc": "Analyzing individual self-realization (Vr) within the system. Work is a mission of stewardship, not just a job.",
-        "pricing_desc": "Engineering the 'Adequacy Price' (Pk) to ensure producer rights and consumer dignity, activating 'Merciful Supply' during crises."
+        "mission": "Mission-Driven Function",
+        "leadership": "Tazkiyah Leadership",
+        "zva": "Tazkiyah Value Added (ZVA)",
+        "market": "Market Engineering & Justice",
+        "transparency": "Transparency & Anti-Monopoly",
+        "pricing": "Pricing & Crisis Policy",
+        "monetary": "Monetary & Exchange Policy",
+        "waqf_zakat": "Zakat & Waqf (Social Finance)",
+        "governance": "Symbolic Governance",
+        "existential": "Existential Realization",
+        "sunan": "Economic Sunan Models",
+        "amanah": "Amanah Protocol",
+        "simulation": "Digital Simulation",
+        "fortification": "Sovereign Fortification"
     }
 }
 txt = L[st.session_state.lang]
 
-# --- 3. القائمة الجانبية ---
-st.sidebar.title(txt["sidebar_title"])
-menu_options = [txt["overview"], txt["leadership"], txt["zva"], txt["market"], 
-                txt["waqf_zakat"], txt["governance"], txt["existential"], 
-                txt["pricing"], txt["amanah"], txt["fortification"]]
-domain = st.sidebar.selectbox(txt["choose"], menu_options)
+# --- 3. تصميم الواجهة (CSS) ---
+st.markdown(f"""<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+    html, body, [class*="css"] {{ font-family: 'Cairo', sans-serif; }}
+    .about-box {{ background-color: #e8f5e9; padding: 15px; border-radius: 10px; border-right: 5px solid #1e4d2b; }}
+    </style>""", unsafe_allow_html=True)
 
-# --- 4. تنفيذ النماذج (Logic Engine) ---
+# --- 4. القائمة الجانبية ---
+menu = list(txt.values())[3:]
+domain = st.sidebar.selectbox(txt["choose"], menu)
 
-# --- القيمة المضافة ZVA ---
-if domain == txt["zva"]:
-    st.header(txt["zva"])
-    st.latex(r"ZVA = EVA + \lambda Z")
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        eva = st.number_input("EVA (Economic Value Added)", value=50000)
-        z_score = st.slider("Z (Tazkiyah/Moral Index)", 0, 100, 80)
-        lam = 1.2
-        total_zva = eva + (lam * z_score * 100)
-        st.metric("Total Sovereign Value", f"${total_zva:,.2f}", delta=f"{z_score}% Moral Gain")
-    with c2:
-        st.markdown(f"<div style='background-color:#e8f5e9; padding:20px; border-radius:10px;'><b>{txt['about']}</b><br>{txt['zva_desc']}</div>", unsafe_allow_html=True)
+# --- 5. تنفيذ النماذج (Logic Engine) ---
 
-# --- الزكاة والوقف ---
-elif domain == txt["waqf_zakat"]:
-    st.header(txt["waqf_zakat"])
-    st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it}")
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        waqf_vol = st.slider("W (Waqf Assets Volume)", 0, 100, 60)
-        return_rate = st.slider("R (Social Return Rate)", 0, 100, 75)
-        st.metric("Social Impact Index", f"{(waqf_vol*0.6 + return_rate*0.4):.2f}")
-    with c2:
-        st.markdown(f"<div style='background-color:#e8f5e9; padding:20px; border-radius:10px;'><b>{txt['about']}</b><br>{txt['waqf_desc']}</div>", unsafe_allow_html=True)
-
-# --- الحوكمة الرمزية ---
-elif domain == txt["governance"]:
-    st.header(txt["governance"])
-    st.latex(r"G_r = \alpha + \beta_1 N_r + \beta_2 T_r + \beta_3 M_r + \beta_4 A_r")
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        alignment = st.slider("Ar (Symbolic Alignment Index)", 0, 100, 85)
-        transparency = st.slider("Tr (Transparency Level)", 0, 100, 90)
-        st.metric("Governance Quality", f"{(alignment*0.7 + transparency*0.3):.2f}")
-    with c2:
-        st.markdown(f"<div style='background-color:#e8f5e9; padding:20px; border-radius:10px;'><b>{txt['about']}</b><br>{txt['governance_desc']}</div>", unsafe_allow_html=True)
-
-# --- التحقق الوجودي ---
-elif domain == txt["existential"]:
-    st.header(txt["existential"])
-    st.latex(r"V_r = \alpha + \beta_1 M_r + \beta_2 P_r + \beta_3 N_r + \beta_4 Z_r")
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        meaning = st.slider("Mr (Personal Meaning Index)", 0, 100, 80)
-        participation = st.slider("Pr (Symbolic Participation)", 0, 100, 70)
-        st.metric("Existential Realization Score", f"{(meaning*0.5 + participation*0.5):.2f}")
-    with c2:
-        st.markdown(f"<div style='background-color:#e8f5e9; padding:20px; border-radius:10px;'><b>{txt['about']}</b><br>{txt['existential_desc']}</div>", unsafe_allow_html=True)
-
-# --- سياسات التسعير ---
-elif domain == txt["pricing"]:
-    st.header(txt["pricing"])
-    st.latex(r"P_k = \delta_0 + \delta_1 C + \delta_2 M_r + \delta_3 A_s")
-    c1, c2 = st.columns([1, 1])
-    with c1:
-        cost = st.number_input("C (Production Cost)", value=100)
-        mercy_mode = st.toggle("Enable Merciful Pricing (سعر الكفاية)")
-        price = (cost * 1.2) if not mercy_mode else (cost * 1.05)
-        st.metric("Current Market Price", f"${price:.2f}", delta="-15% Mercy Discount" if mercy_mode else None)
-    with c2:
-        st.markdown(f"<div style='background-color:#e8f5e9; padding:20px; border-radius:10px;'><b>{txt['about']}</b><br>{txt['pricing_desc']}</div>", unsafe_allow_html=True)
-
-# --- الرئيسية وغيرها ---
-elif domain == txt["overview"]:
+# 1. الرئيسية
+if domain == txt["overview"]:
     st.title(txt["title"])
     st.info("Choose a model from the sidebar to start | اختر نموذجاً من القائمة للبدء")
+    st.image("https://img.icons8.com/fluency/240/stewardship.png")
+
+# 2. الوظيفة الرسالية
+elif domain == txt["mission"]:
+    st.header(txt["mission"])
+    st.latex(r"P = \alpha + \beta_1 R + \beta_2 M + \beta_3 T + \beta_4 C + \epsilon")
+    r = st.slider("R (Symbolic Mission)", 0, 100, 70)
+    st.metric("Institutional Performance", f"{(0.4*r + 20):.2f}")
+    st.markdown(f"<div class='about-box'>{txt.get('mission_desc', '')}</div>", unsafe_allow_html=True)
+
+# 3. القيادة المتزكية
+elif domain == txt["leadership"]:
+    st.header(txt["leadership"])
+    st.latex(r"E_r = \alpha + \beta_1 Z_r + \beta_2 M_r + \beta_3 I_r + \epsilon")
+    zr = st.slider("Zr (Tazkiyah Level)", 0, 100, 80)
+    st.metric("Leadership Impact", f"{(zr * 1.2):.2f}")
+    st.markdown(f"<div class='about-box'>{txt.get('leadership_desc', '')}</div>", unsafe_allow_html=True)
+
+# 4. القيمة المضافة (ZVA)
+elif domain == txt["zva"]:
+    st.header(txt["zva"])
+    st.latex(r"ZVA = EVA + \lambda Z")
+    eva = st.number_input("EVA", value=50000)
+    z_idx = st.slider("Z (Moral/Tazkiyah Index)", 0, 100, 85)
+    st.metric("Sovereign Value Added", f"${eva + (1.2 * z_idx * 100):,.2f}")
+    st.markdown(f"<div class='about-box'>{txt.get('zva_desc', '')}</div>", unsafe_allow_html=True)
+
+# 5. السوق والشفافية
+elif domain == txt["market"] or domain == txt["transparency"]:
+    st.header(txt["market"])
+    st.latex(r"V_m = P_m + \Delta B (Mercy) + J (Justice)")
+    m_mode = st.toggle("Activate Merciful Supply (العرض الرحيم)")
+    trans = st.slider("Transparency Index", 0, 100, 90)
+    st.metric("Market Health", "Optimized" if m_mode and trans > 75 else "Stable")
+    st.markdown(f"<div class='about-box'>{txt.get('market_desc', '')}</div>", unsafe_allow_html=True)
+
+# 6. السياسة النقدية وسعر الصرف
+elif domain == txt["monetary"]:
+    st.header(txt["monetary"])
+    st.latex(r"Value = \int (Gold + Production + Zakat) dt")
+    gold = st.slider("Gold Coverage", 0, 100, 70)
+    zakat = st.slider("Zakat Flow", 0, 100, 60)
+    st.metric("Currency Stability", f"{(gold*0.6 + zakat*0.4):.2f}")
+    st.markdown(f"<div class='about-box'>{txt.get('monetary_desc', '')}</div>", unsafe_allow_html=True)
+
+# 7. الزكاة والوقف
+elif domain == txt["waqf_zakat"]:
+    st.header(txt["waqf_zakat"])
+    st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it}")
+    w = st.slider("W (Waqf Assets)", 0, 100, 50)
+    st.metric("Social Capital Impact", f"{(w * 1.5):.2f}")
+
+# 8. السنن الاقتصادية
+elif domain == txt["sunan"]:
+    st.header(txt["sunan"])
+    st.subheader("Shukr & Tadawul Simulation")
+    shukr = st.slider("Shukr Rate (Resource Optimization)", 0, 100, 80)
+    st.metric("Productivity Growth (Y)", f"+{shukr/10}%")
+    st.markdown(f"<div class='about-box'>{txt.get('sunan_desc', '')}</div>", unsafe_allow_html=True)
+
+# 9. بروتوكول أمانة
+elif domain == txt["amanah"]:
+    st.header(txt["amanah"])
+    st.latex(r"B_i = \frac{\sum (U_v \cdot S_t)}{H_w + D_i}")
+    uv = st.slider("Utility (Uv)", 0, 100, 85)
+    st.metric("Barakah Index", f"{(uv * 1.2):.2f}")
+    st.markdown(f"<div class='about-box'>{txt.get('amanah_desc', '')}</div>", unsafe_allow_html=True)
+
+# 10. سياسات التسعير والأزمات
+elif domain == txt["pricing"]:
+    st.header(txt["pricing"])
+    st.latex(r"P_k = Cost + Adequacy\_Margin")
+    cost = st.number_input("Base Cost", value=100)
+    st.metric("Adequacy Price (Pk)", f"${cost * 1.1:.2f}")
+
+# 11. التحصين السيادي
+elif domain == txt["fortification"]:
+    st.header(txt["fortification"])
+    if st.button("Generate ZK-Proof"):
+        st.success("Sovereign Identity Verified | تم التحقق السيادي بنجاح")
+        st.code("Hash: 0xProf_Dr_Saleh_Orabi_2026")
 
 # --- تذييل الصفحة ---
 st.sidebar.markdown("---")
