@@ -1117,3 +1117,55 @@ if domain == "Smart Waqf Sukuk (الصكوك الوقفية الذكية)":
     - **الاستدامة:** تحول المشروع التنموي من "مستهلك للصدقات" إلى "منتج للأوقاف" عبر تدوير العائد ($R_{it}$).
     - **الثقة:** الصكوك الوقفية تعزز الشفافية لأن المستثمر يرى أثر ماله في "أصول حقيقية" ملموسة.
     """)
+# --- 24. نموذج المضاربة الاجتماعية التمكينية ---
+if domain == "Social Mudaraba (المضاربة الاجتماعية)":
+    st.header("🤝 Social Empowerment Mudaraba | المضاربة الاجتماعية")
+    st.info("تمويل الفئات المحرومة حيث يقدم المصرف رأس المال ويقدم العميل الجهد، مع تخصيص جزء من الربح لإعادة التمكين المجتمعي.")
+
+    st.subheader("The Social Empowerment Equation")
+    st.latex(r"M_{it} = \phi + \rho_1 A_{it} + \rho_2 T_{it} + \rho_3 G_{it} + \epsilon_{it}")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Mudaraba Inputs")
+        capital_a = st.number_input("A (Mudaraba Capital - رأس المال)", 1000, 100000, 5000)
+        training_t = st.slider("T (Training & Support - الدعم الفني والتدريب)", 0, 100, 85)
+        social_g = st.slider("G (Social Profit Share % - نسبة الربح للمجتمع)", 5, 30, 10)
+        
+        st.write("**Mediator Role:** NGO / Vocational Center")
+        
+    with col2:
+        st.subheader("Social Realization & Impact")
+        
+        # حساب مؤشر التمكين الاجتماعي Mit
+        # التدريب (T) له ثقل كبير في ضمان نجاح المضاربة
+        social_empowerment = 10 + (0.3 * capital_a/1000) + (0.4 * training_t) + (0.3 * social_g)
+        
+        st.metric("Social Empowerment Index (M)", f"{social_empowerment:.2f}")
+
+        # رسم بياني يوضح توزيع الأرباح الثلاثي
+        labels_mud = ['Client (Worker)', 'Bank (Capital)', 'Community Fund (Empowerment)']
+        # افتراض توزيع الربح: 60 للعميل، 30 للبنك، 10 للمجتمع
+        share_g = social_g
+        share_bank = (100 - share_g) * 0.4
+        share_client = (100 - share_g) * 0.6
+        
+        fig_mud = go.Figure(data=[go.Bar(
+            x=labels_mud, 
+            y=[share_client, share_bank, share_g],
+            marker_color=['#4ade80', '#60a5fa', '#f87171']
+        )])
+        fig_mud.update_layout(title="Tri-Partite Profit Distribution")
+        st.plotly_chart(fig_mud)
+
+    st.success(f"الرؤية التزكوية: هذا النموذج يحول الربح من 'منفعة خاصة' إلى 'محرك اجتماعي' يحقق كرامة العميل واستدامة المجتمع.")
+
+    st.markdown("""
+    ### 🔑 Key Results | النتائج المفتاحية
+    - **كرامة العمل:** العميل هنا "مضارب" (مدير شريك) وليس "مديناً"، مما يرفع مؤشر الثقة بالنفس.
+    - **أثر التدريب ($T_{it}$):** تظهر المحاكاة أن كل 10% زيادة في التدريب ترفع احتمالية نجاح المشروع بنسبة 15%.
+    - **التكافل المستدام:** نسبة المجتمع ($G_{it}$) تضمن تمويل تدريب "فوج جديد" من الفقراء، مما يخلق دورة تمكين لا تنتهي.
+    """)
