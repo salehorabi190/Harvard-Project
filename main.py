@@ -131,7 +131,64 @@ elif model_key == "existential":
     
     v_score = (mr_v * 0.5) + (nr_v * 0.5)
     st.metric("التحقق الوجودي الرمزي (Vᵣ)", f"{v_score:.2f}")
+# --- 1. إضافة الرموز إلى القاموس ---
+# (يتم إضافتها في قسم القائمة الجانبية في الكود السابق)
+menu["7. القيمة التزكوية المضافة (ZVA)"] = "zva"
 
+# --- 2. كود نموذج ZVA ---
+elif model_key == "zva":
+    st.markdown("<h1 class='header-style'>القيمة التزكوية المضافة (Tazkiyah Value Added - ZVA)</h1>", unsafe_allow_html=True)
+    st.markdown("<div class='about-box'>ZVA: مفهوم جديد يُعيد تعريف القيمة لتمتد من الربح المادي إلى تحقيق المعنى والانسجام والنية الصافية في كل عملية اقتصادية.</div>", unsafe_allow_html=True)
+
+    # عرض المعادلات الأساسية
+    st.latex(r"EVA = \alpha F + \beta C + \gamma M + \delta Z + \epsilon")
+    st.latex(r"ZVA = EVA + \lambda Z")
+
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.subheader("مدخلات القيمة الاقتصادية (EVA)")
+        f_val = st.slider("F (الفاعلية المؤسسية - الإنجاز المتناغم)", 0, 100, 70)
+        c_val = st.slider("C (رأس المال البشري - المعنى الشخصي)", 0, 100, 75)
+        m_val = st.slider("M (معنوية المؤسسة - الأثر الرمزي)", 0, 100, 80)
+        
+        st.markdown("---")
+        st.subheader("المحرك التزكوي")
+        z_val = st.slider("Z (مؤشر التزكية - نية + انسجام + روح)", 0, 100, 90)
+        lambda_coeff = st.slider("λ (معامل تحويل التزكية إلى قيمة)", 0.5, 2.0, 1.2)
+
+    with col2:
+        # حساب EVA افتراضي (تبسيطاً للمعادلة القياسية)
+        eva_calc = (0.3 * f_val) + (0.3 * c_val) + (0.2 * m_val) + (0.2 * z_val)
+        # حساب ZVA
+        zva_calc = eva_calc + (lambda_coeff * z_val)
+        
+        st.metric("القيمة الاقتصادية التقليدية (EVA)", f"{eva_calc:.2f}")
+        st.metric("القيمة التزكوية المضافة (ZVA)", f"{zva_calc:.2f}", delta=f"{(lambda_coeff * z_val):.2f} أثر التزكية (λZ)")
+
+        # رسم بياني للمقارنة
+        fig_zva = go.Figure()
+        fig_zva.add_trace(go.Bar(
+            name='القيم التقليدية',
+            x=['EVA'], y=[eva_calc],
+            marker_color='#d4af37'
+        ))
+        fig_zva.add_trace(go.Bar(
+            name='القيمة التزكوية المضافة',
+            x=['ZVA'], y=[zva_calc],
+            marker_color='#1e4d2b'
+        ))
+        fig_zva.update_layout(title="المقارنة بين القيمة المادية والقيمة التزكوية", barmode='group')
+        st.plotly_chart(fig_zva)
+
+    st.markdown("""
+    <div class='about-box'>
+    <b>ملاحظات نقدية (Critical Remarks):</b><br>
+    • التزكية ليست بديلاً عن الأداء الاقتصادي بل هي مُعزز ومسرع له.<br>
+    • λ يعكس قدرة المؤسسة (أو الدولة) على تحويل النوايا والقيم إلى أثر مادي ملموس.<br>
+    • هذا النموذج قابل للتطبيق في <b>رؤية مصر 2030</b> لدمج مفاهيم التنمية المتوازنة.
+    </div>
+    """, unsafe_allow_html=True)
 # --- تذييل الصفحة ---
 st.sidebar.markdown("---")
 st.sidebar.write("⚡ تم برمجة النماذج وفقاً لمعادلات البروفيسور صالح عرابي")
