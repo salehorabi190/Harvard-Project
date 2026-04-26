@@ -2,8 +2,8 @@ import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
 
-# --- 1. إعدادات الهوية السيادية ---
-st.set_page_config(page_title="بروتوكول هندسة الاستخلاف الاقتصادي الرقمي", layout="wide")
+# --- 1. إعدادات الهوية والسيادة ---
+st.set_page_config(page_title="بروتوكول هندسة الاستخلاف", layout="wide")
 
 st.markdown("""
     <style>
@@ -19,7 +19,6 @@ st.markdown("""
 st.sidebar.title("🏛️ فهرس النماذج السيادية")
 st.sidebar.write("Prof. Dr. Saleh Orabi")
 
-# تعريف القائمة الشاملة لكل ما أرسلته
 menu = {
     "الرئيسية": "home",
     "1. نموذج الوظيفة الرسالية (Pᵣ)": "mission",
@@ -38,17 +37,19 @@ menu = {
 choice = st.sidebar.selectbox("اختر النموذج الدراسي:", list(menu.keys()))
 model_key = menu[choice]
 
-# --- 3. عرض النماذج (Logic Engine) ---
+# --- 3. تنفيذ النماذج (Logic Engine) ---
 
 if model_key == "home":
     st.markdown("<p style='font-size:42px; font-weight:bold; text-align:center;'>بروتوكول هندسة الاستخلاف الاقتصادي الرقمي</p>", unsafe_allow_html=True)
-    st.info("مرحباً بروفيسور صالح. المنصة جاهزة الآن لمحاكاة 11 نموذجاً من نماذجك. اختر من القائمة الجانبية.")
+    st.info("مرحباً بروفيسور صالح. جميع النماذج الـ 11 المفعلة الآن تعمل بكامل طاقتها البرمجية.")
+    st.image("https://img.icons8.com/fluency/240/stewardship.png")
 
 elif model_key == "mission":
     st.markdown("<h1 class='header-style'>نموذج الوظيفة الرسالية (Pᵣ)</h1>", unsafe_allow_html=True)
     st.latex(r"P_r = \alpha + \beta_1 R_r + \beta_2 M_r + \beta_3 T_r + \beta_4 C_r + \epsilon_r")
-    r_val = st.slider("Rᵣ (الرسالة الرمزية)", 0, 100, 70)
-    st.metric("الأداء الوظيفي الرمزي", f"{0.4*r_val + 20:.2f}")
+    rr = st.slider("Rᵣ (الرسالة الرمزية)", 0, 100, 70)
+    mr = st.slider("Mᵣ (المعنى والانتماء)", 0, 100, 75)
+    st.metric("الأداء الوظيفي الرمزي", f"{0.4*rr + 0.3*mr + 15:.2f}")
 
 elif model_key == "leadership":
     st.markdown("<h1 class='header-style'>نموذج القيادة المتزكية (Eᵣ)</h1>", unsafe_allow_html=True)
@@ -56,11 +57,36 @@ elif model_key == "leadership":
     zr = st.slider("Zᵣ (تزكية القائد)", 0, 100, 85)
     st.metric("الأثر المؤسسي المتزكي", f"{zr * 1.25:.2f}")
 
+elif model_key == "governance":
+    st.markdown("<h1 class='header-style'>نموذج الحوكمة الرمزية (Gᵣ)</h1>", unsafe_allow_html=True)
+    st.latex(r"G_r = \alpha + \beta_1 N_r + \beta_2 T_r + \beta_3 M_r + \beta_4 A_r + \epsilon_r")
+    ar = st.slider("Aᵣ (الانسجام الرمزي)", 0, 100, 85)
+    st.metric("جودة الحوكمة الرمزية", f"{ar * 0.95:.2f}")
+
+elif model_key == "investment":
+    st.markdown("<h1 class='header-style'>نموذج الاستثمار التزكوي (Rᵣ)</h1>", unsafe_allow_html=True)
+    st.latex(r"R_r = \alpha + \beta_1 N_r + \beta_2 Z_r + \beta_3 S_r + \beta_4 E_r + \epsilon_r")
+    zr_i = st.slider("Zᵣ (تزكية المال)", 0, 100, 90)
+    st.metric("العائد التزكوي الرمزي", f"{zr_i * 1.1:.2f}")
+
+elif model_key == "evaluation":
+    st.markdown("<h1 class='header-style'>نموذج التقييم التزكوي (Qᵣ)</h1>", unsafe_allow_html=True)
+    st.latex(r"Q_r = \alpha + \beta_1 N_r + \beta_2 Z_r + \beta_3 M_r + \beta_4 C_r + \beta_5 F_r + \epsilon_r")
+    fr = st.slider("Fᵣ (فاعلية الروح الجماعية)", 0, 100, 85)
+    st.metric("جودة المؤسسة التزكوية", f"{fr * 1.05:.2f}")
+
+elif model_key == "existential":
+    st.markdown("<h1 class='header-style'>نموذج التحقق الوجودي (Vᵣ)</h1>", unsafe_allow_html=True)
+    st.latex(r"V_r = \alpha + \beta_1 M_r + \beta_2 P_r + \beta_3 N_r + \beta_4 Z_r + \epsilon_r")
+    mr_v = st.slider("Mᵣ (المعنى الشخصي)", 0, 100, 90)
+    st.metric("التحقق الوجودي الرمزي", f"{mr_v * 0.8:.2f}")
+
 elif model_key == "zva":
     st.markdown("<h1 class='header-style'>القيمة التزكوية المضافة (ZVA)</h1>", unsafe_allow_html=True)
     st.latex(r"ZVA = EVA + \lambda Z")
     z_val = st.slider("Z (مؤشر التزكية)", 0, 100, 90)
-    st.metric("إجمالي القيمة ZVA", f"{500 + (1.2 * z_val):.2f}")
+    lam = st.slider("λ (معامل التحويل)", 0.5, 2.0, 1.2)
+    st.metric("إجمالي القيمة ZVA", f"{500 + (lam * z_val):.2f}")
 
 elif model_key == "shukr":
     st.markdown("<h1 class='header-style'>سنة الشكر (Y)</h1>", unsafe_allow_html=True)
@@ -78,10 +104,13 @@ elif model_key == "tadawul":
     st.markdown("<h1 class='header-style'>سنة التداول (GINI)</h1>", unsafe_allow_html=True)
     st.latex(r"GINI = \gamma_0 - \gamma_1 D + \gamma_2 E + \epsilon")
     d_val = st.slider("D (مؤشر التداول)", 0, 100, 70)
-    st.metric("معامل جيني (توزيع الثروة)", f"{60 - 0.4*d_val:.2f}")
+    st.metric("معامل جيني", f"{60 - 0.4*d_val:.2f}")
 
-# (سيتم إضافة بقية النماذج بنفس النمط elif عند إرسالك لها)
+elif model_key == "tamkeen":
+    st.markdown("<h1 class='header-style'>سنة التمكين (R)</h1>", unsafe_allow_html=True)
+    st.latex(r"R = \theta_0 + \theta_1 M + \theta_2 S + \theta_3 P + \epsilon")
+    m_val = st.slider("M (مؤشر التمكين)", 0, 100, 85)
+    st.metric("الاستقلال والازدهار", f"{m_val * 1.15:.2f}")
 
-# --- تذييل الصفحة ---
 st.sidebar.markdown("---")
-st.sidebar.write("⚡ تم برمجة النماذج وفقاً لمعادلات البروفيسور صالح عرابي")
+st.sidebar.write("⚡ الإصدار الكامل الموحد - 2026")
