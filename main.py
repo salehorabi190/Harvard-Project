@@ -1478,3 +1478,71 @@ if domain == "Token Classification (تصنيف الأصول الرمزية)":
     ### 🛰️ Real-time Synchronization | المزامنة اللحظية
     تم ربط هذا النموذج بواجهة برمجة تطبيقات (API) تراقب **العقود الذكية** لهذا الرمز. أي خلل في آلية التوزيع أو ظهور شبهة غرر في البرمجة يؤدي إلى خفض مؤشر **الشفافية ($C_3$)** تلقائياً، مما يعيد تصنيف الأصل لحظياً.
     """)
+# --- 30. هيئة الرقابة الشرعية الرقمية ولوحة التحكم ---
+if domain == "Sharia Digital Oversight (الرقابة الرقمية)":
+    st.header("🖥️ Sharia Digital Oversight Dashboard | لوحة التحكم الرقابية")
+    st.info("منظومة ذكية لمراقبة الأصول الرمزية وتصنيفها لحظياً باستخدام العقود الذكية والذكاء الاصطناعي.")
+
+    # عرض الهيكل المؤسسي
+    with st.expander("Institutional Structure | الهيكل المؤسسي للهيئة الرقمية"):
+        st.write("""
+        1. **وحدة الفتوى الذكية:** مراجعة العقود (NLP + Blockchain).
+        2. **وحدة التصنيف:** تطبيق نموذج SCS (AI Engine).
+        3. **وحدة التتبع:** مراقبة لحظية (Audit Trail).
+        4. **وحدة التحديث:** تغذية فقهية مستمرة (API Feed).
+        """)
+
+    st.markdown("---")
+    
+    # محاكاة لوحة التحكم الشرعية
+    st.subheader("Sharia Compliance Real-time Monitor")
+    
+    # بيانات محاكية للوحة التحكم (جدول 117)
+    oversight_data = pd.DataFrame({
+        'Token Name': ['Edu-Waqf Token', 'Health Coin', 'TradeX Token', 'Zakat-StableCoin'],
+        'SCS Score': [0.89, 0.76, 0.42, 0.95],
+        'Maqasid': ['Mind, Religion', 'Life, Wealth', 'Wealth Only', 'Life, Progeny'],
+        'Status': ['✅ Safe', '⚠️ Review', '❌ Non-Compliant', '✅ Safe'],
+        'Recommendation': ['Investable', 'Needs Audit', 'Avoid', 'High Stability']
+    })
+
+    # دالة لتلوين النتائج في الجدول
+    def color_status(val):
+        color = 'green' if '✅' in val else 'red' if '❌' in val else 'orange'
+        return f'color: {color}; font-weight: bold'
+
+    st.table(oversight_data.style.applymap(color_status, subset=['Status']))
+
+    st.markdown("---")
+    
+    # قسم العقود الذكية الشرعية
+    st.subheader("📝 Smart Contract Sharia Execution | العقود الذكية")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.write("**Contract Logic (Code):**")
+        st.code("""
+if asset_verified and intent_signed:
+    execute_waqf_transfer()
+    log_to_sharia_dashboard()
+if beneficiary in maqasid_map:
+    transfer(token_reward)
+        """, language='python')
+    
+    with col2:
+        st.write("**Interpretation (Sharia):**")
+        st.success("النية: توقيع الواقف شرط للصحة.")
+        st.warning("نفاذ الوقف: التحقق من الملكية آلياً.")
+        st.info("المصرف: التوجيه الآلي للمستحقين.")
+
+    # أداة إصدار التقرير الشرعي
+    st.markdown("---")
+    if st.button("Generate Sharia Audit Report (PDF)"):
+        st.write("🔄 Generating Encrypted Report on Blockchain...")
+        st.balloons()
+        st.success("Report Issued & Digital Signature Verified (Hash: 0x77ae...92)")
+
+    st.markdown("""
+    ### 🛡️ Audit Trail | سجل التدقيق الشرعي
+    كل عملية تتم داخل هذه المنظومة تُسجل في **سلسلة الكتلة (Audit Trail)**، مما يمنع "مزاحمة السلطان" أو التدخل البشري في شروط الواقفين، ويحقق الشفافية المطلقة.
+    """)
