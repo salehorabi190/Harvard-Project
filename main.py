@@ -1072,3 +1072,48 @@ if domain == "Smart Waqf Savings (الادخار الوقفي الذكي)":
     - **التفاعل الروحي ($T$):** عندما يختار العميل المجال بنفسه (مثلاً الصحة)، تزداد نسبة استمراريته في الوقف بنسبة 40% وفق المحاكاة.
     - **السيادة التمويلية:** هذا المنتج يقلل احتياج الدولة للاقتراض الخارجي لتمويل الخدمات العامة.
     """)
+# --- 23. نموذج الصكوك الوقفية التنموية الذكية ---
+if domain == "Smart Waqf Sukuk (الصكوك الوقفية الذكية)":
+    st.header("📜 Smart Waqf Sukuk Model | نموذج الصكوك الوقفية الذكية")
+    st.info("إصدار صكوك تنموية تجمع بين استثمار رأس المال وتخصيص جزء من العائد للوقف المستدام.")
+
+    st.subheader("The Sukuk Impact Equation | معادلة الأثر الوقفي للصكوك")
+    st.latex(r"W_{it} = \theta + \lambda_1 C_{it} + \lambda_2 R_{it} + \lambda_3 I_{it} + \nu_{it}")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Sukuk Issuance Parameters")
+        c_volume = st.number_input("C (Sukuk Volume - حجم الإصدار بالمليون)", 1, 1000, 100)
+        r_waqf_share = st.slider("R (Waqf Share of Return % - نسبة العائد للوقف)", 5, 100, 20)
+        i_impact_idx = st.slider("I (Social Impact Index - مؤشر الأثر التنموي)", 0, 100, 80)
+        
+        sharia_mode = st.selectbox("Sharia Mode (الصيغة الشرعية):", ["Ijarah (إجارة)", "Istisna (استصناع)", "Musharaka (مشاركة)"])
+        
+    with col2:
+        st.subheader("Sovereign Development Analysis")
+        
+        # حساب مؤشر الأثر العام Wit
+        # حجم الإصدار والأثر التنموي هما المرجحان الأساسيان
+        sukuk_impact = 15 + (0.4 * c_volume/10) + (0.3 * r_waqf_share) + (0.3 * i_impact_idx)
+        
+        st.metric("Global Waqf Impact Index (W)", f"{sukuk_impact:.2f}")
+
+        # رسم بياني يوضح توزيع التدفقات المالية للصك
+        labels_sukuk = ['Investor Profit', 'Waqf Re-investment', 'Operational Cost']
+        values_sukuk = [100 - r_waqf_share - 10, r_waqf_share, 10] # 10% مصاريف تشغيلية افتراضية
+        
+        fig_sukuk = go.Figure(data=[go.Pie(labels=labels_sukuk, values=values_sukuk, pull=[0.1, 0.2, 0])])
+        fig_sukuk.update_layout(title="Allocation of Sukuk Returns")
+        st.plotly_chart(fig_sukuk)
+
+    st.success(f"النتيجة: إصدار صكوك بقيمة {c_volume} مليون بصيغة {sharia_mode} يحقق استدامة تنموية بمعدل أثر {sukuk_impact:.2f} نقطة، مما يقلل الاعتماد على التبرعات الموسمية.")
+
+    st.markdown("""
+    ### 🛡️ Sovereign Advantages | المزايا السيادية
+    - **الذكاء المالي:** توجيه التمويل للمجالات ذات الأثر الأعلى (High-Impact Domains) بناءً على تحليل البيانات.
+    - **الاستدامة:** تحول المشروع التنموي من "مستهلك للصدقات" إلى "منتج للأوقاف" عبر تدوير العائد ($R_{it}$).
+    - **الثقة:** الصكوك الوقفية تعزز الشفافية لأن المستثمر يرى أثر ماله في "أصول حقيقية" ملموسة.
+    """)
