@@ -1904,3 +1904,73 @@ if domain == "Sovereign Dashboard (لوحة السيادة)":
     st.balloons()
     st.markdown("### 🏁 Conclusion: The Declaration of Digital Independence")
     st.write("> بروتوكول أمانة ليس مجرد حل تقني، بل هو استعادة للروح الأخلاقية وتحويلها إلى أكواد برمجية تحمي الأمة وتؤسس لسيادة رقمية حقيقية.")
+# --- 36. التحصين السيادي (الأمن، الجدوى، والضمانات) ---
+if domain == "Sovereign Fortification (التحصين السيادي)":
+    st.header("🛡️ Sovereign Fortification | التحصين السيادي")
+    st.info("إثبات صلابة الدرع: حماية الكود، كرامة المستخلف، والجدوى الهيكلية لبروتوكول أمانة.")
+
+    # 1. بصمة الستر الرقمي (Digital Veiling - ZKPs)
+    st.subheader("🕵️ Digital Veiling | بصمة الستر الرقمي")
+    st.write("الرقابة المقاصدية: النظام يرى (الأثر الإنتاجي) ويصادق عليه، بينما يظل (الفرد) مستوراً.")
+    
+    col_ve1, col_ve2 = st.columns([1, 2])
+    with col_ve1:
+        st.write("**Stewardship Proof (Input)**")
+        user_identity = st.text_input("Individual Identity", "Identity_Hidden_XXX", disabled=True)
+        zakat_paid = st.checkbox("Zakat Obligations Met", value=True)
+        production_verified = st.checkbox("Productive Impact Verified", value=True)
+        
+    with col_ve2:
+        st.write("**Zero-Knowledge Proof (Output)**")
+        if zakat_paid and production_verified:
+            st.success("✅ [ZK-Proof Generated]: Merit Confirmed. Identity remains Private.")
+            st.code("Proof: 0x5f3e...a21 (Valid)", language='bash')
+        else:
+            st.error("❌ Insufficient Proof of Stewardship.")
+
+    st.markdown("---")
+
+    # 2. المناعة السيبرانية والتشفير بعد الكمي
+    st.subheader("🔐 Post-Quantum Resilience | المناعة السيبرانية")
+    st.write("حماية سجلات التراب باستخدام (Lattice-based Cryptography) ضد الهجمات الكمية.")
+    
+    resilience_score = st.select_slider("Cyber-Resilience Mode", 
+                                        options=["Standard", "Sovereign Shield", "Post-Quantum Ready"])
+    if resilience_score == "Post-Quantum Ready":
+        st.success("Status: Post-Quantum Cryptography Active. (NIST 2024 Compliant)")
+        st.latex(r"Enc_{Lattice}(Data) \rightarrow Impossible \ to \ crack \ by \ Quantum \ Compute")
+
+    st.markdown("---")
+
+    # 3. بروتوكول الطوارئ (Offline Continuity)
+    st.subheader("📡 Offline Continuity | بروتوكول الطوارئ")
+    st.write("ضمان تدفق القيمة حتى في حالات الانقطاع الكارثي للاتصال.")
+    
+    sensor_status = st.toggle("Global Connection Status", value=False)
+    if not sensor_status:
+        st.warning("🚨 Connectivity Lost. Activating 'Estimated Credit Mode' (نمط الائتمان التقديري).")
+        st.info("Trusting 'Neighbor Nodes' for manual verification based on last production hash.")
+        st.progress(100, text="Offline Synchronization Active")
+
+    st.markdown("---")
+
+    # 4. لوحة الضمانات الحقوقية (Rights Safeguards)
+    st.subheader("⚖️ Rights & Governance | الضمانات والجدوى")
+    c1, c2, c3 = st.columns(3)
+    
+    with c1:
+        st.markdown("**Genesis Funding**")
+        st.write("صكوك استخلاف رقمية بدلاً من القروض.")
+        st.image("https://img.icons8.com/fluency/48/capital.png")
+        
+    with c2:
+        st.markdown("**Decentralized ID (DID)**")
+        st.write("البيانات تُخزن محلياً. لا سيطرة للمركز.")
+        st.image("https://img.icons8.com/fluency/48/fingerprint.png")
+        
+    with c3:
+        st.markdown("**Hybrid Legal**")
+        st.write("عقود تحكيم تقنية ملزمة قانونياً.")
+        st.image("https://img.icons8.com/fluency/48/law.png")
+
+    st.success("الخلاصة السيادية: نحن نغلق الدائرة بين المثالية الأخلاقية والواقعية التقنية، محققين (أمن الأمة) و(كرامة المستخلف).")
