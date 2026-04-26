@@ -545,3 +545,49 @@ domain = st.sidebar.selectbox("Choose Economic Domain:", [
     ..., 
     "Good Intention in Market (النية الصالحة في السوق)"
 ])
+# --- 11. نموذج النية الصالحة في السوق ---
+if domain == "Good Intention in Market (النية الصالحة في السوق)":
+    st.header("🌟 Good Intention Model | نموذج النية الصالحة")
+    st.info("تحليل أثر المقاصد الأخلاقية والإيثار على استقرار المجتمع وعدالة التوزيع.")
+
+    st.subheader("The Behavioral Econometric Equation")
+    st.latex(r"Y_t = \delta_0 + \delta_1 GI_t + \delta_2 AP_t + \delta_3 CC_t + \delta_4 ND_t + \xi_t")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        git = st.slider("GIt (Good Intention Index - مؤشر النية الصالحة)", 0, 100, 80)
+        apt = st.slider("APt (Altruistic Pricing - الإيثار في التسعير)", 0, 100, 60)
+        cct = st.slider("CCt (Community Contribution - المبادرات المجتمعية)", 0, 100, 70)
+        ndt = st.slider("NDt (No-Deception Score - الامتناع عن الغش)", 0, 100, 95)
+        
+    with col2:
+        # حساب مؤشر الرضا العام أو العدالة التوزيعية
+        # النية والامتناع عن الغش لهما الوزن الأكبر في بناء الثقة والرضا
+        satisfaction_idx = 15 + (0.35 * git + 0.25 * ndt + 0.20 * apt + 0.20 * cct)
+        
+        st.metric("Social Satisfaction & Justice (Yt)", f"{satisfaction_idx:.2f}%")
+        
+        # رسم بياني يوضح العلاقة بين النية الصالحة والعدالة التوزيعية
+        # كلما زادت النية، قل التفاوت الطبقي (محاكاة)
+        x_intent = np.linspace(0, 100, 20)
+        y_justice = 20 + (0.6 * x_intent) + (0.15 * ndt) 
+        
+        fig_intent = go.Figure()
+        fig_intent.add_trace(go.Scatter(
+            x=x_intent, y=y_justice, 
+            mode='lines+markers', 
+            name='Justice/Satisfaction Trend',
+            line=dict(color='emerald', width=4)
+        ))
+        
+        fig_intent.update_layout(
+            title="Impact of Good Intention on Social Justice",
+            xaxis_title="Good Intention Level (GIt)",
+            yaxis_title="Satisfaction & Justice Score (Yt)"
+        )
+        st.plotly_chart(fig_intent)
+
+    st.markdown(f"""
+    ### 💡 Scientific Perspective | منظور علمي
+    هذا النموذج يثبت أن **الامتناع عن الغش ($ND_t$)** و**النية الصالحة ($GI_t$)** يعملان كـ "مزيّت" (Lubricant) لتروس الاقتصاد؛ حيث يقللان من "تكاليف المعاملات" (Transaction Costs) الناتجة عن عدم الثقة، مما يرفع الكفاءة الكلية للمجتمع.
+    """)
