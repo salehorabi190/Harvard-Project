@@ -513,3 +513,31 @@ if domain == "Market Transparency (الشفافية في السوق)":
             gauge = {'axis': {'range': [0, 100]}, 'bar': {'color': "red"}}
         ))
         st.plotly_chart(fig_trans)
+# --- 10. نموذج منع الاحتكار ---
+if domain == "Anti-Monopoly Engineering (منع الاحتكار)":
+    st.header("🚫 Anti-Monopoly Model | منع الاحتكار")
+    st.info("تحليل العلاقة بين التركز السوقي والعدالة التوزيعية.")
+
+    st.subheader("The Monopolistic Impact Equation")
+    st.latex(r"Y_t = \gamma_0 + \gamma_1 HH_t + \gamma_2 AC_t + \gamma_3 RI_t + \gamma_4 AM_t + \nu_t")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        hht = st.number_input("HHt (Market Concentration Index - مؤشر هيرفيندال)", 0, 10000, 2500)
+        act = st.slider("ACt (Active Competitors - عدد المنافسين)", 1, 50, 5)
+        rit = st.slider("RIt (Gov Intervention - تدخل الدولة)", 0, 100, 70)
+        amt = st.slider("AMt (Complaints Index - الشكاوى)", 0, 100, 30)
+        
+    with col2:
+        # العدالة التوزيعية (تنخفض بزيادة HHT وتزيد بزيادة المنافسين وتدخل الدولة)
+        justice_dist = (rit * 0.4) + (act * 1.5) - (hht/200) + 50
+        st.metric("Distributive Justice Index (Yt)", f"{max(0, justice_dist):.2f}")
+        
+        # رسم بياني يوضح العلاقة بين عدد المنافسين والعدالة
+        x_comp = np.linspace(1, 50, 50)
+        y_justice = (rit * 0.4) + (x_comp * 1.5) - (hht/200) + 50
+        
+        fig_monop = go.Figure()
+        fig_monop.add_trace(go.Scatter(x=x_comp, y=y_justice, name="Justice Curve", line=dict(color='green', width=3)))
+        fig_monop.update_layout(title="Impact of Competition on Distributive Justice", xaxis_title="Number of Competitors")
+        st.plotly_chart(fig_monop)
