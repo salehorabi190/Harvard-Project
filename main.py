@@ -624,3 +624,17 @@ if domain == "Merciful Supply (العرض الرحيم)":
         qs_supply = 50 + (0.6 * h_need) + (0.4 * i_intent) + (0.2 * s_stock)
         st.metric("Merciful Supply Quantity (Qs)", f"{qs_supply:.0f} Units")
         st.write("لاحظ: في الأزمات (ارتفاع H)، يزداد العرض الرحيم بدافع الإحسان.")
+if domain == "Fair Demand (الطلب العادل)":
+    st.header("🥣 Fair Demand Model | نموذج الطلب العادل")
+    st.latex(r"Q_d = \alpha_0 + \alpha_1 Y + \alpha_2 A + \alpha_3 N + \epsilon")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        y_income = st.number_input("Y (Income - الدخل)", 1000, 20000, 5000)
+        a_awareness = st.slider("A (Consumption Awareness - وعي الاستهلاك)", 0, 100, 70)
+        n_actual_need = st.slider("N (Actual Need - الحاجة الحقيقية)", 0, 100, 40)
+    with col2:
+        # الوعي (A) يقلل من الطلب الهامشي غير الضروري
+        qd_demand = (0.05 * y_income) + (0.5 * n_actual_need) - (0.3 * a_awareness)
+        st.metric("Fair Demand Quantity (Qd)", f"{max(0, qd_demand):.2f}")
+        st.success("النتيجة: زيادة الوعي تمنع الإسراف وتخفض التضخم.")
