@@ -868,3 +868,56 @@ if domain == "Maqasid Interest Alternatives (بدائل الفائدة)":
     ))
     fig_r.update_layout(title="Traditional Interest vs. Sovereign Maqasid Return")
     st.plotly_chart(fig_r)
+# --- 19. نموذج الهندسة المالية المقاصدية (تسعير الأدوات) ---
+if domain == "Financial Engineering (الهندسة المالية السيادية)":
+    st.header("🛠️ Financial Engineering Model | نموذج الهندسة المالية المقاصدية")
+    st.info("إعادة هندسة الوظيفة المالية: المال كأمانة استخلافية، والتمويل وسيلة للتمكين والعدالة.")
+
+    st.subheader("The Sovereign Pricing Equation | معادلة التسعير السيادي")
+    st.latex(r"P = \beta_1 R + \beta_2 T + \beta_3 S + \beta_4 \pi + \beta_5 Z + \epsilon")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Structural Elements | العناصر الهيكلية")
+        r_maq_return = st.slider("R (Maqasid Return Rate - العائد المقاصدي)", 0, 100, 50)
+        t_empower_idx = st.slider("T (Empowerment Index - مؤشر التمكين)", 0, 100, 75)
+        s_compliance = st.slider("S (Sharia Compliance - الالتزام الشرعي الرقابي)", 0, 100, 90)
+        pi_expected = st.slider("π (Expected Profitability - الربحية المتوقعة)", 0, 100, 60)
+        z_ethical_min = st.slider("Z (Zakat Floor - المقياس الأخلاقي للزكاة)", 0, 10, 5)
+        
+        # أوزان الانحدار (Beta Coefficients)
+        beta_coeffs = [0.3, 0.2, 0.25, 0.15, 0.1]
+        
+    with col2:
+        st.subheader("Instrument Valuation | تقييم الأداة المالية")
+        
+        # حساب السعر P بناءً على المعادلة
+        instrument_price = (beta_coeffs[0] * r_maq_return) + \
+                           (beta_coeffs[1] * t_empower_idx) + \
+                           (beta_coeffs[2] * s_compliance) + \
+                           (beta_coeffs[3] * pi_expected) + \
+                           (beta_coeffs[4] * z_ethical_min)
+        
+        st.metric("Sovereign Instrument Price (P)", f"{instrument_price:.2f}", 
+                  help="هذا السعر يمثل القيمة العادلة للأداة المالية (صكوك، مشاركة) وفق منظور هندسة الاستخلاف")
+
+        # رسم بياني يوضح التوازن بين الربحية والرسالة
+        fig_fin = go.Figure(data=[
+            go.Bar(name='Financial Parameters', x=['Return', 'Empowerment', 'Compliance', 'Profit', 'Ethical Floor'], 
+                   y=[r_maq_return, t_empower_idx, s_compliance, pi_expected, z_ethical_min*10],
+                   marker_color='goldenrod')
+        ])
+        fig_fin.update_layout(title="Multi-Dimensional Financial Engineering Analysis")
+        st.plotly_chart(fig_fin)
+
+    st.success(f"النتيجة: تم تقييم الأداة المالية بناءً على أثرها التمكيني والالتزام الشرعي، مما يجعلها أداة استخلافية بامتياز.")
+    
+    st.markdown("""
+    ### 📝 Philosophical Foundation | المرتكز الفلسفي
+    - **المال كأمانة:** السعر هنا لا يعكس "ندرة المال" بل يعكس "نفع المال".
+    - **الزكاة ($Z$):** تعمل هنا كضمانة أخلاقية تمنع الأداة من الانزلاق نحو الاستغلال.
+    - **الالتزام ($S$):** ليس مجرد ختم شرعي، بل هو مؤشر رقابي يؤثر مباشرة في القيمة السوقية للأداة.
+    """)
