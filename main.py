@@ -656,3 +656,7 @@ if domain == "Maqasid Intervention (التدخل المقاصدي)":
         fig_is.add_trace(go.Scatter(x=[0, 100], y=[0, 100], name="Traditional Intervention", line=dict(dash='dash')))
         fig_is.add_trace(go.Scatter(x=[0, m_imbalance], y=[0, is_score], name="Maqasid Intervention", line=dict(color='purple', width=4)))
         st.plotly_chart(fig_is)
+domain = st.sidebar.selectbox("Choose Economic Domain:", [
+    ..., 
+    "Sovereign Monetary Policy (السياسة النقدية السيادية)"
+])
