@@ -1348,3 +1348,68 @@ if domain == "Predictive Sharia Algorithm (الخوارزمية التنبؤية
     2. **المعالجة:** تقدير أثر الحي على المقاصد (هل فيه مساجد؟ هل فيه أمان؟ هل يدعم الأسر؟).
     3. **المخرج:** مؤشر رقمي يحدد شرعية وجدوى القرار قبل صرف درهم واحد من أموال الوقف.
     """)
+# --- 28. مؤشر الأمان الشرعي في الاقتصاد الرمزي ---
+if domain == "Sharia Safety Index (مؤشر الأمان الشرعي)":
+    st.header("🛡️ Sharia Safety Index (SSI) | مؤشر الأمان الشرعي")
+    st.info("أداة تحليلية لتقييم الرموز الرقمية والأصول الذكية بناءً على التوافق الفقهي، المقاصد، والشفافية.")
+
+    # المعادلة المركبة للمؤشر
+    st.subheader("The Composite SSI Formula")
+    st.latex(r"SSI = \sum (\omega_i \cdot S_i)")
+    
+    st.markdown("---")
+
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Asset Evaluation | تقييم الأصل")
+        asset_name = st.text_input("Token/Asset Name:", "Waqf-Edu Token")
+        
+        # مدخلات المؤشرات الفرعية (Si)
+        s_compliance = st.slider("Sharia Compliance (التوافق الفقهي)", 0.0, 1.0, 0.9)
+        s_maqasid = st.slider("Maqasid Impact (أثر المقاصد)", 0.0, 1.0, 0.85)
+        s_transparency = st.slider("Transparency (الشفافية الرقمية)", 0.0, 1.0, 0.8)
+        s_governance = st.slider("Governance (الحوكمة الإسلامية)", 0.0, 1.0, 0.75)
+        s_traceability = st.slider("Traceability (قابلية التتبع)", 0.0, 1.0, 0.9)
+        
+    with col2:
+        st.subheader("SSI Risk Scorecard")
+        
+        # الأوزان المعيارية (Omega)
+        weights = [0.3, 0.25, 0.15, 0.15, 0.15]
+        scores = [s_compliance, s_maqasid, s_transparency, s_governance, s_traceability]
+        
+        ssi_result = sum(w * s for w, s in zip(weights, scores))
+        
+        # تحديد الفئة والتوصية
+        if ssi_result >= 0.80:
+            status = "Safe (آمن شرعياً)"
+            color = "green"
+            recommendation = "صالح للاستثمار والتمويل"
+        elif ssi_result >= 0.50:
+            status = "Neutral (متوسط الأمان)"
+            color = "orange"
+            recommendation = "يوصى بالمراجعة الشرعية الدقيقة"
+        else:
+            status = "High Risk (منخفض الأمان)"
+            color = "red"
+            recommendation = "يوصى بالامتناع أو التعديل الجذري"
+
+        # عرض النتيجة بشكل بصري
+        st.markdown(f"<h2 style='text-align: center; color: {color};'>{ssi_result:.2f}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='text-align: center;'>{status}</h3>", unsafe_allow_html=True)
+        st.markdown(f"<p style='text-align: center;'><b>Recommendation:</b> {recommendation}</p>", unsafe_allow_html=True)
+
+        # رسم بياني لمكونات المؤشر
+        fig_ssi = go.Figure(go.Bar(
+            x=['Compliance', 'Maqasid', 'Transparency', 'Governance', 'Traceability'],
+            y=scores,
+            marker_color=[color]*5
+        ))
+        fig_ssi.update_layout(title="SSI Component Analysis", yaxis_range=[0, 1])
+        st.plotly_chart(fig_ssi)
+
+    st.markdown(f"""
+    ### 🔗 Integration with Blockchain | التكامل مع البلوك تشين
+    يتم سحب بيانات **الشفافية ($S_3$)** و**قابلية التتبع ($S_5$)** لحظياً من العقود الذكية (Smart Contracts)، بينما يتم تغذية **التوافق الفقهي ($S_1$)** من منصات الإفتاء الرقمية المعتمدة.
+    """)
