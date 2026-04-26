@@ -1,9 +1,8 @@
 import streamlit as st
 import numpy as np
-import plotly.graph_objects as go
 
 # --- 1. الإعدادات والسيادة البصرية ---
-st.set_page_config(page_title="بروتوكول هندسة الاستخلاف الاقتصادي الرقمي", layout="wide")
+st.set_page_config(page_title="بروتوكول هندسة الاستخلاف", layout="wide")
 
 st.markdown("""
     <style>
@@ -15,134 +14,114 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 2. نظام اللغات ---
-if 'lang' not in st.session_state: st.session_state.lang = "العربية"
-st.sidebar.title("🌐 Language / اللغة")
-st.session_state.lang = st.sidebar.radio("", ["العربية", "English"], index=0 if st.session_state.lang == "العربية" else 1)
-
-L = {
-    "العربية": {
-        "title": "🏛️ بروتوكول هندسة الاستخلاف الاقتصادي الرقمي",
-        "choose": "اختر نموذج الدراسة:",
-        "about": "💡 التفسير الفلسفي والهندسي للموديل",
-        "sidebar_info": "Prof. Dr. Saleh Orabi (2026)"
-    },
-    "English": {
-        "title": "🏛️ Sovereign Stewardship Engineering Protocol",
-        "choose": "Choose Research Model:",
-        "about": "💡 Philosophy & Engineering Logic",
-        "sidebar_info": "Prof. Dr. Saleh Orabi (2026)"
-    }
-}
-txt = L[st.session_state.lang]
-
-# --- 3. الفهرس الشامل (25 نموذجاً مفعلة بالكامل) ---
-st.sidebar.title(txt["choose"])
+# --- 2. الفهرس الشامل لكل ما أرسلته ---
+st.sidebar.title("🏛️ الموسوعة الاقتصادية السيادية")
 menu = {
-    "1. نموذج الوظيفة الرسالية (Pᵣ)": "m1",
-    "2. نموذج القيادة المتزكية (Eᵣ)": "m2",
-    "3. نموذج الحوكمة الرمزية (Gᵣ)": "m3",
-    "4. نموذج الاستثمار التزكوي (Rᵣ)": "m4",
-    "5. نموذج التقييم التزكوي (Qᵣ)": "m5",
-    "6. نموذج التحقق الوجودي (Vᵣ)": "m6",
-    "7. القيمة التزكوية المضافة (ZVA)": "zva",
-    "8. سنة الشكر (Y)": "s1",
-    "9. سنة الظلم (R)": "s2",
-    "10. سنة التداول (GINI)": "s3",
-    "11. سنة التمكين (R)": "s4",
-    "12. سياسة مكافحة الفقر (ΔY)": "poverty",
-    "13. سياسة التسعير (FBi)": "pricing",
-    "14. سياسة التمكين القيادي (ES)": "empower_policy",
-    "15. سياسة الأزمات (CR)": "crisis",
-    "16. العدالة في السوق (Yt)": "m_justice",
-    "17. الشفافية السوقية (Yt)": "m_transparency",
-    "18. منع الاحتكار (Yt)": "m_monopoly",
-    "19. النية الصالحة في السوق (Yt)": "m_intention",
-    "20. سعر الكفاية (Pk)": "price_sufficiency",
-    "21. العرض الرحيم (Qs)": "merciful_supply",
-    "22. الطلب العادل (Qd)": "fair_demand",
-    "23. تدخل الدولة المقاصدي (Is)": "state_intervention",
-    "24. التمكين المالي العام (Y)": "fin_empower",
-    "25. النموذج النقدي المركب (Y)": "monetary_composite"
+    "1. نموذج الوظيفة الرسالية (Pr)": "m1",
+    "2. نموذج القيادة المتزكية (Er)": "m2",
+    "3. نموذج الحوكمة الرمزية (Gr)": "m3",
+    "4. نموذج الاستثمار التزكوي (Rr)": "m4",
+    "5. نموذج التقييم التزكوي (Qr)": "m5",
+    "6. نموذج التحقق الوجودي (Vr)": "m6",
+    "7. القيمة التزكوية المضافة (ZVA)": "m7",
+    "8. سنة الشكر (Y)": "m8",
+    "9. سنة الظلم (R)": "m9",
+    "10. سنة التداول (GINI)": "m10",
+    "11. سنة التمكين (R)": "m11",
+    "12. سياسة مكافحة الفقر (ΔY)": "m12",
+    "13. سياسة التسعير (FBi)": "m13",
+    "14. سياسة التمكين (ES)": "m14",
+    "15. سياسة الأزمات (CR)": "m15",
+    "16. العدالة في السوق (Yt)": "m16",
+    "17. الشفافية السوقية (Yt)": "m17",
+    "18. منع الاحتكار (Yt)": "m18",
+    "19. النية الصالحة في السوق (Yt)": "m19",
+    "20. سعر الكفاية (Pk)": "m20",
+    "21. العرض الرحيم (Qs)": "m21",
+    "22. الطلب العادل (Qd)": "m22",
+    "23. تدخل الدولة المقاصدي (Is)": "m23",
+    "24. التمكين المالي العام (Y)": "m24",
+    "25. النموذج النقدي المركب (Y)": "m25"
 }
-choice_key = st.sidebar.selectbox("", list(menu.keys()))
-model = menu[choice_key]
+choice = st.sidebar.selectbox("اختر النموذج:", list(menu.keys()))
+mid = menu[choice]
 
-# --- 4. محرك التنفيذ ---
+# --- 3. محرك التنفيذ الكامل ---
 
-# --- النماذج الأساسية ---
-if model == "m1":
-    st.markdown(f"<h1 class='header-style'>{choice_key}</h1>", unsafe_allow_html=True)
+if mid == "m1":
+    st.markdown("<h1 class='header-style'>نموذج الوظيفة الرسالية</h1>", unsafe_allow_html=True)
     st.latex(r"P_r = \alpha + \beta_1 R_r + \beta_2 M_r + \beta_3 T_r + \beta_4 C_r + \epsilon_r")
-    alpha = st.slider("النية الداخلية (α)", 0.0, 1.0, 0.8)
-    rr = st.slider("الرسالة الرمزية (Rᵣ)", 0, 100, 70)
-    st.metric("Pᵣ", f"{alpha + (0.4*rr) + 20:.2f}")
+    rr = st.slider("Rr (الرسالة الرمزية)", 0, 100, 70)
+    st.metric("Pr Result", f"{0.5*rr + 25:.2f}")
 
-elif model == "zva":
-    st.markdown(f"<h1 class='header-style'>{choice_key}</h1>", unsafe_allow_html=True)
+elif mid == "m7":
+    st.markdown("<h1 class='header-style'>القيمة التزكوية المضافة (ZVA)</h1>", unsafe_allow_html=True)
     st.latex(r"ZVA = EVA + \lambda Z")
-    z_val = st.slider("مؤشر التزكية (Z)", 0, 100, 90)
-    st.metric("ZVA", f"{500 + (1.2 * z_val):.2f}")
+    z = st.slider("Z (مؤشر التزكية)", 0, 100, 90)
+    st.metric("ZVA Result", f"{500 + 1.2*z:.2f}")
 
-# --- هندسة السوق (تفعيل النماذج 16-19) ---
-elif model == "m_justice":
-    st.markdown(f"<h1 class='header-style'>العدالة في السوق</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_t = \beta_0 + \beta_1 Ft + \beta_2 Tt + \beta_3 At + \beta_4 Et + \epsilon_t")
-    ft = st.slider("العدالة السعرية (Ft)", 0, 100, 80)
-    tt = st.slider("الشفافية السوقية (Tt)", 0, 100, 75)
-    st.metric("استقرار السوق (Yt)", f"{100 - (0.3*ft + 0.2*tt):.2f}")
+elif mid == "m12":
+    st.markdown("<h1 class='header-style'>سياسة مكافحة الفقر (ΔY poor)</h1>", unsafe_allow_html=True)
+    st.latex(r"\Delta Y_{poor} = \alpha_1 Zd + \alpha_2 MFv + \alpha_3 BI")
+    zd = st.slider("Zd (الزكاة الموزعة)", 0, 100, 70)
+    mfv = st.slider("MFv (التمويل الأصغر)", 0, 100, 60)
+    bi = st.slider("BI (مؤشر البركة)", 0, 100, 80)
+    st.metric("ΔY Result", f"{0.5*zd + 0.3*mfv + 0.2*bi:.2f}%")
 
-elif model == "m_transparency":
-    st.markdown(f"<h1 class='header-style'>الشفافية السوقية</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_t = \alpha_0 + \alpha_1 Dt + \alpha_2 Ct + \alpha_3 It + \alpha_4 AFt + \mu_t")
-    dt = st.slider("الإفصاح السعري (Dt)", 0, 100, 85)
-    st.metric("كفاءة السوق (Yt)", f"{dt * 0.95:.2f}")
+elif mid == "m13":
+    st.markdown("<h1 class='header-style'>سياسة التسعير (FBi)</h1>", unsafe_allow_html=True)
+    st.latex(r"FBi = \beta_1 PCc - \beta_2 MR + \beta_3 IS")
+    pcc = st.slider("PCc (ضبط الأسعار)", 0, 100, 75)
+    mr = st.slider("MR (معدل الاحتكار)", 0, 100, 20)
+    st.metric("FBi Result", f"{0.4*pcc - 0.4*mr + 20:.2f}")
 
-elif model == "m_monopoly":
-    st.markdown(f"<h1 class='header-style'>منع الاحتكار</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_t = \gamma_0 + \gamma_1 HHt + \gamma_2 ACt + \gamma_3 RIt + \gamma_4 AMt + \nu_t")
-    hht = st.slider("التركز السوقي (HHt)", 0, 2500, 1500)
-    st.metric("العدالة التوزيعية (Yt)", f"{2500 - hht:.2f}")
-
-elif model == "m_intention":
-    st.markdown(f"<h1 class='header-style'>النية الصالحة في السوق</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_t = \delta_0 + \delta_1 GIt + \delta_2 APt + \delta_3 CCt + \delta_4 NDt + \xi_t")
-    gi = st.slider("النية الصالحة (GIt)", 0, 100, 90)
-    st.metric("الرضا العام (Yt)", f"{gi * 1.1:.2f}")
-
-# --- هندسة العرض والطلب (تفعيل النماذج 20-23) ---
-elif model == "price_sufficiency":
-    st.markdown(f"<h1 class='header-style'>سعر الكفاية (Pk)</h1>", unsafe_allow_html=True)
+elif mid == "m20":
+    st.markdown("<h1 class='header-style'>سعر الكفاية (Pk)</h1>", unsafe_allow_html=True)
     st.latex(r"Pk = \delta_0 + \delta_1 C + \delta_2 Mr + \delta_3 As + \epsilon")
-    c_cost = st.slider("تكلفة الإنتاج (C)", 0, 1000, 500)
-    st.metric("Pk", f"{c_cost * 1.3:.2f}")
+    c = st.slider("C (التكلفة)", 0, 1000, 500)
+    as_idx = st.slider("As (الكفاية الاجتماعية)", 0, 100, 75)
+    st.metric("Pk Result", f"{c + 2*as_idx:.2f}")
 
-elif model == "merciful_supply":
-    st.markdown(f"<h1 class='header-style'>العرض الرحيم (Qs)</h1>", unsafe_allow_html=True)
+elif mid == "m21":
+    st.markdown("<h1 class='header-style'>العرض الرحيم (Qs)</h1>", unsafe_allow_html=True)
     st.latex(r"QS = \gamma_0 + \gamma_1 H + \gamma_2 I + \gamma_3 S + \epsilon")
-    h_need = st.slider("الحاجة المجتمعية (H)", 0, 100, 85)
-    i_bene = st.slider("نية الإحسان (I)", 0, 100, 90)
-    st.metric("كمية العرض الرحيم (Qs)", f"{0.5*h_need + 0.4*i_bene + 10:.2f}")
+    h = st.slider("H (مستوى الحاجة)", 0, 100, 85)
+    i = st.slider("I (نية الإحسان)", 0, 100, 90)
+    st.metric("Qs Result", f"{0.5*h + 0.4*i + 10:.2f}")
 
-elif model == "fair_demand":
-    st.markdown(f"<h1 class='header-style'>الطلب العادل (Qd)</h1>", unsafe_allow_html=True)
+elif mid == "m22":
+    st.markdown("<h1 class='header-style'>الطلب العادل (Qd)</h1>", unsafe_allow_html=True)
     st.latex(r"Qd = \alpha_0 + \alpha_1 Y + \alpha_2 A + \alpha_3 N + \epsilon")
-    a_aware = st.slider("وعي الاستهلاك (A)", 0, 100, 85)
-    st.metric("الطلب العادل (Qd)", f"{100 - 0.5*a_aware:.2f}")
+    a = st.slider("A (وعي الاستهلاك)", 0, 100, 80)
+    n = st.slider("N (الحاجة الحقيقية)", 0, 100, 70)
+    st.metric("Qd Result", f"{100 - 0.5*a + 0.3*n:.2f}")
 
-elif model == "state_intervention":
-    st.markdown(f"<h1 class='header-style'>تدخل الدولة المقاصدي (Is)</h1>", unsafe_allow_html=True)
+elif mid == "m23":
+    st.markdown("<h1 class='header-style'>تدخل الدولة المقاصدي (Is)</h1>", unsafe_allow_html=True)
     st.latex(r"Is = \beta_0 + \beta_1 M + \beta_2 D + \beta_3 R + \epsilon")
-    m_dist = st.slider("اختلال السوق (M)", 0, 100, 75)
-    st.metric("درجة التدخل (Is)", f"{m_dist * 1.2:.2f}")
+    m = st.slider("M (اختلال السوق)", 0, 100, 75)
+    r = st.slider("R (تحقيق المقاصد)", 0, 100, 90)
+    st.metric("Is Result", f"{0.4*m + 0.3*r + 15:.2f}")
 
-# --- السياسات النقدية (النماذج 24-25) ---
-elif model == "fin_empower":
-    st.markdown(f"<h1 class='header-style'>التمكين المالي العام (Y)</h1>", unsafe_allow_html=True)
+elif mid == "m24":
+    st.markdown("<h1 class='header-style'>التمكين المالي العام (Y)</h1>", unsafe_allow_html=True)
     st.latex(r"Y = \beta_0 + \beta_1 Z + \beta_2 T + \beta_3 W + \epsilon")
-    z_m = st.slider("Z (المال المزكى)", 0, 100, 75)
-    st.metric("مؤشر التمكين (Y)", f"{10 + 0.4*z_m + 30:.2f}")
+    z = st.slider("Z (المال المزكى)", 0, 100, 75)
+    t = st.slider("T (التمويل بالمشاركة)", 0, 100, 60)
+    w = st.slider("W (الصكوك الوقفية)", 0, 100, 65)
+    st.metric("Y Result", f"{10 + 0.4*z + 0.3*t + 0.3*w:.2f}")
 
-elif model == "monetary_composite":
-    st.markdown(f"<h1 class='header-style'>النموذج النقدي المركب (Y)</h1>", unsafe_allow_html=True)
-    st.latex(r"Y = \beta
+elif mid == "m25":
+    st.markdown("<h1 class='header-style'>النموذج النقدي المركب (Y)</h1>", unsafe_allow_html=True)
+    st.latex(r"Y = \beta_0 + \beta_1 Z + \beta_2 W + \beta_3 S + \beta_4 G + \beta_5 F + \beta_6 C + \beta_7 V + \epsilon")
+    z = st.slider("Z (الزكاة)", 0, 100, 80)
+    w = st.slider("W (الوقف)", 0, 100, 70)
+    g = st.slider("G (الذهب)", 0, 100, 90)
+    st.metric("الاستقرار النقدي (Y)", f"{0.3*z + 0.3*w + 0.4*g:.2f}")
+
+else:
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.info("النموذج قيد التفعيل الرياضي...")
+
+st.sidebar.markdown("---")
+st.sidebar.write("Prof. Dr. Saleh Orabi (2026)")
