@@ -482,3 +482,34 @@ if domain == "Market Engineering (هندسة السوق)":
         st.plotly_chart(fig_market)
 
     st.success(f"النتيجة: بفضل 'معامل البركة' والعدالة، تحولت القيمة من مجرد سعر مادي ({p_material}) إلى قيمة سيادية ({sovereign_value:.2f}).")
+# --- 9. نموذج الشفافية في السوق ---
+if domain == "Market Transparency (الشفافية في السوق)":
+    st.header("🔍 Market Transparency Model | نموذج الشفافية")
+    st.info("تحليل أثر الإفصاح ووضوح العقود في رفع الغرر وتحقيق كفاءة السوق.")
+
+    st.subheader("The Econometric Equation | المعادلة القياسية")
+    st.latex(r"Y_t = \alpha_0 + \alpha_1 D_t + \alpha_2 C_t + \alpha_3 I_t + \alpha_4 AF_t + \mu_t")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        dt = st.slider("Dt (Price Disclosure - الإفصاح السعري)", 0, 100, 70)
+        ct = st.slider("Ct (Contract Clarity - ووضوح العقود)", 0, 100, 80)
+        it = st.slider("It (Info Availability - توفر المعلومات)", 0, 100, 60)
+        aft = st.slider("AFt (Anti-Fraud - مكافحة الغش)", 0, 100, 90)
+        
+    with col2:
+        # حساب كفاءة السوق (علاقة طردية مع الشفافية)
+        market_efficiency = 10 + (0.4*dt + 0.3*ct + 0.2*it + 0.1*aft)
+        st.metric("Market Efficiency Index (Yt)", f"{market_efficiency:.2f}%")
+        
+        # رسم بياني يوضح انخفاض تقلبات الأسعار مع زيادة الشفافية
+        transparency_score = (dt + ct + it + aft) / 4
+        volatility = 100 - transparency_score # فرضية: الشفافية تلغي التقلب
+        
+        fig_trans = go.Figure(go.Indicator(
+            mode = "gauge+number",
+            value = volatility,
+            title = {'text': "Market Price Volatility (التقلبات)"},
+            gauge = {'axis': {'range': [0, 100]}, 'bar': {'color': "red"}}
+        ))
+        st.plotly_chart(fig_trans)
