@@ -38,7 +38,7 @@ L = {
 }
 txt = L[st.session_state.lang]
 
-# --- 3. الفهرس (تصحيح الأخطاء الكتابية هنا) ---
+# --- 3. الفهرس (تمت إضافة كافة النماذج الجديدة هنا) ---
 st.sidebar.title(txt["choose"])
 menu = {
     "1. نموذج الوظيفة الرسالية (Pᵣ)": "m1",
@@ -52,7 +52,14 @@ menu = {
     "9. سنة الظلم (R)": "s2",
     "10. سنة التداول (GINI)": "s3",
     "11. سنة التمكين (R)": "s4",
-    "12. سياسة مكافحة الفقر": "poverty"
+    "12. سياسة مكافحة الفقر": "poverty",
+    "13. سياسة التسعير": "pricing",
+    "14. سياسة التمكين القيادي": "empower_policy",
+    "15. سياسة الأزمات": "crisis",
+    "16. العدالة في السوق": "m_justice",
+    "17. الشفافية السوقية": "m_transparency",
+    "18. منع الاحتكار": "m_monopoly",
+    "19. النية الصالحة في السوق": "m_intention"
 }
 choice_key = st.sidebar.selectbox("", list(menu.keys()))
 model = menu[choice_key]
@@ -133,28 +140,26 @@ elif model == "s4":
     m_val = st.slider("M (مؤشر التمكين)", 0, 100, 85)
     st.metric("R (الاستقلال)", f"{m_val * 1.1:.2f}")
 
-# --- نموذج سياسة مكافحة الفقر ---
 elif model == "poverty":
-    st.markdown(f"<h1 class='header-style'>سياسة مكافحة الفقر</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 class='header-style'>{choice_key}</h1>", unsafe_allow_html=True)
     st.latex(r"\Delta Y_{poor} = \alpha_1 Zd + \alpha_2 MFv + \alpha_3 BI")
-    
-    col1, col2 = st.columns([1.2, 1])
-    with col1:
+    c1, c2 = st.columns([1.2, 1])
+    with c1:
         zd = st.slider("الزكاة الموزعة (Zd)", 0, 100, 70)
         mfv = st.slider("حجم التمويل الأصغر (MFv)", 0, 100, 65)
         bi = st.slider("مؤشر البركة (BI)", 0, 100, 80)
-        y_poor = (0.5 * zd) + (0.3 * mfv) + (0.2 * bi)
-        st.metric("التغير في دخل الفقراء (ΔY poor)", f"{y_poor:.2f}%")
-        
-    with col2:
-        st.markdown(f"""
-        <div class='about-box'>
-        <b>المقصد: التمكين والرحمة</b><br>
-        • Zd: الزكاة الموزعة (Zakat distributed)<br>
-        • MFv: حجم التمويل الأصغر (MicroFinance volume)<br>
-        • BI: مؤشر البركة (Baraka Index)
-        </div>
-        """, unsafe_allow_html=True)
+        y_p = (0.5 * zd) + (0.3 * mfv) + (0.2 * bi)
+        st.metric("التغير في دخل الفقراء", f"{y_p:.2f}%")
+    with c2: st.markdown(f"<div class='about-box'><b>المقصد: التمكين والرحمة</b></div>", unsafe_allow_html=True)
 
-st.sidebar.markdown("---")
-st.sidebar.write(txt["sidebar_info"])
+elif model == "pricing":
+    st.markdown(f"<h1 class='header-style'>{choice_key}</h1>", unsafe_allow_html=True)
+    st.latex(r"FBi = \beta_1 PCc - \beta_2 MR + \beta_3 IS")
+    pcc = st.slider("نطاق ضبط الأسعار (PCc)", 0, 100, 75)
+    mr = st.slider("معدل الاحتكار (MR)", 0, 100, 20)
+    is_score = st.slider("مؤشر النية (IS)", 0, 100, 85)
+    fbi = (0.4 * pcc) - (0.4 * mr) + (0.2 * is_score)
+    st.metric("مؤشر السعر العادل (FBi)", f"{fbi:.2f}")
+
+elif model == "empower_policy":
+    st.markdown(f"<h1 class='header-
