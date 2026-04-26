@@ -101,3 +101,61 @@ if domain == "Mission-Driven Function (الوظيفة الرسالية)":
     - **M:** المعنى الشخصي الذي يجده الموظف في عمله.
     - **T:** أثر التزكية (الإيثار، الأمل) في تقليل الاحتراق الوظيفي.
     """)
+# --- إضافة القسم الجديد في القائمة الجانبية ---
+# ملاحظة: أضف هذا الاسم للقائمة التي أنشأناها سابقاً في Sidebar
+# domain = st.sidebar.selectbox("Choose Economic Domain:", [..., "Tazkiyah-Based Leadership (القيادة المتزكية)"])
+
+# --- 2. نموذج القيادة المتزكية ---
+if domain == "Tazkiyah-Based Leadership (القيادة المتزكية)":
+    st.header("👑 Tazkiyah-Based Leadership Model | نموذج القيادة المتزكية")
+    st.info("نمط قيادي يستند إلى النية الروحية، ويُفعّل قيم التزكية في اتخاذ القرار وإدارة الفرق.")
+
+    # عرض المعادلة الرمزية الفخمة
+    st.subheader("The Fundamental Symbolic Equation | المعادلة الرمزية الأساسية")
+    st.latex(r"E_r = \alpha + \beta_1 Z_r + \beta_2 M_r + \beta_3 I_r + \beta_4 C_r + \beta_5 V_r + \beta_6 R_r + \epsilon_r")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Sovereign Indicators | المؤشرات السيادية")
+        alpha_l = st.slider("α (Foundational Intention - النية التأسيسية)", 0.0, 1.0, 0.7, 0.1)
+        zr = st.slider("Zr (Leader's Tazkiyah - تزكية القائد)", 0, 100, 60)
+        mr_l = st.slider("Mr (Meaning & Belonging - المعنى والانتماء)", 0, 100, 50)
+        ir = st.slider("Ir (Symbolic Inspiration - الإلهام الرمزي)", 0, 100, 40)
+        cr_l = st.slider("Cr (Symbolic Communication - التواصل الرمزي)", 0, 100, 50)
+        vr = st.slider("Vr (Values Alignment - توافق القيم)", 0, 100, 70)
+        rr = st.slider("Rr (Embodying Mission - تجسيد الرسالة)", 0, 100, 60)
+        epsilon = st.number_input("εr (Invisible Impact/Barakah - الأثر غير المرئي)", 0.0, 10.0, 5.0)
+        
+        # أوزان الانحدار الافتراضية
+        weights = [0.25, 0.20, 0.15, 0.10, 0.15, 0.15]
+        
+    with col2:
+        st.subheader("Institutional Impact Analysis")
+        # حساب الأثر المؤسسي المتزكي
+        impact = alpha_l + (weights[0]*zr) + (weights[1]*mr_l) + (weights[2]*ir) + (weights[3]*cr_l) + (weights[4]*vr) + (weights[5]*rr) + epsilon
+        
+        st.metric("Tazkiyah Institutional Impact (Er)", f"{impact:.2f}")
+        
+        # رسم بياني راداري (Radar Chart) لإظهار "بصمة القائد المتزكي"
+        categories = ['Tazkiyah', 'Meaning', 'Inspiration', 'Communication', 'Alignment', 'Embodiment']
+        fig_radar = go.Figure()
+
+        fig_radar.add_trace(go.Scatterpolar(
+              r=[zr, mr_l, ir, cr_l, vr, rr],
+              theta=categories,
+              fill='toself',
+              name='Leader Profile',
+              line_color='gold'
+        ))
+
+        fig_radar.update_layout(
+          polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+          showlegend=False,
+          title="The Symbolic Footprint of the Leader"
+        )
+        st.plotly_chart(fig_radar)
+
+    st.success(f"النتيجة: هذا النمط القيادي يحقق توازناً بنسبة {impact/100:.1%} بين الماديات والمعنويات.")
