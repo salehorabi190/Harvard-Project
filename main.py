@@ -541,3 +541,7 @@ if domain == "Anti-Monopoly Engineering (منع الاحتكار)":
         fig_monop.add_trace(go.Scatter(x=x_comp, y=y_justice, name="Justice Curve", line=dict(color='green', width=3)))
         fig_monop.update_layout(title="Impact of Competition on Distributive Justice", xaxis_title="Number of Competitors")
         st.plotly_chart(fig_monop)
+domain = st.sidebar.selectbox("Choose Economic Domain:", [
+    ..., 
+    "Good Intention in Market (النية الصالحة في السوق)"
+])
