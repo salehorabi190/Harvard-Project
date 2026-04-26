@@ -159,3 +159,52 @@ if domain == "Tazkiyah-Based Leadership (القيادة المتزكية)":
         st.plotly_chart(fig_radar)
 
     st.success(f"النتيجة: هذا النمط القيادي يحقق توازناً بنسبة {impact/100:.1%} بين الماديات والمعنويات.")
+# --- إضافة القسم الجديد في القائمة الجانبية ---
+# domain = st.sidebar.selectbox("Choose Economic Domain:", [..., "Symbolic Governance (الحوكمة الرمزية)"])
+
+# --- 3. نموذج الحوكمة الرمزية ---
+if domain == "Symbolic Governance (الحوكمة الرمزية)":
+    st.header("⚖️ Symbolic Governance Model | نموذج الحوكمة الرمزية")
+    st.info("منظومة مؤسسية تُدار وفق نية روحية، تحول السلطة إلى وظيفة تزكوية والشفافية إلى تعبير عن التسامي.")
+
+    # عرض المعادلة الرمزية للحوكمة
+    st.subheader("The Spiritual-Symbolic Governance Model | المعادلة الرمزية للحوكمة")
+    st.latex(r"G_r = \alpha + \beta_1 N_r + \beta_2 T_r + \beta_3 M_r + \beta_4 A_r + \epsilon_r")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Governance Indicators | مؤشرات الحوكمة")
+        alpha_g = st.slider("α (Foundational Intention - النية التأسيسية)", 0.0, 1.0, 0.8, 0.1)
+        nr = st.slider("Nr (Symbolic Leadership Style - النمط القيادي الرمزي)", 0, 100, 60)
+        tr_g = st.slider("Tr (Governance Values - قيم الحوكمة التزكوية)", 0, 100, 70)
+        mr_g = st.slider("Mr (Institutional Meaning - المعنى المؤسسي)", 0, 100, 65)
+        ar = st.slider("Ar (Symbolic Alignment - الانسجام الرمزي)", 0, 100, 75)
+        epsilon_g = st.number_input("εr (Invisible Impact - الأثر غير المرئي/البركة)", 0.0, 20.0, 7.0)
+        
+        # أوزان الأثر لنموذج الحوكمة
+        w_g = [0.30, 0.25, 0.20, 0.25]
+        
+    with col2:
+        st.subheader("Governance Quality Assessment")
+        # حساب جودة الحوكمة الرمزية
+        g_score = alpha_g + (w_g[0]*nr) + (w_g[1]*tr_g) + (w_g[2]*mr_g) + (w_g[3]*ar) + epsilon_g
+        
+        st.metric("Symbolic Governance Quality (Gr)", f"{g_score:.2f}")
+        
+        # رسم بياني يوضح التوازن بين البناء التنظيمي والمعنى الروحي
+        labels_g = ['Leadership Style', 'Governance Values', 'Institutional Meaning', 'Symbolic Alignment']
+        values_g = [w_g[0]*nr, w_g[1]*tr_g, w_g[2]*mr_g, w_g[3]*ar]
+        
+        fig_gov = go.Figure(data=[
+            go.Bar(name='Governance Components', x=labels_g, y=values_g, marker_color='teal')
+        ])
+        fig_gov.update_layout(title_text="Analysis of Governance Symbolic Components")
+        st.plotly_chart(fig_gov)
+
+    st.markdown(f"""
+    > **الاستنتاج البرمجي:** جودة الحوكمة هنا لا تعتمد على كثرة القوانين، بل على **الانسجام الرمزي ($A_r$)** بين القيم المعلنة والممارسة الفعلية. 
+    > درجة التوفيق والبركة المرصودة في هذا النموذج هي: **{epsilon_g}**.
+    """)
