@@ -208,3 +208,56 @@ if domain == "Symbolic Governance (الحوكمة الرمزية)":
     > **الاستنتاج البرمجي:** جودة الحوكمة هنا لا تعتمد على كثرة القوانين، بل على **الانسجام الرمزي ($A_r$)** بين القيم المعلنة والممارسة الفعلية. 
     > درجة التوفيق والبركة المرصودة في هذا النموذج هي: **{epsilon_g}**.
     """)
+# --- إضافة القسم الجديد في القائمة الجانبية ---
+# domain = st.sidebar.selectbox("Choose Economic Domain:", [..., "Tazkiyah-Based Investment (الاستثمار التزكوي)"])
+
+# --- 4. نموذج الاستثمار التزكوي ---
+if domain == "Tazkiyah-Based Investment (الاستثمار التزكوي)":
+    st.header("💰 Tazkiyah-Based Investment Model | نموذج الاستثمار التزكوي")
+    st.info("إعادة تعريف الاستثمار كفعل يحمل نية وتزكية، حيث يكون الربح وسيلة لتحقيق أثر معنوي وروحي.")
+
+    # عرض المعادلة الرمزية للاستثمار
+    st.subheader("The Fundamental Symbolic Equation | المعادلة الرمزية للاستثمار")
+    st.latex(r"R_r = \alpha + \beta_1 N_r + \beta_2 Z_r + \beta_3 S_r + \beta_4 E_r + \epsilon_r")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Investment Parameters | مدخلات الاستثمار")
+        alpha_i = st.slider("α (Foundational Intention - النية التأسيسية)", 0.0, 1.0, 0.9, 0.1)
+        nr_i = st.slider("Nr (Investor's Intention - نية المستثمر)", 0, 100, 70)
+        zr_i = st.slider("Zr (Wealth Purification - تزكية المال)", 0, 100, 80)
+        sr_i = st.slider("Sr (Investment Mission - رسالة الاستثمار)", 0, 100, 60)
+        er_i = st.slider("Er (Symbolic Impact - الأثر الرمزي المشاهد)", 0, 100, 50)
+        epsilon_i = st.number_input("εr (Invisible Barakah - البركة والأثر غير المرئي)", 0.0, 50.0, 15.0)
+        
+        # أوزان العائد التزكوي
+        w_i = [0.25, 0.30, 0.20, 0.25]
+        
+    with col2:
+        st.subheader("Total Symbolic Return (Rr) Analysis")
+        # حساب العائد التزكوي الرمزي
+        total_return = alpha_i + (w_i[0]*nr_i) + (w_i[1]*zr_i) + (w_i[2]*sr_i) + (w_i[3]*er_i) + epsilon_i
+        
+        # مقارنة العائد التزكوي بالعائد المالي التقليدي الافتراضي
+        traditional_roi = er_i * 0.8  # افتراض أن العائد التقليدي جزء من الأثر المشاهد فقط
+        
+        st.metric("Total Symbolic Return (Rr)", f"{total_return:.2f}", delta=f"{total_return - traditional_roi:.2f} Alpha Gain")
+        
+        # رسم بياني لمقارنة العائد "المادي" مقابل "البركة والمعنى"
+        fig_inv = go.Figure()
+        fig_inv.add_trace(go.Bar(
+            x=['Traditional Return', 'Tazkiyah Surplus (Barakah)', 'Total Sovereign Return'],
+            y=[traditional_roi, (total_return - traditional_roi), total_return],
+            marker_color=['#ced4da', '#28a745', '#007bff']
+        ))
+        fig_inv.update_layout(title_text="Traditional vs. Stewardship Return Comparison")
+        st.plotly_chart(fig_inv)
+
+    st.markdown(f"""
+    ### Insight | رؤية استثمارية
+    في هذا النموذج، نثبت رياضياً أن **البركة ($\epsilon_r$)** وتزكية المال **($Z_r$)** ليست مجرد مفاهيم روحية، بل هي **Alpha Gain** حقيقي يرفع القيمة الكلية للاستثمار فوق مستوى العائد المادي البسيط. 
+    > **نسبة "فائض التزكية" في هذا المشروع:** {((total_return - traditional_roi) / total_return)*100:.1f}%
+    """)
