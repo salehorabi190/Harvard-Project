@@ -799,3 +799,72 @@ if domain == "Exchange Rate Engineering (هندسة سعر الصرف)":
     fig_ex = go.Figure(data=[go.Bar(x=labels, y=values, marker_color='darkblue')])
     fig_ex.update_layout(title="Stability Contribution per Sovereign Model")
     st.plotly_chart(fig_ex)
+# --- 18. هندسة البدائل النقدية (سعر الفائدة المقاصدي) ---
+if domain == "Maqasid Interest Alternatives (بدائل الفائدة)":
+    st.header("🎯 Maqasid Return Engineering | هندسة العائد المقاصدي")
+    st.info("بناء معدل عائد إسلامي بديل يراعي العدالة والتمكين والتزكية كبديل للفائدة الربوية.")
+
+    # اختيار نموذج التسعير
+    pricing_model = st.radio("Select Pricing Model:", [
+        "Islamic Maqasid Return (معدل العائد المقاصدي)",
+        "Financial Engineering (الهندسة المالية)",
+        "Banking Product Pricing (تسعير المنتجات)"
+    ])
+
+    st.markdown("---")
+
+    if pricing_model == "Islamic Maqasid Return (معدل العائد المقاصدي)":
+        st.subheader("📊 Model 1: The Maقasid Return Equation")
+        st.latex(r"R = \alpha_1 \pi + \alpha_2 T + \alpha_3 Z + \alpha_4 E + \epsilon")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            pi_profit = st.slider("π (Ethical Profitability - الربحية الأخلاقية)", 0, 100, 60)
+            t_empower = st.slider("T (Empowerment Index - مؤشر التمكين)", 0, 100, 80)
+        with col2:
+            z_zakat = st.slider("Z (Zakat Floor - حد الزكاة الأدنى)", 0, 10, 2)
+            e_infl = st.slider("E (Expected Inflation - التضخم المتوقع)", 0, 100, 15)
+        
+        # حساب العائد المقاصدي (R)
+        r_return = (0.4 * pi_profit) + (0.3 * t_empower) + (0.2 * z_zakat) + (0.1 * e_infl)
+        st.metric("Maqasid Return Rate (R)", f"{r_return:.2f}%")
+
+    elif pricing_model == "Financial Engineering (الهندسة المالية)":
+        st.subheader("🏗️ Model 2: Financial Engineering Score")
+        st.latex(r"P = \beta_1 R + \beta_2 T + \beta_3 S + \beta_4 \pi + \beta_5 Z + \epsilon")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            r_val = st.slider("R (Maqasid Return Rate)", 0, 100, 50)
+            s_sharia = st.slider("S (Sharia Compliance - الالتزام الشرعي)", 0, 100, 95)
+        with col2:
+            t_val = st.slider("T (Empowerment Effect)", 0, 100, 70)
+            pi_val = st.slider("π (Project Profitability)", 0, 100, 40)
+            
+        p_price = (0.25 * r_val) + (0.2 * t_val) + (0.3 * s_sharia) + (0.15 * pi_val) + 5.0
+        st.metric("Financial Instrument Price (P)", f"{p_price:.2f}")
+
+    elif pricing_model == "Banking Product Pricing (تسعير المنتجات)":
+        st.subheader("🏦 Model 3: Product Pricing Strategy")
+        st.latex(r"P_{bank} = \beta_1 R + \beta_2 T + \beta_3 S + \beta_4 \pi + \beta_5 Z + \epsilon")
+        
+        st.write("هذا النموذج يسعر المنتجات (ودائع، صكوك) بناءً على أثرها التمكيني.")
+        t_impact = st.select_slider("Select Product Impact Type:", options=["Low Impact", "Moderate", "High Empowerment"])
+        
+        impact_boost = 0
+        if t_impact == "High Empowerment": impact_boost = 15
+        elif t_impact == "Moderate": impact_boost = 7
+        
+        final_price = 10 + impact_boost + (0.2 * 60) # مثال مبسط
+        st.metric("Product Fair Price", f"{final_price:.2f}")
+
+    # رسم بياني للمقارنة بين العائد المادي والعائد المقاصدي
+    st.markdown("---")
+    fig_r = go.Figure()
+    fig_r.add_trace(go.Bar(
+        x=['Standard Interest (Libor)', 'Maqasid Return (R)'],
+        y=[15, r_return if 'r_return' in locals() else 25],
+        marker_color=['#ef4444', '#10b981']
+    ))
+    fig_r.update_layout(title="Traditional Interest vs. Sovereign Maqasid Return")
+    st.plotly_chart(fig_r)
