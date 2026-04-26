@@ -660,3 +660,63 @@ domain = st.sidebar.selectbox("Choose Economic Domain:", [
     ..., 
     "Sovereign Monetary Policy (السياسة النقدية السيادية)"
 ])
+# --- 16. هندسة السياسات النقدية السيادية ---
+if domain == "Sovereign Monetary Policy (السياسة النقدية السيادية)":
+    st.header("🪙 Sovereign Monetary Architecture | هندسة السياسات النقدية")
+    st.info("بناء نظام نقدي سيادي يربط قوة العملة بالقيم الإنتاجية والشرعية (الزكاة، الوقف، الذهب، السلع) بدلاً من الفائدة.")
+
+    # عرض المعادلة المركبة الكبرى
+    st.subheader("The Composite Monetary Equation | المعادلة النقدية المركبة")
+    st.latex(r"Y = \beta_0 + \beta_1 Z + \beta_2 W + \beta_3 S + \beta_4 G + \beta_5 F - \beta_6 C - \beta_7 V + \epsilon")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Monetary Anchors | المرتكزات النقدية")
+        z_rate = st.slider("Z (Zakat Collection Rate - معدل الزكاة)", 0, 100, 40)
+        w_vol = st.slider("W (Waqf Production - حجم الوقف الإنتاجي)", 0, 100, 35)
+        s_idx = st.slider("S (Commodity Index - مؤشر السلع الأساسية)", 0, 100, 60)
+        g_cover = st.slider("G/F (Gold & Silver Cover - تغطية الذهب والفضة)", 0, 100, 50)
+        
+        st.divider()
+        st.subheader("Negative Pressures | الضغوط السلبية")
+        c_infl = st.slider("C (Inflation - التضخم الحالي)", 0, 100, 20)
+        v_volat = st.slider("V (Exchange Volatility - تقلبات الصرف)", 0, 100, 15)
+        
+    with col2:
+        st.subheader("Monetary Stability Index (Y)")
+        # حساب استقرار العملة بناءً على المعادلة المركبة
+        # العوامل الإيجابية ترفع الاستقرار، والسلبية تخفضه
+        y_stability = 20 + (0.25*z_rate + 0.20*w_vol + 0.15*s_idx + 0.30*g_cover) - (0.4*c_infl + 0.3*v_volat)
+        
+        st.metric("Sovereign Currency Stability (Y)", f"{y_stability:.2f}", 
+                  delta="Sovereign" if y_stability > 50 else "Dependent", delta_color="normal")
+        
+        # رسم بياني راداري يوضح "مربع السيادة النقدية"
+        fig_monetary = go.Figure()
+        fig_monetary.add_trace(go.Scatterpolar(
+            r=[z_rate, w_vol, s_idx, g_cover, 100-c_infl],
+            theta=['Zakat', 'Waqf', 'Commodities', 'Gold Cover', 'Price Stability'],
+            fill='toself',
+            name='Monetary Profile',
+            line_color='darkgoldenrod'
+        ))
+        
+        fig_monetary.update_layout(
+            polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+            showlegend=False,
+            title="Sovereign Monetary Strength Profile"
+        )
+        st.plotly_chart(fig_monetary)
+
+    st.success(f"التحليل السيادي: النظام النقدي الحالي يحقق درجة استقرار {y_stability:.2f}. ربط العملة بالذهب والزكاة يقلل أثر المضاربات بنسبة {g_cover*0.8:.1f}%.")
+    
+    st.markdown("""
+    ### 🌍 Global Benchmarks | تجارب عالمية ومقارنات
+    - **السودان:** تجربة استخدام الزكاة لضبط السيولة.
+    - **ماليزيا:** سلة السلع الأساسية لتقييم القوة الشرائية.
+    - **المغرب:** الصكوك الوقفية كبديل للاقتراض الربوي.
+    - **الإمارات:** الذهب كمرجعية رمزية لضمان الاستقرار.
+    """)
