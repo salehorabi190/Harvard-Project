@@ -1270,3 +1270,81 @@ if domain == "Endowment Leasing (الإجارة الوقفية)":
     - **الاستدامة الوقفية:** الأصل يبقى ملكاً للوقف، مما يعني أن المنفعة ستستمر لأجيال قادمة دون أن تُستهلك الأصول.
     - **وصف الذمة:** يضمن الجودة العالية؛ فالمواصفات محددة مسبقاً (Quality Control) ولا تخضع للمزاجية.
     """)
+# --- 27. خوارزمية التقييم الشرعي التنبؤي (المدينة المقاصدية) ---
+if domain == "Predictive Sharia Algorithm (الخوارزمية التنبؤية)":
+    st.header("🏙️ Predictive Sharia Algorithm | خوارزمية التقييم التنبؤي")
+    st.info("محاكاة رقمية تتوقع أثر السياسات الحضرية والاقتصادية على المقاصد الشرعية الخمسة داخل المدينة الذكية.")
+
+    # دالة التقييم الشرعي التنبؤية
+    st.subheader("The Predictive Sharia Function | دالة التقييم")
+    st.latex(r"M_{score} = \sum_{i=1}^{5} (W_i \times P_i) + \epsilon")
+    st.write("حيث $W_i$ هو وزن المقصد، و$P_i$ هو معامل التأثير التنبؤي للسياسة المقترحة.")
+
+    st.markdown("---")
+
+    # مدخلات المحاكاة
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Simulation Inputs | مدخلات المحاكاة")
+        policy_name = st.selectbox("Select Urban Policy (اختر السياسة):", 
+                                   ["Expansion of Waqf Housing (توسعة الإسكان الوقفي)", 
+                                    "Zakat-Funded Tech Incubators (حاضنات تقنية زكوية)",
+                                    "Interest-Free Micro-Transport (نقل ذكي غير ربوي)"])
+        
+        # معاملات التأثير التنبؤية (Pi)
+        st.write("**Impact Estimation (Pi) | تقدير التأثير**")
+        h_religion = st.slider("Religion (حفظ الدين/القيم)", 0.0, 1.0, 0.8)
+        h_life = st.slider("Life (حفظ النفس/الصحة)", 0.0, 1.0, 0.9)
+        h_mind = st.slider("Mind (حفظ العقل/التعليم)", 0.0, 1.0, 0.7)
+        h_progeny = st.slider("Progeny (حفظ النسل/الأسرة)", 0.0, 1.0, 0.85)
+        h_wealth = st.slider("Wealth (حفظ المال/الاقتصاد)", 0.0, 1.0, 0.75)
+        
+    with col2:
+        st.subheader("Maqasid Prediction Results | نتائج التنبؤ")
+        
+        # الأوزان المقاصدية (Wi) - يمكن جعلها متغيرة
+        weights = [0.2, 0.2, 0.2, 0.2, 0.2]
+        scores = [h_religion, h_life, h_mind, h_progeny, h_wealth]
+        
+        m_score = sum(w * s for w, s in zip(weights, scores)) * 100
+        
+        st.metric(f"Policy Safety Score: {policy_name}", f"{m_score:.2f}%", 
+                  delta="Optimized" if m_score > 75 else "Needs Revision")
+
+        # رسم بياني راداري للمقاصد الخمسة
+        categories = ['Religion (دين)', 'Life (نفس)', 'Mind (عقل)', 'Progeny (نسل)', 'Wealth (مال)']
+        
+        fig_maqasid = go.Figure()
+        fig_maqasid.add_trace(go.Scatterpolar(
+            r=scores,
+            theta=categories,
+            fill='toself',
+            name='Impact Profile',
+            line_color='indigo'
+        ))
+        
+        fig_maqasid.update_layout(
+            polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
+            showlegend=False,
+            title="Predictive Impact on Sharia Maqasid"
+        )
+        st.plotly_chart(fig_maqasid)
+
+    # تنفيذ الخوارزمية داخل المحاكاة
+    st.markdown("---")
+    st.subheader("Execution Logic | منطق التنفيذ داخل المحاكاة")
+    if m_score >= 80:
+        st.success("✅ **Recommendation:** Proceed with immediate implementation. High Maqasid alignment.")
+    elif m_score >= 60:
+        st.warning("⚠️ **Recommendation:** Implement with caution and additional Waqf safety nets.")
+    else:
+        st.error("🚫 **Recommendation:** Policy Rejection. High risk of disrupting Maqasid equilibrium.")
+
+    st.markdown("""
+    ### 🧬 The Core Logic | الجوهر البرمجي
+    هذه الخوارزمية تعمل كـ **Sharia Digital Twin** (التوأم الرقمي الشرعي):
+    1. **المدخلات:** سياسة حضرية (مثل بناء حي جديد).
+    2. **المعالجة:** تقدير أثر الحي على المقاصد (هل فيه مساجد؟ هل فيه أمان؟ هل يدعم الأسر؟).
+    3. **المخرج:** مؤشر رقمي يحدد شرعية وجدوى القرار قبل صرف درهم واحد من أموال الوقف.
+    """)
