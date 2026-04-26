@@ -261,3 +261,65 @@ if domain == "Tazkiyah-Based Investment (الاستثمار التزكوي)":
     في هذا النموذج، نثبت رياضياً أن **البركة ($\epsilon_r$)** وتزكية المال **($Z_r$)** ليست مجرد مفاهيم روحية، بل هي **Alpha Gain** حقيقي يرفع القيمة الكلية للاستثمار فوق مستوى العائد المادي البسيط. 
     > **نسبة "فائض التزكية" في هذا المشروع:** {((total_return - traditional_roi) / total_return)*100:.1f}%
     """)
+# --- 5. نموذج التقييم التزكوي للمؤسسات ---
+if domain == "Institutional Evaluation (التقييم التزكوي)":
+    st.header("📋 Institutional Tazkiyah-Based Evaluation | نموذج التقييم التزكوي")
+    st.info("عملية تحليلية لقياس جودة المؤسسة عبر دمج الغايات الرمزية مع مؤشرات الأداء الوظيفي التقليدي.")
+
+    # عرض المعادلة الرمزية الأساسية
+    st.subheader("The Institutional Evaluation Equation | معادلة التقييم المؤسسي")
+    st.latex(r"Q_r = \alpha + \beta_1 N_r + \beta_2 Z_r + \beta_3 M_r + \beta_4 C_r + \beta_5 F_r + \epsilon_r")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Variable Indicators | المؤشرات المتغيرة")
+        alpha_q = st.slider("α (Foundational Intention - النية التأسيسية)", 0.0, 1.0, 0.9, 0.1)
+        nr_q = st.slider("Nr (Leadership Intention - نية القيادة)", 0, 10, 7)
+        mr_q = st.slider("Mr (Institutional Meaning - المعنى المؤسسي)", 0, 10, 8)
+        
+        st.divider()
+        st.subheader("Fixed Parameters (Core) | العوامل الثابتة")
+        # القيم التي حددتها يا دكتور لتثبيت النموذج
+        zr_fixed = 5  # تزكية الهيكل
+        cr_fixed = 5  # التواصل الرمزي
+        fr_fixed = 5  # فاعلية الروح الجماعية
+        st.disabled_slider = st.slider("Zr, Cr, Fr (Fixed Level)", 5, 5, 5)
+        
+        epsilon_q = st.number_input("εr (Invisible Barakah - الأثر غير المرئي)", 0.0, 30.0, 10.0)
+        
+        # أوزان افتراضية للتقييم
+        betas = [1.2, 1.0, 0.8, 0.8, 0.7] # أوزان للنية، المعنى، التزكية، التواصل، الفاعلية
+        
+    with col2:
+        st.subheader("Total Quality Score (Qr)")
+        # حساب جودة المؤسسة الكلية
+        q_score = (alpha_q * 10) + (betas[0] * nr_q) + (betas[1] * zr_fixed) + (betas[2] * mr_q) + (betas[3] * cr_fixed) + (betas[4] * fr_fixed) + epsilon_q
+        
+        # عرض النتيجة بأسلوب الـ Gauge Chart (عداد الجودة)
+        fig_q = go.Figure(go.Indicator(
+            mode = "gauge+number",
+            value = q_score,
+            title = {'text': "Institutional Quality Index (Qr)"},
+            gauge = {
+                'axis': {'range': [None, 100]},
+                'bar': {'color': "darkblue"},
+                'steps': [
+                    {'range': [0, 50], 'color': "lightgray"},
+                    {'range': [50, 80], 'color': "skyblue"},
+                    {'range': [80, 100], 'color': "royalblue"}],
+                'threshold': {
+                    'line': {'color': "red", 'width': 4},
+                    'thickness': 0.75,
+                    'value': 90}}))
+        
+        st.plotly_chart(fig_q)
+
+    st.success(f"النتيجة: تم تقييم جودة المؤسسة بنسبة {q_score:.2f} نقطة على مقياس التزكية السيادي.")
+    
+    st.markdown("""
+    ### 🔬 Methodology Note | ملاحظة منهجية
+    تم تثبيت مؤشرات **تزكية الهيكل ($Z_r$)**، **التواصل ($C_r$)**، و**الفاعلية الجماعية ($F_r$)** عند الدرجة 5 لتحييد أثرها ومراقبة حساسية الجودة تجاه **النية القيادية** و**المعنى المؤسسي**.
+    """)
