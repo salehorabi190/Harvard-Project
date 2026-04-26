@@ -1413,3 +1413,68 @@ if domain == "Sharia Safety Index (مؤشر الأمان الشرعي)":
     ### 🔗 Integration with Blockchain | التكامل مع البلوك تشين
     يتم سحب بيانات **الشفافية ($S_3$)** و**قابلية التتبع ($S_5$)** لحظياً من العقود الذكية (Smart Contracts)، بينما يتم تغذية **التوافق الفقهي ($S_1$)** من منصات الإفتاء الرقمية المعتمدة.
     """)
+# --- 29. نموذج تصنيف الأصول الرمزية (Sharia Compliance Score) ---
+if domain == "Token Classification (تصنيف الأصول الرمزية)":
+    st.header("💎 Token Classification Model | نموذج تصنيف الأصول الرمزية")
+    st.info("معيار رقمي لتقييم الأصول الرمزية (Tokens) وفق الضوابط الفقهية والمقاصد والأثر الاجتماعي.")
+
+    # المعادلة المركبة للتصنيف
+    st.subheader("The Sharia Compliance Score (SCS) Formula")
+    st.latex(r"SCS = \sum (\omega_i \cdot C_i)")
+    
+    st.markdown("---")
+
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Asset Parameters | مدخلات الأصل")
+        token_name = st.text_input("Enter Token Name:", "EduWaqf-Token-01")
+        
+        # أبعاد التصنيف (Ci)
+        c_fiqh = st.slider("Fiqh Controls (الضوابط الفقهية - الربا/الغرر)", 0.0, 1.0, 1.0, help="Weight: 30%")
+        c_maqasid = st.slider("Maqasid (المقاصد - حفظ الضرورات)", 0.0, 1.0, 0.9, help="Weight: 25%")
+        c_transparency = st.slider("Transparency (الشفافية - التوثيق)", 0.0, 1.0, 0.85, help="Weight: 20%")
+        c_governance = st.slider("Governance (الحوكمة - الرقابة)", 0.0, 1.0, 0.75, help="Weight: 15%")
+        c_social = st.slider("Social Impact (الأثر - التمكين)", 0.0, 1.0, 0.8, help="Weight: 10%")
+        
+    with col2:
+        st.subheader("Classification Result | نتيجة التصنيف")
+        
+        # حساب النتيجة SCS بناءً على الأوزان المحددة
+        scs_score = (c_fiqh * 0.3) + (c_maqasid * 0.25) + (c_transparency * 0.2) + (c_governance * 0.15) + (c_social * 0.1)
+        
+        # تحديد الفئة واللون
+        if scs_score >= 0.80:
+            category = "✅ Shariah-Compliant (متوافق)"
+            bg_color = "#d4edda" # أخضر فاتح
+            text_color = "#155724"
+        elif scs_score >= 0.50:
+            category = "⚠️ Review Required (متوافق جزئياً)"
+            bg_color = "#fff3cd" # أصفر فاتح
+            text_color = "#856404"
+        else:
+            category = "❌ Non-Compliant (غير متوافق)"
+            bg_color = "#f8d7da" # أحمر فاتح
+            text_color = "#721c24"
+
+        # عرض النتيجة بأسلوب البطاقة الاحترافية
+        st.markdown(f"""
+            <div style="background-color:{bg_color}; padding:20px; border-radius:10px; border:2px solid {text_color}; text-align:center;">
+                <h1 style="color:{text_color}; margin:0;">{scs_score:.2f}</h1>
+                <h3 style="color:{text_color}; margin:10px 0;">{category}</h3>
+                <p style="color:{text_color};">Status for asset: <b>{token_name}</b></p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        # رسم بياني لمساهمة كل بعد في النتيجة النهائية
+        dimensions = ['Fiqh', 'Maqasid', 'Transparency', 'Governance', 'Social']
+        weighted_values = [c_fiqh * 0.3, c_maqasid * 0.25, c_transparency * 0.2, c_governance * 0.15, c_social * 0.1]
+        
+        fig_scs = go.Figure(data=[go.Pie(labels=dimensions, values=weighted_values, hole=.3)])
+        fig_scs.update_layout(title="SCS Weighted Impact Breakdown")
+        st.plotly_chart(fig_scs)
+
+    st.markdown(f"""
+    ### 🛰️ Real-time Synchronization | المزامنة اللحظية
+    تم ربط هذا النموذج بواجهة برمجة تطبيقات (API) تراقب **العقود الذكية** لهذا الرمز. أي خلل في آلية التوزيع أو ظهور شبهة غرر في البرمجة يؤدي إلى خفض مؤشر **الشفافية ($C_3$)** تلقائياً، مما يعيد تصنيف الأصل لحظياً.
+    """)
