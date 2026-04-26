@@ -638,3 +638,21 @@ if domain == "Fair Demand (الطلب العادل)":
         qd_demand = (0.05 * y_income) + (0.5 * n_actual_need) - (0.3 * a_awareness)
         st.metric("Fair Demand Quantity (Qd)", f"{max(0, qd_demand):.2f}")
         st.success("النتيجة: زيادة الوعي تمنع الإسراف وتخفض التضخم.")
+if domain == "Maqasid Intervention (التدخل المقاصدي)":
+    st.header("🏛 Maqasid Intervention Model | التدخل المقاصدي")
+    st.latex(r"I_s = \beta_0 + \beta_1 M + \beta_2 D + \beta_3 R + \epsilon")
+    
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        m_imbalance = st.slider("M (Market Imbalance - اختلال السوق)", 0, 100, 60)
+        d_tools = st.slider("D (Intervention Tools - أدوات الدولة)", 0, 100, 50)
+        r_maqasid = st.slider("R (Maqasid Achievement - تحقق المقاصد)", 0, 100, 80)
+    with col2:
+        is_score = 5 + (0.4 * m_imbalance) + (0.3 * d_tools) + (0.3 * r_maqasid)
+        st.metric("State Intervention Degree (Is)", f"{is_score:.2f}")
+        
+        # رسم بياني للعلاقة بين الاختلال والتدخل
+        fig_is = go.Figure()
+        fig_is.add_trace(go.Scatter(x=[0, 100], y=[0, 100], name="Traditional Intervention", line=dict(dash='dash')))
+        fig_is.add_trace(go.Scatter(x=[0, m_imbalance], y=[0, is_score], name="Maqasid Intervention", line=dict(color='purple', width=4)))
+        st.plotly_chart(fig_is)
