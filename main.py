@@ -10,16 +10,48 @@ st.markdown("---")
 
 # --- قائمة الأقسام الرئيسية ---
 # هنا سنضيف الأقسام التي تملك فيها معادلات
-domain = st.sidebar.selectbox("Choose Economic Domain:", [
-    "Sunnan Calculations",
-    "Monetary Architecture",
-    "Market Justice & Pricing",
-    "Product Engineering",
-    "Poverty & Empowerment"
+st.sidebar.title("🏛️ Stewardship Lab Index")
+domain = st.sidebar.selectbox("Choose Economic Domain | اختر مجال الدراسة:", [
+    "الرئيسية (Overview)",
+    "Mission-Driven Function (الوظيفة الرسالية)",
+    "Tazkiyah-Based Leadership (القيادة المتزكية)",
+    "Symbolic Governance (الحوكمة الرمزية)",
+    "Tazkiyah-Based Investment (الاستثمار التزكوي)",
+    "Institutional Evaluation (التقييم التزكوي)",
+    "Existential Realization (التحقق الوجودي)",
+    "Tazkiyah Value Added (ZVA)",
+    "Market Engineering (هندسة السوق)",
+    "Market Transparency (الشفافية)",
+    "Anti-Monopoly (منع الاحتكار)",
+    "Good Intention (النية الصالحة)",
+    "Adequacy Pricing (سعر الكفاية)",
+    "Merciful Supply (العرض الرحيم)",
+    "Fair Demand (الطلب العادل)",
+    "Maqasid Intervention (التدخل المقاصدي)",
+    "Sovereign Monetary Policy (السياسة النقدية)",
+    "Exchange Rate Engineering (سعر الصرف)",
+    "Maqasid Interest Alternatives (بدائل الفائدة)",
+    "Financial Engineering (الهندسة المالية)",
+    "Banking Product Pricing (تسعير المنتجات)",
+    "Graduated Empowerment (المشاركة المتدرجة)",
+    "Smart Waqf Savings (الادخار الوقفي)",
+    "Smart Waqf Sukuk (الصكوك الوقفية)",
+    "Social Mudaraba (المضاربة الاجتماعية)",
+    "Joint Waqf Fund (الصندوق الوقفي)",
+    "Endowment Leasing (الإجارة الوقفية)",
+    "Predictive Sharia AI (الخوارزمية التنبؤية)",
+    "Sharia Safety Index (مؤشر الأمان)",
+    "Token Classification (تصنيف الأصول)",
+    "Digital Oversight (الرقابة الرقمية)",
+    "Amanah Protocol (بروتوكول أمانة)",
+    "Amanah Simulation (المحاكاة الرقمية)",
+    "Living Economy (الاقتصاد الحي)",
+    "Amanah Infrastructure (بنية البروتوكول)",
+    "Sovereign Dashboard (لوحة السيادة)",
+    "Sovereign Fortification (التحصين السيادي)"
 ])
 
 # --- محرك المعادلات الذكي ---
-# يا دكتور، سأعلمك هنا كيف سنضيف المعادلات
 if domain == "Sunnan Calculations":
     st.header("🧮 Islamic Economic Sunan Models")
     
