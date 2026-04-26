@@ -323,3 +323,56 @@ if domain == "Institutional Evaluation (التقييم التزكوي)":
     ### 🔬 Methodology Note | ملاحظة منهجية
     تم تثبيت مؤشرات **تزكية الهيكل ($Z_r$)**، **التواصل ($C_r$)**، و**الفاعلية الجماعية ($F_r$)** عند الدرجة 5 لتحييد أثرها ومراقبة حساسية الجودة تجاه **النية القيادية** و**المعنى المؤسسي**.
     """)
+# --- 6. نموذج التحقق الوجودي في بيئة العمل ---
+if domain == "Existential Realization (التحقق الوجودي)":
+    st.header("🌱 Existential Realization Model | نموذج التحقق الوجودي")
+    st.info("إدراك الفرد لمعنى وجوده داخل المؤسسة وشعوره بأن عمله يحقق غاية رمزية تتجاوز المنفعة المادية.")
+
+    # عرض المعادلة الرمزية للتحقق الوجودي
+    st.subheader("The Fundamental Symbolic Equation | المعادلة الرمزية للتحقق الوجودي")
+    st.latex(r"V_r = \alpha + \beta_1 M_r + \beta_2 P_r + \beta_3 N_r + \beta_4 Z_r + \epsilon_r")
+    
+    st.markdown("---")
+    
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        st.subheader("Existential Dimensions | الأبعاد الوجودية")
+        alpha_v = st.slider("α (Foundational Intention - نية المؤسسة تجاه الفرد)", 0.0, 1.0, 0.8, 0.1)
+        mr_v = st.slider("Mr (Personal Meaning - المعنى الشخصي)", 0, 100, 75)
+        pr_v = st.slider("Pr (Symbolic Participation - المشاركة الرمزية)", 0, 100, 60)
+        nr_v = st.slider("Nr (Individual Intention - نية الموظف الذاتية)", 0, 100, 85)
+        zr_v = st.slider("Zr (Self-Tazkiyah - التزكية والنمو الذاتي)", 0, 100, 70)
+        epsilon_v = st.number_input("εr (Invisible Barakah - الأثر الروحي والانسجام)", 0.0, 15.0, 8.0)
+        
+        # أوزان الأثر الوجودي
+        w_v = [0.30, 0.20, 0.25, 0.25] # المعنى، المشاركة، النية، التزكية
+        
+    with col2:
+        st.subheader("Existential Validation Score (Vr)")
+        # حساب درجة التحقق الوجودي
+        v_score = alpha_v + (w_v[0]*mr_v) + (w_v[1]*pr_v) + (w_v[2]*nr_v) + (w_v[3]*zr_v) + epsilon_v
+        
+        st.metric("Existential Realization Index (Vr)", f"{v_score:.2f}")
+        
+        # رسم بياني مساحي (Area Chart) يوضح تدفق المعنى والنية إلى التحقق الوجودي
+        realization_data = pd.DataFrame({
+            'Dimension': ['Meaning', 'Participation', 'Intention', 'Tazkiyah'],
+            'Impact Value': [w_v[0]*mr_v, w_v[1]*pr_v, w_v[2]*nr_v, w_v[3]*zr_v]
+        })
+        
+        fig_v = go.Figure()
+        fig_v.add_trace(go.Scatter(
+            x=realization_data['Dimension'], 
+            y=realization_data['Impact Value'],
+            fill='tozeroy',
+            line_color='indigo',
+            name='Existential Flow'
+        ))
+        fig_v.update_layout(title_text="Existential Realization Flow Analysis")
+        st.plotly_chart(fig_v)
+
+    st.markdown(f"""
+    ### 📝 Research Insight | رؤية بحثية
+    في هذا النموذج، نجد أن **نية الفرد ($N_r$)** هي المحرك الأكبر للتحقق الوجودي. عندما تتلاقى نية الموظف مع نية المؤسسة ($\alpha$)، يحدث ما نسميه **"الانسجام الوجودي"**، وهو ما يفسر النتائج غير التقليدية (البركة $\epsilon_r$) التي تعجز النظريات المادية عن تفسيرها.
+    """)
