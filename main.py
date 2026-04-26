@@ -1675,3 +1675,83 @@ if domain == "Amanah Digital Simulation (المحاكاة الرقمية)":
     - **عدالة توزيعية:** منع تركز المال بنسبة 40%.
     - **كفاءة رقابية:** الحسبة الرقمية تكتشف الاحتكار في أقل من **0.5 ثانية**.
     """)
+# --- 33. هندسة الاقتصاد الحي (إنسان، تراب، وقت) ---
+if domain == "Living Economy (الاقتصاد الحي)":
+    st.header("🌱 Living Economy Architecture | هندسة الاقتصاد الحي")
+    st.info("تحويل ثلاثية (إنسان، تراب، وقت) إلى بروتوكول أمانة: من الفلسفة الحضارية إلى منطق الخوارزميات.")
+
+    # 1. بوابة الائتمان الثلاثية (Triple-Gate Validation)
+    st.subheader("🛡️ Triple-Gate Validation | بوابة الائتمان الثلاثية")
+    col_g1, col_g2, col_g3 = st.columns(3)
+    
+    with col_g1:
+        st.markdown("**1. بوابة القصد**")
+        st.caption("Purpose-Driven Gate")
+        st.write("تمنع المضاربة والربا آلياً وتوجه الائتمان للعمارة.")
+        st.button("Validate Purpose", key="gate1")
+        
+    with col_g2:
+        st.markdown("**2. برهان الجدارة**")
+        st.caption("Merit Engine")
+        st.write("تحويل (الأمانة) إلى ملاءة رقمية وصك جدارة.")
+        st.button("Check Merit", key="gate2")
+        
+    with col_g3:
+        st.markdown("**3. صمام التوازن**")
+        st.caption("Stability Valve")
+        st.write("ضبط التوازن بين الائتمان والناتج الفعلي.")
+        st.button("Balance Supply", key="gate3")
+
+    st.markdown("---")
+
+    # 2. محاكاة عناصر الإنتاج الثلاثة
+    st.subheader("⚙️ Operational Logic | المنطق البرمجي للعناصر")
+    
+    tab_human, tab_soil, tab_time = st.tabs(["👤 Human (الإنسان)", "🌍 Soil (التراب)", "⏳ Time (الوقت)"])
+    
+    with tab_human:
+        st.write("### إنسان الشهود الرقمي")
+        st.latex(r"Reputation_{Score} = \sum (Productive \ Impact) + Stewardship \ Trace")
+        st.info("بصمة الائتمان الحيوية: تصنيفك الائتماني هو حجم أثرك في عمارة الأرض.")
+        h_impact = st.slider("Productive Impact (الأثر الإنتاجي الموثق)", 0, 100, 75)
+        st.metric("Sovereign Credit Merit", f"{h_impact * 1.5:.1f} Points")
+
+    with tab_soil:
+        st.write("### التراب كأصول مشفرة (RWA)")
+        st.write("- **التوأمة الرقمية:** ربط الأصل الفيزيائي بهوية رقمية سيادية.")
+        st.write("- **تشفير الحدود:** منع انتقال الملكية إلا بقيمة مضافة حقيقية.")
+        st.image("https://img.icons8.com/fluency/96/blockchain.png", width=50)
+        st.warning("Status: Resource Protected by Programmatic Constraint (PC)")
+
+    with tab_time:
+        st.write("### الوقت كـ 'محرك إنبات'")
+        st.write("خوارزمية مكافحة الركود: المال يفقد قيمته بالاكتناز ويزداد بالتداول.")
+        
+        # محاكاة عداد الركود (Stagnation Meter)
+        st.subheader("🕒 Stagnation Meter | عداد الركود")
+        stagnation_days = st.number_input("Days of Inactivity (أيام الركود)", 0, 365, 300)
+        
+        if stagnation_days > 354: # حول كامل
+            st.error("Automated Zakat Trigger Activated! 2.5% Redeployed to Production.")
+            st.latex(r"Value_{Loss} = \int_{Houl}^{T} (Stagnation \ Rate) dt")
+        else:
+            st.success(f"Remaining days to Zakat Trigger: {354 - stagnation_days}")
+
+    st.markdown("---")
+
+    # 3. محفظة الأمانة الذكية (The Smart Wallet)
+    st.subheader("💳 Impact Dashboard | محفظة الأمانة الذكية")
+    col_w1, col_w2 = st.columns(2)
+    
+    with col_w1:
+        st.write("**Asset Categorization:**")
+        st.progress(80, text="Agricultural Credit (80%)")
+        st.progress(20, text="General Credit (20%)")
+    
+    with col_w2:
+        st.write("**Stewardship Proofs:**")
+        st.write("🌳 500 Trees Planted")
+        st.write("🏭 1 Manufacturing Line Optimized")
+        st.write("🎓 120 Edu-Hours Verified")
+
+    st.success("الخلاصة: بروتوكول 'أمانة' يحول الاقتصاد من 'سجن للديون' إلى 'دافع للحركة' عبر حماية الكود للمورد.")
