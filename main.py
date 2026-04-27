@@ -40,7 +40,7 @@ st.markdown(f"""
 menu = {
     "P1. الإدخار الوقفي الذكي": "p1", "P2. المشاركة التمكينية المتدرجة": "p2", "P3. الصكوك الوقفية التنموية": "p3",
     "P4. المضاربة الاجتماعية التمكينية": "p4", "P5. صندوق الوقف التمكيني المشترك": "p5", "P6. الإجارة الوقفية الموصوفة": "p6",
-    "1. نموذج الوظيفة الرسالية (Pr)": "m1", "2. نموذج القيادة المتزكية (Er)": "m2", "3. نموذج الحوكمة الرمزية (Gr)": "m3",
+    "1. نموذج الأثر الرمزي في الأداء الوظيفي (Pr)": "m1", "2. نموذج القيادة المتزكية (Er)": "m2", "3. نموذج الحوكمة الرمزية (Gr)": "m3",
     "4. نموذج الاستثمار التزكوي (Rr)": "m4", "5. نموذج التقييم التزكوي (Qr)": "m5", "6. نموذج التحقق الوجودي (Vr)": "m6",
     "7. القيمة التزكوية المضافة (ZVA)": "m7", "8. سنة الشكر (Y)": "m8", "9. سنة الظلم (R)": "m9",
     "10. سنة التداول (GINI)": "m10", "11. سنة التمكين (R_e)": "m11", "12. سياسة مكافحة الفقر (ΔY)": "m12",
@@ -109,12 +109,62 @@ elif mid == "p6":
     st.metric(m_res, f"{(0.4*v1 + 0.6*v2):.2f}")
 
 elif mid == "m1":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"P_r = \alpha + \beta_1 R_r + \beta_2 M_r + \beta_3 T_r + \beta_4 C_r")
-    desc = "تحويل الوظيفة من كدح مادي إلى رسالة وجودية تربط الرسالة بالمعنى." if lang == "العربية" else "Transforming a job into an existential mission."
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)   
+    # 1. المعادلة الرمزية الأساسية
+    st.latex(r"P_r = \alpha + \beta_1 R_r + \beta_2 M_r + \beta_3 T_r + \beta_4 C_r + \epsilon_r")    
+    desc = "نموذج الأثر الرمزي: يربط بين الرسالة الرمزية والأداء الوظيفي، محولاً الوظيفة من كدح مادي إلى رسالة وجودية." if lang == "العربية" else "Symbolic Impact Model: Linking symbolic mission to performance, transforming a job into an existential message."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Rr", value=85.0); v2 = st.number_input("Mr", value=80.0)
-    st.metric(m_res, f"{(0.5*v1 + 0.5*v2 + 10):.2f}")
+    # 2. الاستبانة الرمزية المبتكرة (محاور القياس)
+    st.markdown("### 📋 استبانة الأثر الرمزي في الأداء الوظيفي")
+    st.info("قم بتقييم البنود التالية من (1 إلى 5) بناءً على درجة التجسيد الرمزي في عملك")
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "1. الرسالة (Rr)", 
+        "2. المعنى (Mr)", 
+        "3. التزكية (Tr)", 
+        "4. التواصل (Cr)",
+        "5. النية والأثر (α & ε)"
+    ])
+    with tab1:
+        st.subheader("وضوح الرسالة الرمزية (Rr)")
+        r1 = st.number_input("لدي رسالة شخصية واضحة أستحضرها يومياً", 1, 5, 4, key="r1")
+        r2 = st.number_input("عملي اليومي يعبّر عن رسالتي في الحياة", 1, 5, 4, key="r2")
+        r3 = st.number_input("أساهم في تحقيق رسالة المؤسسة من منطلق قيمي", 1, 5, 4, key="r3")
+        Rr = (r1 + r2 + r3) / 3
+    with tab2:
+        st.subheader("المعنى والانتماء (Mr)")
+        m1 = st.number_input("عملي يحمل معنى يتجاوز الإنجاز المادي", 1, 5, 5, key="m1_val")
+        m2 = st.number_input("أنتمي لفريق العمل من منطلق قيمي مشترك", 1, 5, 4, key="m2_val")
+        m3 = st.number_input("أتحمس للمهام التي تعكس قيمًا أؤمن بها", 1, 5, 5, key="m3_val")
+        Mr = (m1 + m2 + m3) / 3
+    with tab3:
+        st.subheader("التزكية الزمنية (Tr)")
+        t1 = st.number_input("أخصص وقتًا للتأمل أو التزكية الذاتية مهنياً", 1, 5, 3, key="t1")
+        t2 = st.number_input("أدمج التعلم الروحي في تطويري المهني", 1, 5, 3, key="t2")
+        t3 = st.number_input("أوازن بين الإنجاز والتأمل في سياق العمل", 1, 5, 4, key="t3")
+        Tr = (t1 + t2 + t3) / 3
+    with tab4:
+        st.subheader("التواصل الرمزي (Cr)")
+        c1 = st.number_input("أستخدم لغة رمزية تعكس القيم مع الزملاء", 1, 5, 3, key="c1")
+        c2 = st.number_input("أشارك في قيم مؤسسية تعزز الانتماء والمعنى", 1, 5, 4, key="c2")
+        c3 = st.number_input("أساهم في خلق بيئة عمل تحمل إشارات رمزية", 1, 5, 4, key="c3")
+        Cr = (c1 + c2 + c3) / 3
+    with tab5:
+        st.subheader("النية الداخلية والأثر غير المرئي")
+        alpha = st.number_input("النية الداخلية (α): استحضار نية صافية", 1, 5, 5, key="alpha")
+        epsilon = st.number_input("الأثر غير المرئي (ε): الشعور بالبركة والتوفيق", 1, 5, 5, key="epsilon")
+    # 3. حساب الأداء الوظيفي الرمزي Pr
+    # تم استخدام معاملات الانحدار (Betas) بناءً على الأهمية النسبية في النموذج الرمزي
+    Pr = alpha + (0.3 * Rr) + (0.25 * Mr) + (0.2 * Tr) + (0.15 * Cr) + (0.1 * epsilon)
+    st.markdown("---")
+    st.subheader("📊 تحليل الأداء الوظيفي الرمزي النهائي")    
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
+        st.metric("مؤشر الأداء الرمزي (Pr)", f"{Pr:.2f}")
+    with col_res2:
+        # تقييم وصفي بناءً على النتيجة
+        status = "رسالي بامتياز" if Pr > 4 else "قيد التحول الرمزي" if Pr > 3 else "كدح مادي"
+        st.write(f"**الحالة الرمزية:** {status}")
+    st.success("تم تحليل الأداء بناءً على استنطاق المعاني العميقة خلف السلوك الوظيفي.")
 
 elif mid == "m2":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
