@@ -616,37 +616,71 @@ elif mid == "m7":
     })
     st.success("تم تحليل الأداء الصناعي وفق نموذج ZVA لدمج الربح المادي بالبركة المعنوية.")
 
-elif mid == "m8":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Y = \beta_0 + \beta_1 S + \beta_2 C")
-    desc = "سنة الشكر والالتزام كمحرك جوهري للنماء والبركة المادية المستدامة." if lang == "العربية" else "Sunnah of Gratitude and Commitment driver."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Gratitude (S)", value=95.0); v2 = st.number_input("Commitment (C)", value=85.0)
-    st.metric(m_res, f"{(0.7*v1 + 0.3*v2 + 15):.2f}")
-
-elif mid == "m9":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"R = \alpha_0 + \alpha_1 Z + \alpha_2 G")
-    desc = "سنة الظلم والغرور ومؤشر الانهيار الاقتصادي الناتج عن غياب العدالة." if lang == "العربية" else "Sunnah of Injustice: collapse indicator."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Z (Injustice)", value=20.0); v2 = st.number_input("G (Arrogance)", value=30.0)
-    st.metric(m_res, f"{(0.8*v1 + 0.2*v2):.2f}")
-
-elif mid == "m10":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"GINI = \frac{1}{n} \sum (Y_i - \bar{Y}) \cdot Z")
-    desc = "سنة التداول وضبط توزيع الثروة بمعامل الزكاة لمنع تركز المال." if lang == "العربية" else "Sunnah of Circulation via Zakat pressure."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Income Distribution", value=75.0); v2 = st.number_input("Zakat Pressure", value=85.0)
-    st.metric(m_res, f"{(v1*v2/100):.2f}")
-
-elif mid == "m11":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"R_e = K_h + K_s + K_e")
-    desc = "سنة التمكين وتراكم القوى البشرية والإيمانية والاجتماعية." if lang == "العربية" else "Sunnah of Empowerment: Human & Faith forces."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Human Force", value=85.0); v2 = st.number_input("Faith Force", value=90.0)
-    st.metric(m_res, f"{(v1+v2)/2:.2f}")
+elif mid in ["m8", "m9", "m10", "m11"]:
+    st.markdown(f"<h1 class='header-style'>السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ</h1>", unsafe_allow_html=True)    
+    # تعريف التبويبات للسنن الأربعة
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "1. سنة الشكر", 
+        "2. سنة الظلم", 
+        "3. سنة التداول", 
+        "4. سنة التمكين"
+    ])
+    # --- سنة الشكر (نموذج التحفيز بالتنمية) ---
+    with tab1:
+        st.subheader("سُنَّةُ الشُّكْرِ: نموذج التحفيز التنموي بالامتنان")
+        st.latex(r"Y = \beta_0 + \beta_1 S + \beta_2 C + \beta_3 T + \epsilon")
+        st.info("الفرضية: زيادة الشكر المؤسسي (التقدير والعدالة) تؤدي لزيادة الإنتاجية والنمو.")        
+        c1, c2 = st.columns(2)
+        with c1:
+            s_shukr = st.number_input("مؤشر الشكر المؤسسي (S)", value=85.0, key="s_shukr")
+            c_shukr = st.number_input("رأس المال البشري (C)", value=80.0, key="c_shukr")
+        with c2:
+            t_shukr = st.number_input("مستوى التكنولوجيا (T)", value=70.0, key="t_shukr")       
+        y_shukr = (0.5 * s_shukr + 0.3 * c_shukr + 0.2 * t_shukr)
+        st.metric("معدل النمو / الإنتاجية (Y)", f"{y_shukr:.2f}")
+    # --- سنة الظلم (نموذج الإنذار المبكر) ---
+    with tab2:
+        st.subheader("سُنَّةُ الظُّلمِ: نموذج الإنذار المبكر للانهيار")
+        st.latex(r"R = \alpha_0 + \alpha_1 Z + \alpha_2 G + \alpha_3 I + \epsilon")
+        st.warning("الفرضية: ارتفاع الظلم الاقتصادي (الاحتكار والفساد) يزيد من مخاطر الانهيار.")       
+        c1, c2 = st.columns(2)
+        with c1:
+            z_zulm = st.number_input("مؤشر الظلم الاقتصادي (Z)", value=30.0, key="z_zulm")
+            g_zulm = st.number_input("الإنفاق الحكومي (G)", value=60.0, key="g_zulm")
+        with c2:
+            i_zulm = st.number_input("الاستثمار العام (I)", value=50.0, key="i_zulm")         
+        r_risk = (0.7 * z_zulm + 0.2 * g_zulm + 0.1 * i_zulm)
+        st.metric("مؤشر المخاطر الاقتصادية (R)", f"{r_risk:.2f}")
+    # --- سنة التداول (نموذج إعادة توزيع الثروة) ---
+    with tab3:
+        st.subheader("سُنَّةُ التَّدَاوُلِ: نموذج منع تركز الثروة")
+        st.latex(r"GINI = \gamma_0 - \gamma_1 D + \gamma_2 E + \epsilon")
+        st.latex(r"Y = \alpha_0 + \alpha_1 D + \alpha_2 E + \epsilon")
+        st.info("الفرضية: زيادة أدوات التداول (زكاة، وقف) تقلل الفجوة الاقتصادية وتحفز النمو.")        
+        c1, c2 = st.columns(2)
+        with c1:
+            d_tadawul = st.number_input("مؤشر تداول الثروة (D)", value=75.0, key="d_tadawul")
+        with c2:
+            e_employment = st.number_input("معدل التوظيف (E)", value=80.0, key="e_employment")            
+        gini_res = (100 - 0.6 * d_tadawul + 0.2 * e_employment) / 100
+        y_growth = (0.6 * d_tadawul + 0.4 * e_employment)        
+        st.metric("معامل جيني المتوقع (GINI)", f"{gini_res:.3f}")
+        st.metric("معدل النمو الاقتصادي (Y)", f"{y_growth:.2f}")
+    # --- سنة التمكين (نموذج بناء القدرة) ---
+    with tab4:
+        st.subheader("سُنَّةُ التَّمْكِينِ: نموذج بناء القدرة الاقتصادية")
+        st.latex(r"R = \theta_0 + \theta_1 M + \theta_2 S + \theta_3 P + \epsilon")
+        st.info("الفرضية: التمكين عبر التعليم والملكية يؤدي إلى استقلال اقتصادي وازدهار مستدام.")      
+        c1, c2 = st.columns(2)
+        with c1:
+            m_empower = st.number_input("مؤشر التمكين (M)", value=85.0, key="m_empower")
+            s_indep = st.number_input("مؤشر الاستقلال المالي (S)", value=70.0, key="s_indep")
+        with c2:
+            p_participation = st.number_input("مؤشر المشاركة الاقتصادية (P)", value=75.0, key="p_participation")           
+        r_empower_res = (0.4 * m_empower + 0.3 * s_indep + 0.3 * p_participation)
+        st.metric("مؤشر الاستقلال والازدهار (R)", f"{r_empower_res:.2f}")
+    st.markdown("---")
+    st.success("تم دمج وتحليل السنن الاقتصادية الأربعة كإطار مرجعي للسياسات الاقتصادية المقاصدية.")
 
 elif mid == "m12":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
