@@ -86,19 +86,27 @@ elif mid == "p3":
 
 elif mid == "p4":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
-    # 1. المعادلة الرمزية الأساسية للاستثمار التزكوي
-    st.latex(r"R_r = \alpha + \beta_1 N_r + \beta_2 Z_r + \beta_3 S_r + \beta_4 E_r + \epsilon_r")    
-    desc = "الاستثمار التزكوي: دليل رمزي يُعيد تعريف الاستثمار بوصفه فعلاً يحمل نية وتزكية ورسالة، لا مجرد عائد مادي." if lang == "العربية" else "Tazkiyah-based Investment: A symbolic guide redefining investment as an act of intention, purification, and mission."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    # 2. استبانة الأثر الرمزي في الاستثمار التزكوي
-    st.markdown("### 📊 استبانة قياس أثر الاستثمار التزكوي")
-    st.info("يرجى تقييم المحاور التالية (من 1 إلى 5) بناءً على واقع المشروع الاستثماري")
-    # استخدام التبويبات لتنظيم المحاور الستة
-    tabs = st.tabs([
-        "النية التأسيسية (α)", "نية المستثمر (Nr)", "تزكية المال (Zr)", 
-        "رسالة الاستثمار (Sr)", "الأثر الرمزي (Er)", "الأثر غير المرئي (ε)"
-    ])
-
+    # 1. عرض المعادلة الرياضية القياسية للمشاركة التمكينية
+    st.latex(r"Y_{it} = \alpha + \beta_1 P_{it} + \beta_2 E_{it} + \beta_3 S_{it} + \epsilon_{it}")    
+    # 2. شرح الفكرة العامة والفرضية (نفس النص الذي أرسلته)
+    desc = "مُنْتَجُ ٱلْمُشَارَكَةِ ٱلتَّمْكِينِيَّةِ ٱلْمُتَدَرِّجَةِ: تمويل مشروع لفئة محرومة عبر مشاركة متدرجة تتناقص فيها حصة المصرف سنوياً بنسبة 20% لتمكين العميل من التملك الكامل." if lang == "العربية" else "Progressive Empowerment Participation: Financing projects for vulnerable groups through a decreasing bank-share model (20% annual reduction) to achieve full ownership."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
+    # 3. خانات إدخال الرموز (المتغيرات)
+    st.write("### إدخال قيم متغيرات نموذج التمكين:")    
+    col1, col2, col3 = st.columns(3)    
+    with col1:
+        v1 = st.number_input("نسبة المشاركة التمكينية (Pit)", min_value=0.0, max_value=100.0, value=80.0, key="pit_p4")
+    with col2:
+        v2 = st.number_input("مؤشر الأداء الإنتاجي (Eit)", min_value=0.0, max_value=100.0, value=75.0, key="eit_p4")
+    with col3:
+        v3 = st.number_input("مؤشر الاستدامة الشرعية (Sit)", min_value=0.0, max_value=100.0, value=90.0, key="sit_p4")    
+    # 4. حساب الناتج النهائي (Yit: مؤشر التمكين الاقتصادي)
+    # ملاحظة: تم استخدام أوزان لتعكس تأثير المشاركة والأداء والاستدامة
+    y_empowerment = (0.4 * v1 + 0.3 * v2 + 0.3 * v3)    
+    # 5. ظهور الناتج النهائي
+    st.metric("مؤشر التمكين الاقتصادي للعميل (Yit)", f"{y_empowerment:.2f}")
+    # إضافة ملاحظة حول آلية التناقص
+    st.info("⚠️ ملاحظة: وفقاً لآلية النموذج، تتناقص نسبة المصرف سنوياً بمعدل 20% لصالح ملكية العميل.")
 elif mid == "p5":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Q_{it} = \psi + \eta_1 V_{it} + \eta_2 D_{it} + \eta_3 B_{it} + \xi_{it}")
