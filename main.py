@@ -1235,8 +1235,8 @@ elif mid == "m32":
                 "مؤشر الأداء الشرعي": ["نسبة تحقق النية", "كفاءة التوزيع", "الشفافية"],
                 "النسبة الحالية": ["100%", "94%", "98%"]
             })
-
-    elif mid == "m33":
+    
+elif mid == "m33":
     st.markdown(f"<h1 class='header-style'>بروتوكول 'أمانة' السيادي: المحاكاة الرقمية الشاملة</h1>", unsafe_allow_html=True)    
     # 1. المعادلات الحاكمة للمحرك (البركة والتداول)
     st.latex(r"Bi = \frac{\sum (U_v \cdot S_t)}{H_w + D_i} \quad , \quad W_c = \frac{V_{zakat}}{S_{stagnation}}")    
@@ -1257,14 +1257,13 @@ elif mid == "m32":
         col_in1, col_in2 = st.columns(2)
         with col_in1:
             project_value = st.number_input("قيمة المشروع العينية", value=1000000.0, step=10000.0, key="m33_p_val")
-            uv_val = st.number_input("النفع المتعدي (Utility Value)", 0.0, 100.0, 85.0, key="m33_uv")
+            uv_val = st.number_input("النفع المتعدي (Utility Value)", 0.0, 100.0, 85.0, key="m33_uv_val")
         with col_in2:
             work_share = st.slider("نسبة مشاركة الجهد (المنتج)", 0, 100, 40, key="m33_w_s")
-            st_val = st.number_input("استدامة الأثر (Sustainability)", 0.0, 1.0, 0.9, key="m33_st")           
+            st_val = st.number_input("استدامة الأثر (Sustainability)", 0.0, 1.0, 0.9, key="m33_st_val")            
         st.markdown("---")        
-        # حساب المؤشرات اللحظية
-        hw_val = 10.0 # الهدر (قيمة افتراضية للمحاكاة)
-        di_val = 5.0  # الديون الوهمية
+        # حساب المؤشرات اللحظية (تفاعل حي)
+        hw_val, di_val = 10.0, 5.0
         bi_score = (uv_val * st_val) / (hw_val + di_val)        
         col_m1, col_m2, col_m3, col_m4 = st.columns(4)
         with col_m1:
@@ -1275,49 +1274,44 @@ elif mid == "m32":
             st.metric("رصيد الزكاة (Tazkiyah)", "25,000 $", delta="جاهز")
         with col_m4:
             st.metric("مؤشر البركة (Bi)", f"{bi_score:.2f}", delta="ممتاز")
-        st.info("💡 الإجراء البرمجي: تم تفعيل 'حسبة ابن تيمية' لمراقبة استقرار الأسعار بناءً على المؤشرات أعلاه.")
+        st.info("💡 الإجراء البرمجي: تم تفعيل 'حسبة ابن تيمية السيبرانية' لمراقبة الأسعار لحظياً.")
     # --- التبويب الثاني: منحنى امتصاص الصدمات ---
     with tab_shock:
         st.subheader("محاكاة صمود العمران vs الانهيار التقليدي")
-        st.write("يوضح الرسم صمود بروتوكول أمانة أمام الأزمات الخارجية مقارنة بانهيار نظام الديون.")        
         chart_data = {
             "الأزمة": [0, 1, 2, 3, 4, 5],
             "النظام التقليدي (القرض)": [1.0, 0.80, 0.45, 0.15, 0.05, 0.0],
             "بروتوكول أمانة (المشاركة)": [1.0, 0.92, 0.82, 0.70, 0.62, 0.55]
         }
         st.line_chart(chart_data, x="الأزمة")
-        st.success("النتيجة: المشاركة في 'الغنم والغرم' تمنع الإفلاس القسري عند النقطة 2 في المنحنى التقليدي.")
+        st.success("النتيجة: المشاركة في الخسارة تخفف العبء عن الأصول وتمنع الإفلاس القسري.")
     # --- التبويب الثالث: البوابات المنطقية والقيد البرمجي ---
     with tab_logic:
         st.subheader("محرك التشغيل: البوابات المنطقية (Logic Gates)")
-        col_p1, col_p2 = st.columns(2)        
+        col_p1, col_p2 = st.columns(2)
         with col_p1:
             st.write("**🛡️ فلتر الغزالي (بوابة القصد)**")
-            flow_type = st.radio("نوع المعاملة المرصودة:", ["عمارة حقيقية (أصول)", "توليد مال من مال (ربا)"], key="gate_p")
-            if flow_type == "عمارة حقيقية (أصول)":
-                st.success("✅ [Access Granted]: تم فتح مسارات السيولة.")
+            flow = st.radio("نوع المعاملة:", ["عمارة حقيقية", "مضاربة وهمية"], key="gate_m33")
+            if flow == "عمارة حقيقية":
+                st.success("✅ [Access Granted]: مسارات السيولة مفتوحة.")
             else:
-                st.error("❌ [Access Denied]: قيد برمجـي يمنع الفقاعات المالية.")        
+                st.error("❌ [Access Denied]: قيد برمجـي يمنع الفقاعات.")
         with col_p2:
             st.write("**🔄 خوارزمية مكافحة الركود**")
-            stagnation = st.slider("مدة سكون المال (شهور):", 0, 24, 13, key="gate_s")
+            stagnation = st.slider("سكون المال (شهور):", 0, 24, 13, key="stagn_m33")
             if stagnation >= 12:
-                st.warning("🚨 تنبيه: بلوغ الحول الرقمي. تنفيذ بوابة التزكية الآلية (2.5%).")
-            else:
-                st.write("السيولة في حالة تداول نشط.")
+                st.warning("🚨 بلوغ الحول الرقمي: تفعيل بوابة التزكية الآلية.")
     # --- التبويب الرابع: درع التحصين السيادي ---
     with tab_sovereign:
         st.subheader("السيادة الرقمية وبصمة الستر")
-        col_s1, col_s2 = st.columns(2)        
+        col_s1, col_s2 = st.columns(2)
         with col_s1:
             st.write("**🔒 بصمة الستر الرقمي**")
-            st.write("إثبات الجدارة دون كشف الخصوصية (Zero-Knowledge)")
-            if st.button("إصدار صك جدارة مستور", key="bt_sh"):
-                st.info("تم توثيق 'أثرك' في سلسلة الكتلة (Blockchain) مع بقاء هويتك مستورة.")        
+            if st.button("إصدار صك جدارة مستور", key="ssi_btn"):
+                st.info("تم توثيق أثرك العمراني (Zero-Knowledge) مع بقاء هويتك مستورة.")
         with col_s2:
             st.write("**🌍 التوأمة الرقمية للموارد (RWA)**")
-            st.write("ربط 'التراب' بالكود السيادي لمنع التلاعب الجغرافي.")
-            st.code("If (Asset == Real_Estate) -> Disable_Speculation = True", language="python")
+            st.code("Constraint: Property_Transfer ONLY IF (Added_Value > 0)", language="python")
     st.markdown("---")
     st.write("### 🏛️ حوكمة الهيئة الشرعية الرقمية")
     st.table({
@@ -1325,5 +1319,4 @@ elif mid == "m32":
         "التقنية": ["AI-NLP", "Smart Monitoring", "Blockchain Ledger"],
         "الحالة": ["نشط", "مراقب", "جاهز"]
     })
-    st.caption(f"حقوق الهندسة البرمجية - بروتوكول أمانة © {AUTHOR_NAME} 2026")
     
