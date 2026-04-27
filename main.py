@@ -615,7 +615,7 @@ elif mid == "m7":
     })
     st.success("تم تحليل الأداء الصناعي وفق نموذج ZVA لدمج الربح المادي بالبركة المعنوية.")
 
-elif mid in ["m8", "m9", "m10", "m11"]:
+elif mid == "m8_m11":
     st.markdown(f"<h1 class='header-style'>السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ</h1>", unsafe_allow_html=True)    
     # تعريف التبويبات للسنن الأربعة
     tab1, tab2, tab3, tab4 = st.tabs([
