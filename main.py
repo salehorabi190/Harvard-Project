@@ -43,8 +43,7 @@ menu = {
     "1. نموذج الأثر الرمزي في الأداء الوظيفي (Pr)": "m1", "2. نموذج القيادة المتزكية (Er)": "m2", "3. نموذج الحوكمة الرمزية (Gr)": "m3",
     "4. نموذج الاستثمار التزكوي (Rr)": "m4", "5. نموذج التقييم التزكوي للمؤسسات (Qr)": "m5", "6. نموذج التحقق الوجودي (Vr)": "m6",
     "7. القيمة التزكوية المضافة (ZVA)": "m7", "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ": "m8_m11", "تطبيق السياسات الاقتصادية السننية": "m12_m15",
-    "16. العدالة في السوق (Yt)": "m16", "17. الشفافية السوقية (Yt)": "m17", "18. منع الاحتكار (Yt)": "m18",
-    "19. النية الصالحة في السوق (Yt)": "m19", "20. سعر الكفاية (Pk)": "m20", "21. العرض الرحيم (Qs)": "m21",
+    "النَّمَاذِجُ التَّطْبِيقِيَّةُ لِهَنْدَسَةِ السُّوقِ: مِنَ التَّبَادُلِ إِلَى التَّزْكِيَةِ": "m16_m19", "20. سعر الكفاية (Pk)": "m20", "21. العرض الرحيم (Qs)": "m21",
     "22. الطلب العادل (Qd)": "m22", "23. تدخل الدولة المقاصدي (Is)": "m23", "24. التمكين المالي العام (Y)": "m24",
     "25. النموذج النقدي المركب (Y)": "m25", "26. هندسة سعر الصرف (Y_fx)": "m26", "27. هَنْدَسَةُ سِعْرِ الفَائِدَةِ بَيْنَ الرِّبَا وَالبَدَائِلِ الرَّمْزِيَّةِ": "m27",
     "28. هندسة المالية المقاصدية (P)": "m28", "29. تسعير المنتجات المصرفية (P_b)": "m29"
@@ -744,37 +743,75 @@ elif mid == "m12_m15":
     st.markdown("---")
     st.success("تم تفعيل بروتوكول السياسات الاقتصادية السننية لتعزيز الاستقرار وتحقيق العدالة المقاصدية.")
 
-elif mid == "m16":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Yt = \beta_1 Ft + \beta_2 Et")
-    desc = "هندسة العدالة السوقية بين السعر العادل (Ft) والتوزيع العادل (Et)." if lang == "العربية" else "Market justice engineering (Price vs Dist)."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Price Justice", value=80.0); v2 = st.number_input("Dist Justice", value=75.0)
-    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
-
-elif mid == "m17":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_t = \beta_1 Info + \beta_2 Trust")
-    desc = "الشفافية والتدفق المعلوماتي الموثوق في السوق." if lang == "العربية" else "Transparency and reliable info flow."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Information flow", value=90.0); v2 = st.number_input("Trust level", value=85.0)
-    st.metric(m_res, f"{(0.6*v1 + 0.4*v2):.2f}")
-
-elif mid == "m18":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_{anti} = 2500 - HHI")
-    desc = "هندسة منع الاحتكار وتوسيع قاعدة المنافسة العادلة." if lang == "العربية" else "Monopoly prevention engineering."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("HHI Index", value=1100.0)
-    st.metric(m_res, f"{(2500-v1)/25:.2f}%")
-
-elif mid == "m19":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_{niya} = \sum GoodIntentions")
-    desc = "هندسة النية الصالحة في السلوك الاقتصادي المؤسسي." if lang == "العربية" else "Good Intention engineering in behavior."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Niya Index", value=95.0)
-    st.metric(m_res, f"{(v1*1.1):.2f}")
+elif mid == "m16_m19":
+    st.markdown(f"<h1 class='header-style'>النَّمَاذِجُ التَّطْبِيقِيَّةُ لِهَنْدَسَةِ السُّوقِ: مِنَ التَّبَادُلِ إِلَى التَّزْكِيَةِ</h1>", unsafe_allow_html=True)    
+    # تعريف التبويبات للنماذج الأربعة
+    tab_justice, tab_transparency, tab_monopoly, tab_niya = st.tabs([
+        "⚖️ العدالة السوقية", 
+        "🔍 الشفافية", 
+        "🚫 منع الاحتكار", 
+        "💎 النية الصالحة"
+    ])
+    # --- 1. الْعَدَالَةُ فِي السُّوقِ (Yt) ---
+    with tab_justice:
+        st.subheader("الْعَدَالَةُ فِي السُّوقِ: نموذج الاستقرار التزكوي")
+        st.latex(r"Y_t = \beta_0 + \beta_1 Ft + \beta_2 Tt + \beta_3 At + \beta_4 Et + \epsilon_t")
+        st.info("الفرضية: زيادة العدالة السوقية تقلل تقلبات الأسعار وتزيد الاستقرار الاقتصادي.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            ft_val = st.number_input("مؤشر العدالة السعرية (Ft)", 0.0, 100.0, 80.0, key="m16_ft")
+            tt_val = st.number_input("مؤشر الشفافية السوقية (Tt)", 0.0, 100.0, 75.0, key="m16_tt")
+        with col2:
+            at_val = st.number_input("مؤشر منع الاحتكار (At)", 0.0, 100.0, 85.0, key="m16_at")
+            et_val = st.number_input("مؤشر الإنصاف في التوزيع (Et)", 0.0, 100.0, 70.0, key="m16_et")        
+        # حساب النتيجة (استخدام أوزان لتمثيل العلاقة العكسية مع التقلبات)
+        y_justice = (100 - (0.3*ft_val + 0.2*tt_val + 0.3*at_val + 0.2*et_val))
+        st.metric("مؤشر تقلبات الأسعار (Yt)", f"{y_justice:.2f}")
+    # --- 2. الشَّفَافِيَّةُ فِي السُّوقِ (Yt) ---
+    with tab_transparency:
+        st.subheader("الشَّفَافِيَّةُ فِي السُّوقِ: نموذج رفع الجهالة والغرر")
+        st.latex(r"Y_t = \alpha_0 + \alpha_1 Dt + \alpha_2 Ct + \alpha_3 It + \alpha_4 AFt + \mu_t")
+        st.info("الفرضية: كلما زادت الشفافية، زادت الكفاءة وانخفضت التقلبات السوقية.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            dt_val = st.number_input("مؤشر الإفصاح السعري (Dt)", 0.0, 100.0, 90.0, key="m17_dt")
+            ct_val = st.number_input("مؤشر وضوح العقود (Ct)", 0.0, 100.0, 85.0, key="m17_ct")
+        with col2:
+            it_val = st.number_input("مؤشر توفر المعلومات (It)", 0.0, 100.0, 80.0, key="m17_it")
+            aft_val = st.number_input("مؤشر مكافحة الغش (AFt)", 0.0, 100.0, 95.0, key="m17_aft")          
+        y_trans = (0.4*dt_val + 0.2*ct_val + 0.2*it_val + 0.2*aft_val)
+        st.metric("مؤشر كفاءة السوق (Yt)", f"{y_trans:.2f}")
+    # --- 3. مَنْعُ الِاحْتِكَارِ فِي السُّوقِ (Yt) ---
+    with tab_monopoly:
+        st.subheader("مَنْعُ الِاحْتِكَارِ فِي السُّوقِ: نموذج التزكية عبر التنافسية")
+        st.latex(r"Y_t = \gamma_0 + \gamma_1 HHt + \gamma_2 ACt + \gamma_3 RIt + \gamma_4 AMt + \nu_t")
+        st.info("الفرضية: انخفاض التركز السوقي (HHI) وتدخل الدولة الفعال يعزز العدالة التوزيعية.")      
+        col1, col2 = st.columns(2)
+        with col1:
+            hh_val = st.number_input("مؤشر التركز السوقي (HHt)", 0.0, 10000.0, 1500.0, key="m18_hh")
+            ac_val = st.number_input("عدد المنافسين الفاعلين (ACt)", 1.0, 100.0, 10.0, key="m18_ac")
+        with col2:
+            ri_val = st.number_input("مؤشر تدخل الدولة (RIt)", 0.0, 100.0, 75.0, key="m18_ri")
+            am_val = st.number_input("مؤشر الشكاوى الاحتكارية (AMt)", 0.0, 100.0, 20.0, key="m18_am")          
+        # نموذج حساب العدالة التوزيعية (HHI يؤثر سلباً)
+        y_monop = ((10000 - hh_val)/100 + 0.3*ac_val + 0.4*ri_val - 0.2*am_val)
+        st.metric("مؤشر العدالة التوزيعية (Yt)", f"{y_monop:.2f}")
+    # --- 4. النِّيَّةُ الصَّالِحَةُ فِي السُّوقِ (Yt) ---
+    with tab_niya:
+        st.subheader("النِّيَّةُ الصَّالِحَةُ فِي السُّوقِ: نموذج الاقتصاد السلوكي التزكوي")
+        st.latex(r"Y_t = \delta_0 + \delta_1 GIt + \delta_2 APt + \delta_3 CCt + \delta_4 NDt + \xi_t")
+        st.info("الفرضية: النية الصالحة والإيثار في التسعير يزيدان من رضا المجتمع ويقللان الفجوة التوزيعية.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            gi_val = st.number_input("مؤشر النية الصالحة (GIt)", 0.0, 100.0, 95.0, key="m19_gi")
+            ap_val = st.number_input("مؤشر الإيثار في التسعير (APt)", 0.0, 100.0, 80.0, key="m19_ap")
+        with col2:
+            cc_val = st.number_input("مؤشر المبادرات المجتمعية (CCt)", 0.0, 100.0, 85.0, key="m19_cc")
+            nd_val = st.number_input("مؤشر الامتناع عن الغش (NDt)", 0.0, 100.0, 98.0, key="m19_nd")            
+        y_niya = (0.4*gi_val + 0.2*ap_val + 0.2*cc_val + 0.2*nd_val)
+        st.metric("مؤشر الرضا العام والعدالة (Yt)", f"{y_niya:.2f}")
+    st.markdown("---")
+    st.success("تم تفعيل بروتوكول هندسة السوق التزكوية لضبط كفاءة التبادل وتحقيق المقاصد الشرعية.")
 
 elif mid == "m20":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
