@@ -59,14 +59,29 @@ mid = menu[choice]
 # --- 4. محرك التشغيل التفصيلي ---
 
 if mid == "p1":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it} + \mu_{it}")
-    desc = "مُنْتَجُ الإِدِّخَارِ الوَقْفِيِّ الذَّكِيِّ: يتيح للعميل تخصيص نسبة من مدخراته كوقف دائم أو مؤقت، يُستثمر في مشاريع تنموية." if lang == "العربية" else "Smart Endowment Savings Product: Allows allocating a percentage of savings as an endowment for developmental projects."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("نسبة الوقف من الادخار (Wit)", value=80.0)
-    v2 = st.number_input("عائد الاستثمار الوقفي (Rit)", value=70.0)
-    v3 = st.number_input("مؤشر التفاعل الروحي (Tit)", value=90.0)
-    st.metric(m_res, f"{(0.4*v1 + 0.3*v2 + 0.3*v3):.2f}")
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. المعادلة الرياضية القياسية للإدخار الوقفي الذكي
+    st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it} + \mu_{it}")    
+    # 2. شرح الفكرة العامة والفرضية
+    desc = "مُنْتَجُ الإِدِّخَارِ الوَقْفِيِّ الذَّكِيِّ: يتيح للعميل تخصيص نسبة من مدخراته كوقف يُستثمر في مشاريع تنموية (تعليم، صحة، تدريب) لتعزيز الاستدامة والتفاعل الروحي." if lang == "العربية" else "Smart Endowment Savings Product: Integrates waqf into savings to achieve developmental sustainability and enhance spiritual and economic interaction."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
+    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
+    st.write("### إدخال قيم متغيرات النموذج الوقفي:")    
+    col1, col2, col3 = st.columns(3)    
+    with col1:
+        v1 = st.number_input("نسبة الوقف من الادخار (Wit)", min_value=0.0, max_value=100.0, value=80.0, key="wit_p1")
+    with col2:
+        v2 = st.number_input("عائد الاستثمار الوقفي (Rit)", min_value=0.0, max_value=100.0, value=70.0, key="rit_p1")
+    with col3:
+        v3 = st.number_input("مؤشر التفاعل الروحي (Tit)", min_value=0.0, max_value=100.0, value=90.0, key="tit_p1")    
+    # 4. حساب الناتج النهائي (Zit: مؤشر الأثر الوقفي)
+    # الأوزان الافتراضية للمعاملات لضمان عمل المعادلة حسابياً
+    z_impact = (0.4 * v1 + 0.3 * v2 + 0.3 * v3)    
+    # 5. ظهور الناتج النهائي
+    st.metric("مؤشر الأثر الوقفي النهائي (Zit)", f"{z_impact:.2f}")
+    # إضافة ملاحظة حول النتائج المتوقعة
+    if lang == "العربية":
+        st.info("النتائج المتوقعة: زيادة المشاريع الوقفية، تعزيز التكافل، ورفع مستوى التفاعل الروحي والاقتصادي.")
 
 elif mid == "p2":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
