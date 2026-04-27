@@ -42,8 +42,7 @@ menu = {
     "P4. المضاربة الاجتماعية التمكينية": "p4", "P5. صندوق الوقف التمكيني المشترك": "p5", "P6. الإِجَارَةُ الوَقْفِيَّةُ المَوْصُوفَةُ فِي الذِّمَّةِ": "p6",
     "1. نموذج الأثر الرمزي في الأداء الوظيفي (Pr)": "m1", "2. نموذج القيادة المتزكية (Er)": "m2", "3. نموذج الحوكمة الرمزية (Gr)": "m3",
     "4. نموذج الاستثمار التزكوي (Rr)": "m4", "5. نموذج التقييم التزكوي للمؤسسات (Qr)": "m5", "6. نموذج التحقق الوجودي (Vr)": "m6",
-    "7. القيمة التزكوية المضافة (ZVA)": "m7", "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ": "m8_m11", "12. سياسة مكافحة الفقر (ΔY)": "m12",
-    "13. سياسة التسعير (FBi)": "m13", "14. سياسة التمكين (ES)": "m14", "15. سياسة الأزمات (CR)": "m15",
+    "7. القيمة التزكوية المضافة (ZVA)": "m7", "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ": "m8_m11", "تطبيق السياسات الاقتصادية السننية": "m12_m15",
     "16. العدالة في السوق (Yt)": "m16", "17. الشفافية السوقية (Yt)": "m17", "18. منع الاحتكار (Yt)": "m18",
     "19. النية الصالحة في السوق (Yt)": "m19", "20. سعر الكفاية (Pk)": "m20", "21. العرض الرحيم (Qs)": "m21",
     "22. الطلب العادل (Qd)": "m22", "23. تدخل الدولة المقاصدي (Is)": "m23", "24. التمكين المالي العام (Y)": "m24",
@@ -681,37 +680,69 @@ elif mid == "m8_m11":
     st.markdown("---")
     st.success("تم دمج وتحليل السنن الاقتصادية الأربعة كإطار مرجعي للسياسات الاقتصادية المقاصدية.")
 
-elif mid == "m12":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"\Delta Y_{poor} = \alpha_1 Z_d + \alpha_2 MF_v")
-    desc = "سياسة مكافحة الفقر عبر الزكاة المباشرة والتمويل الأصغر." if lang == "العربية" else "Poverty alleviation via Zakat and Microfinance."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Zakat Distributed", value=85.0); v2 = st.number_input("Microfinance Value", value=75.0)
-    st.metric(m_res, f"{(0.6*v1 + 0.4*v2):.2f}%")
-
-elif mid == "m13":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"FBi = \beta_1 PCc - \beta_2 MR")
-    desc = "سياسة التسعير العادل وضبط الاحتكار عبر أدوات الرقابة المقاصدية." if lang == "العربية" else "Fair pricing policy and monopoly control."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Regulation (PCc)", value=80.0); v2 = st.number_input("Monopoly MR", value=15.0)
-    st.metric(m_res, f"{(0.6*v1 - 0.4*v2 + 20):.2f}")
-
-elif mid == "m14":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"ES = \beta_1 LTp + \beta_2 OAr")
-    desc = "سياسة التمكين المهني وتكافؤ الفرص في سوق العمل." if lang == "العربية" else "Vocational empowerment and equal opportunities."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("LTp Training", value=85.0); v2 = st.number_input("OAr Equality", value=80.0)
-    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
-
-elif mid == "m15":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"CR = \delta_1 NFs + \delta_2 RR")
-    desc = "سياسة الأزمات وفقه الضرورة لتأمين الحاجات الأساسية (NFs)." if lang == "العربية" else "Crisis policy: Securing basic needs."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Necessities", value=95.0); v2 = st.number_input("Recovery Speed", value=80.0)
-    st.metric(m_res, f"{(0.7*v1 + 0.3*v2):.2f}")
+elif mid == "m12_m15":
+    st.markdown(f"<h1 class='header-style'>تطبيق السياسات الاقتصادية السننية</h1>", unsafe_allow_html=True)    
+    # تعريف التبويبات للسياسات الأربعة
+    tab_poverty, tab_pricing, tab_empower, tab_crisis = st.tabs([
+        "🍎 سياسة مكافحة الفقر", 
+        "⚖️ سياسة التسعير", 
+        "🚀 سياسة التمكين", 
+        "🛡️ سياسة الأزمات"
+    ])
+    # --- 1. سياسة مكافحة الفقر (التمكين والرحمة) ---
+    with tab_poverty:
+        st.subheader("سِيَاسَةُ مُكَافَحَةِ الْفَقْرِ")
+        st.latex(r"\Delta Y_{poor} = \alpha_1 Z_d + \alpha_2 MF_v + \alpha_3 BI")
+        st.info("المقصد: التمكين والرحمة عبر الزكاة والتمويل الأصغر ومؤشر البركة.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            zd_val = st.number_input("الزكاة الموزعة (Zd)", value=85.0, key="poverty_zd")
+            mfv_val = st.number_input("حجم التمويل الأصغر (MFv)", value=75.0, key="poverty_mfv")
+        with col2:
+            bi_val = st.number_input("مؤشر البركة (BI)", value=90.0, key="poverty_bi")            
+        y_poor = (0.5 * zd_val + 0.3 * mfv_val + 0.2 * bi_val)
+        st.metric("تغير دخل الفقراء (ΔY poor)", f"{y_poor:.2f}%")
+    # --- 2. سياسة التسعير (العدالة) ---
+    with tab_pricing:
+        st.subheader("سِيَاسَةُ التَّسْعِيرِ")
+        st.latex(r"FBi = \beta_1 PCc - \beta_2 MR + \beta_3 IS")
+        st.info("المقصد: العدالة وضبط الاحتكار عبر الرقابة والنية المقاصدية.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            pcc_val = st.number_input("نطاق ضبط الأسعار (PCc)", value=80.0, key="price_pcc")
+            mr_val = st.number_input("معدل الاحتكار (MR)", value=15.0, key="price_mr")
+        with col2:
+            is_val = st.number_input("مؤشر النية (IS)", value=85.0, key="price_is")            
+        fbi_res = (0.5 * pcc_val - 0.3 * mr_val + 0.2 * is_val + 20)
+        st.metric("مؤشر السعر العادل (FBi)", f"{fbi_res:.2f}")
+    # --- 3. سياسة التمكين (الاستحقاق والتزكية) ---
+    with tab_empower:
+        st.subheader("سِيَاسَةُ التَّمْكِينِ")
+        st.latex(r"ES = \gamma_1 LTp + \gamma_2 OAr + \gamma_3 SCi")
+        st.info("المقصد: الاستحقاق والتزكية عبر التدريب القيادي ومراعاة السنن.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            ltp_val = st.number_input("التدريب القيادي (LTp)", value=85.0, key="emp_ltp")
+            oar_val = st.number_input("الوصول للفرص (OAr)", value=80.0, key="emp_oar")
+        with col2:
+            sci_val = st.number_input("مؤشر مراعاة السنن (SCi)", value=90.0, key="emp_sci")            
+        es_res = (0.4 * ltp_val + 0.3 * oar_val + 0.3 * sci_val)
+        st.metric("مؤشر التمكين (ES)", f"{es_res:.2f}")
+    # --- 4. سياسة الأزمات (الوقاية والنجاة) ---
+    with tab_crisis:
+        st.subheader("سِيَاسَةُ الْأَزْمَاتِ")
+        st.latex(r"CR = \delta_1 NFs + \delta_2 RR + \delta_3 SF")
+        st.warning("المقصد: الوقاية والنجاة عبر فقه الضرورة ومرونة تعليق الأحكام.")       
+        col1, col2 = st.columns(2)
+        with col1:
+            nfs_val = st.number_input("مؤشر فقه الضرورة (NFs)", value=95.0, key="crisis_nfs")
+            rr_val = st.number_input("معدل إعادة التوزيع (RR)", value=80.0, key="crisis_rr")
+        with col2:
+            sf_val = st.number_input("مرونة تعليق الأحكام (SF)", value=85.0, key="crisis_sf")            
+        cr_res = (0.5 * nfs_val + 0.3 * rr_val + 0.2 * sf_val)
+        st.metric("التصدي للأزمات (CR)", f"{cr_res:.2f}")
+    st.markdown("---")
+    st.success("تم تفعيل بروتوكول السياسات الاقتصادية السننية لتعزيز الاستقرار وتحقيق العدالة المقاصدية.")
 
 elif mid == "m16":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
