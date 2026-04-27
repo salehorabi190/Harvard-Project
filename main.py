@@ -233,12 +233,62 @@ elif mid == "m2":
     st.success("تم تحليل الأداء القيادي بناءً على نموذج السيادة التزكوية والمقاصدية.")
 
 elif mid == "m3":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"G_r = \alpha + \beta_1 N_r + \beta_2 T_r + \beta_3 M_r")
-    desc = "الحوكمة الرمزية والانسجام المقاصدي والنزاهة المؤسسية." if lang == "العربية" else "Symbolic governance and Maqasid harmony."
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. المعادلة الرمزية الأساسية للحوكمة الرمزية
+    st.latex(r"G_r = \alpha + \beta_1 N_r + \beta_2 T_r + \beta_3 M_r + \beta_4 A_r + \epsilon_r")    
+    desc = "الحوكمة الرمزية: إطار مفاهيمي يربط بين المعنى الداخلي والنظام المؤسسي، لتحويل الحوكمة من مجرد إجراءات إلى ممارسة تزكوية." if lang == "العربية" else "Symbolic Governance: A framework bridging inner meaning and institutional order, transforming governance into a Tazkiyah practice."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Nr", value=95.0); v2 = st.number_input("Ar", value=90.0)
-    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
+    # 2. استبانة الأثر الرمزي في الحوكمة الرمزية
+    st.markdown("### 🏛️ استبانة قياس أثر الحوكمة الرمزية")
+    st.info("يرجى تقييم المحاور التالية (من 1 إلى 5) بناءً على الواقع التنظيمي للمؤسسة")
+    # استخدام التبويبات لتنظيم المحاور الستة
+    tabs = st.tabs([
+        "النمط القيادي (Nr)", "قيم الحوكمة (Tr)", "المعنى المؤسسي (Mr)", 
+        "الانسجام الرمزي (Ar)", "النية (α)", "الأثر (ε)"
+    ])
+    with tabs[0]:
+        st.subheader("النمط القيادي الرمزي (Nr)")
+        n1 = st.number_input("يُمارس القادة سلطتهم بأسلوب تشاركي يستحضر الرسالة", 1, 5, 4, key="n1_m3")
+        n2 = st.number_input("يُستخدم الخطاب الرمزي في التوجيه والتحفيز", 1, 5, 4, key="n2_m3")
+        n3 = st.number_input("يُنظر إلى القائد كرمز للقيم وليس مجرد مدير", 1, 5, 5, key="n3_m3")
+        Nr = (n1 + n2 + n3) / 3
+    with tabs[1]:
+        st.subheader("قيم الحوكمة (Tr)")
+        t1 = st.number_input("تُمارس الاجتماعات بطريقة رمزية (تأمل، مراجعة نيات)", 1, 5, 3, key="t1_m3")
+        t2 = st.number_input("تُحتفى بالقيم عبر لحظات جماعية رمزية", 1, 5, 4, key="t2_m3")
+        t3 = st.number_input("تُستخدم إشارات بصرية وسلوكية تعكس الرسالة", 1, 5, 4, key="t3_m3")
+        Tr = (t1 + t2 + t3) / 3
+    with tabs[2]:
+        st.subheader("المعنى المؤسسي (Mr)")
+        m1 = st.number_input("الهيكل التنظيمي يُجسّد رسالة المؤسسة", 1, 5, 4, key="m1_m3")
+        m2 = st.number_input("السياسات واللوائح تحمل لغة رمزية تعكس القيم", 1, 5, 3, key="m2_m3")
+        m3 = st.number_input("القرارات تُربط بالرسالة لا فقط بالأهداف الكمية", 1, 5, 4, key="m3_m3")
+        Mr = (m1 + m2 + m3) / 3
+    with tabs[3]:
+        st.subheader("الانسجام الرمزي (Ar)")
+        a1 = st.number_input("العاملون يشعرون بانسجام داخلي مع ثقافة المؤسسة", 1, 5, 4, key="a1_m3")
+        a2 = st.number_input("تُحلّ التناقضات الرمزية بسرعة ووعي", 1, 5, 3, key="a2_m3")
+        a3 = st.number_input("تُحترم القيم الشخصية في بيئة العمل", 1, 5, 5, key="a3_m3")
+        Ar = (a1 + a2 + a3) / 3
+    with tabs[4]:
+        st.subheader("النية التأسيسية (α)")
+        alpha = st.number_input("تُراجع النية دوريًا في القرارات الكبرى وتُوثّق", 1, 5, 5, key="alpha_m3")
+    with tabs[5]:
+        st.subheader("الأثر غير المرئي (ε)")
+        epsilon = st.number_input("تظهر نتائج إيجابية غير مفسرة بالمنطق الإداري (بركة وتوفيق)", 1, 5, 5, key="eps_m3")
+    # 3. حساب أثر الحوكمة الرمزية Gr
+    # توزيع الأوزان لتعكس تأثير النمط القيادي، القيم، والمعنى والانسجام
+    Gr = alpha + (0.25 * Nr) + (0.2 * Tr) + (0.2 * Mr) + (0.15 * Ar) + (0.1 * epsilon)
+    st.markdown("---")
+    st.subheader("📊 تحليل مؤشر الحوكمة الرمزية النهائي")    
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
+        st.metric("مؤشر جودة التنظيم (Gr)", f"{Gr:.2f}")
+    with col_res2:
+        # تقييم مستوى الحوكمة
+        status = "حوكمة رسالية (متناغمة)" if Gr > 4.2 else "حوكمة إجرائية (في طور التحول)" if Gr > 3.5 else "حوكمة جافة (مادية)"
+        st.write(f"**الحالة التنظيمية الرمزية:** {status}")
+    st.success("تم تقييم عمق الحوكمة في تجسيد الرسالة وتفعيل المعنى بناءً على نموذج السيادة التزكوية.")
 
 elif mid == "m4":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
