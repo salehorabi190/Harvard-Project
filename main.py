@@ -334,7 +334,25 @@ elif mid == "m28":
 
 elif mid == "m29":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"P_b = 0.6 R + 0.4 Z")
-    desc = "تسعير المنتجات المصرفية الأخلاقية بناءً على العائد والزكاة." if lang == "العربية" else "Ethical banking product pricing."
+    # 1. عرض المعادلة القياسية المقترحة
+    st.latex(r"P = \beta_1 R + \beta_2 T + \beta_3 S + \beta_4 \pi + \beta_5 Z + \epsilon")
+    # 2. شرح الفكرة العامة والنموذج (نصك الأصلي)
+    desc = """تَسْعِيرُ المُنْتَجَاتِ المَصْرَفِيَّةِ بِالعَائِدِ الإِسْلَامِيِّ المَقَاصِدِيِّ: 
+    نموذج يُعيد تعريف التسعير على أساس التمكين والتزكية والالتزام الشرعي، بعيداً عن سعر الفائدة التقليدي.""" if lang == "العربية" else "Pricing banking products based on Maqasid return, empowerment, and Sharia compliance, independent of interest rates."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input
+    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
+    st.write("### إدخال قيم متغيرات التسعير المقاصدي:")
+    col1, col2 = st.columns(2)
+    with col1:
+        v1 = st.number_input("معدل العائد الإسلامي المقاصدي (R)", value=70.0)
+        v2 = st.number_input("مؤشر التمكين (T)", value=85.0)
+        v3 = st.number_input("درجة الالتزام الشرعي (S)", value=95.0)
+    with col2:
+        v4 = st.number_input("الربحية المتوقعة (π)", value=60.0)
+        v5 = st.number_input("معدل الزكاة كمقياس أخلاقي (Z)", value=2.5)
+    # 4. حساب الناتج النهائي (P: سعر المنتج)
+    # ملاحظة: تم استخدام أوزان نسبية (Beta coefficients) لتفعيل المعادلة حسابياً
+    # الأوزان: R=0.3, T=0.2, S=0.2, π=0.2, Z=0.1
+    p_price = (0.3*v1 + 0.2*v2 + 0.2*v3 + 0.2*v4 + 0.1*v5)
+    # 5. ظهور الناتج النهائي
+    st.metric("سعر المنتج المصرفي الإسلامي (P)", f"{p_price:.2f}")
