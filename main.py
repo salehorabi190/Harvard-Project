@@ -18,22 +18,14 @@ st.markdown("""
 
 # --- 2. نظام اللغات والتحكم ---
 lang = st.sidebar.selectbox("🌐 اختر اللغة / Select Language", ["العربية", "English"])
-
-# تعريف اسم صاحب الابتكار كنص ثابت لتجنب أخطاء المتغيرات
 NAME_STAMP = "Prof. Dr. Saleh Orabi" if lang == "English" else "أ.د. صالح عرابي"
 
 if lang == "العربية":
-    m_res = "النتيجة النهائية"
-    m_auth = f"إعداد وتطوير: {NAME_STAMP} - 2026"
-    m_title = "بروتوكول هندسة الاستخلاف الاقتصادي"
-    sidebar_head = "🏛️ القائمة الهندسية الكاملة"
-    select_msg = "اختر النموذج الهندسي المطلوب:"
+    m_res, m_auth, m_title = "النتيجة النهائية", f"إعداد وتطوير: {NAME_STAMP} - 2026", "بروتوكول هندسة الاستخلاف الاقتصادي"
+    sidebar_head, select_msg = "🏛️ القائمة الهندسية الكاملة", "اختر النموذج الهندسي المطلوب:"
 else:
-    m_res = "Final Result"
-    m_auth = f"Developed by: {NAME_STAMP} - 2026"
-    m_title = "Economic Stewardship Engineering Protocol"
-    sidebar_head = "🏛️ Full Engineering List"
-    select_msg = "Select the required Engineering Model:"
+    m_res, m_auth, m_title = "Final Result", f"Developed by: {NAME_STAMP} - 2026", "Economic Stewardship Engineering Protocol"
+    sidebar_head, select_msg = "🏛️ Full Engineering List", "Select the required Engineering Model:"
 
 st.markdown(f"""
     <div class="logo-container">
@@ -43,8 +35,7 @@ st.markdown(f"""
     </div>
     """, unsafe_allow_html=True)
 
-# --- 3. الفهرس الموسوعي (35 نموذجاً مستقلاً تماماً) ---
-st.sidebar.header(sidebar_head)
+# --- 3. الفهرس الموسوعي الشامل (35 نموذجاً) ---
 menu = {
     "P1. المشاركة التمكينية المتدرجة": "p1", "P2. الإدخار الوقفي الذكي": "p2", "P3. الصكوك الوقفية التنموية": "p3",
     "P4. المضاربة الاجتماعية التمكينية": "p4", "P5. صندوق الوقف التمكيني المشترك": "p5", "P6. الإجارة الوقفية الموصوفة": "p6",
@@ -60,202 +51,292 @@ menu = {
     "28. هندسة المالية المقاصدية (P)": "m28", "29. تسعير المنتجات المصرفية (P_b)": "m29"
 }
 
+st.sidebar.header(sidebar_head)
 choice = st.sidebar.selectbox(select_msg, list(menu.keys()))
 mid = menu[choice]
 
-# --- 4. محرك التشغيل (الـ 35 كتلة مفصلة سطر بسطر مع اللغتين) ---
+# --- 4. محرك التشغيل التفصيلي (35 نموذجاً) ---
 
 if mid == "p1":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Y_{it} = \alpha + \beta_1 P_{it} + \beta_2 E_{it} + \beta_3 S_{it} + \epsilon_{it}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> تمويل الفئات المحرومة بمشاركة متدرجة تتناقص فيها نسبة المصرف سنوياً حتى التملك الكامل للعميل.<br><b>Pit:</b> المشاركة | <b>Eit:</b> الأداء | <b>Sit:</b> الاستدامة.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Progressive participation financing for the underprivileged with the bank share decreasing annually until full client ownership.<br><b>Pit:</b> Participation | <b>Eit:</b> Performance | <b>Sit:</b> Sustainability.</div>', unsafe_allow_html=True)
+    desc = "تمويل الفئات المحرومة بمشاركة متدرجة تتناقص فيها نسبة المصرف بنسبة 20% سنوياً." if lang == "العربية" else "Participatory financing with 20% annual bank-share reduction."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
     v1 = st.slider("Pit", 0, 100, 80); v2 = st.slider("Eit", 0, 100, 70); v3 = st.slider("Sit", 0, 100, 90)
     st.metric(m_res, f"{(0.4*v1 + 0.3*v2 + 0.3*v3):.2f}")
 
 elif mid == "p2":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it} + \mu_{it}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> دمج الوقف في المدخرات لتحقيق استدامة تنموية وتفاعل روحي واقتصادي.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Integrating Waqf with savings to achieve developmental sustainability and spiritual-economic interaction.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Wit / Waqf", 0, 100, 30); v2 = st.slider("Rit / Return", 0, 100, 60); v3 = st.slider("Tit / Spirit", 0, 100, 85)
+    desc = "دمج الوقف في المدخرات لتحقيق استدامة تنموية وتفاعل روحي." if lang == "العربية" else "Integrating Waqf in savings for developmental sustainability."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Wit", 0, 100, 30); v2 = st.slider("Rit", 0, 100, 60); v3 = st.slider("Tit", 0, 100, 85)
     st.metric(m_res, f"{(0.5*v1 + 0.3*v2 + 0.2*v3):.2f}")
 
 elif mid == "p3":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"W_{it} = \theta + \lambda_1 C_{it} + \lambda_2 R_{it} + \lambda_3 I_{it} + \nu_{it}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> صكوك وقفية تمول مشاريع تنموية وتخصص جزءاً من العائد للوقف الدائم.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Waqf Sukuk funding development projects with partial returns dedicated to permanent endowment.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Cit / Sukuk", 0, 1000, 500); v2 = st.slider("Rit / Yield", 0, 100, 20); v3 = st.slider("Iit / Impact", 0, 100, 80)
+    desc = "صكوك وقفية تضمن تمويلاً مستداماً للمشاريع التنموية." if lang == "العربية" else "Waqf Sukuk ensuring sustainable funding for projects."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Cit", 0, 1000, 500); v2 = st.slider("Rit", 0, 100, 20); v3 = st.slider("Iit", 0, 100, 80)
     st.metric(m_res, f"{(v1*0.01 + v2*0.4 + v3*0.5):.2f}")
 
 elif mid == "p4":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"M_{it} = \phi + \rho_1 A_{it} + \rho_2 T_{it} + \rho_3 G_{it} + \epsilon_{it}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> مضاربة اجتماعية لتمكين الفقراء بتمويل من المصرف وإدارة العميل مع تخصيص ربح للتمكين.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Social Mudaraba to empower the poor with bank financing and client management, with profits allocated for empowerment.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Ait / Capital", 0, 1000, 400); v2 = st.slider("Tit / Training", 0, 100, 90)
+    desc = "مضاربة اجتماعية لتمكين الفقراء بتمويل المصرف وإدارة العميل." if lang == "العربية" else "Social Mudaraba to empower the poor with bank financing."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Ait", 0, 1000, 400); v2 = st.slider("Tit", 0, 100, 90)
     st.metric(m_res, f"{(v1*0.02 + v2*0.5):.2f}")
 
 elif mid == "p5":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Q_{it} = \psi + \eta_1 V_{it} + \eta_2 D_{it} + \eta_3 B_{it} + \xi_{it}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> صندوق وقفي تمكيني مشترك يستخدم الوقف كضمان للتمويل الإنتاجي.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Joint empowerment Waqf fund using Waqf assets as a guarantee for productive financing.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Vit / Fund", 0, 1000, 600); v2 = st.slider("Dit / Guarantee", 0, 100, 100)
+    desc = "صندوق وقفي تمكيني مشترك كضمان للمشاريع الإنتاجية." if lang == "العربية" else "Joint empowerment Waqf fund for productive projects."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Vit", 0, 1000, 600); v2 = st.slider("Dit", 0, 100, 100)
     st.metric(m_res, f"{(v1*0.02 + v2*0.5):.2f}")
 
 elif mid == "p6":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"H_{it} = \omega + \sigma_1 E_{it} + \sigma_2 Q_{it} + \sigma_3 K_{it} + \varsigma_{it}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> إجارة وقفية موصوفة لتأمين سكن أو تعليم مع حفظ الكرامة الإنسانية.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Forward Waqf Ijarah for securing housing or education while preserving human dignity.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Eit / Rent", 0, 100, 80); v2 = st.slider("Kit / Dignity", 0, 100, 100)
+    desc = "إجارة وقفية موصوفة لتأمين سكن أو تعليم بكرامة." if lang == "العربية" else "Forward Waqf Ijarah for dignified housing or education."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Eit", 0, 100, 80); v2 = st.slider("Kit", 0, 100, 100)
     st.metric(m_res, f"{(0.4*v1 + 0.6*v2):.2f}")
 
 elif mid == "m1":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"P_r = \alpha + \beta_1 R_r + \beta_2 M_r + \beta_3 T_r + \beta_4 C_r")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> تحويل الوظيفة من كدح مادي إلى رسالة وجودية تربط الرسالة بالمعنى والانتماء.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Transforming a job from material toil into an existential mission linking mission (Rr) with meaning (Mr).</div>', unsafe_allow_html=True)
-    v1 = st.slider("Rr / Mission", 0, 100, 85); v2 = st.slider("Mr / Meaning", 0, 100, 80)
+    desc = "تحويل الوظيفة من كدح مادي إلى رسالة وجودية." if lang == "العربية" else "Transforming jobs into existential missions."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Rr", 0, 100, 85); v2 = st.slider("Mr", 0, 100, 80)
     st.metric(m_res, f"{(0.5*v1 + 0.5*v2 + 10):.2f}")
 
 elif mid == "m2":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"E_r = \alpha + \beta_1 Z_r + \beta_2 M_r + \beta_3 I_r")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> قياس أثر القيادة المتزكية وإلهام القائد في تحقيق الاستخلاف الاقتصادي.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Measuring the impact of spiritual leadership and inspiration in achieving economic stewardship.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Zr / Tazkiyah", 0, 100, 90); v2 = st.slider("Ir / Inspiration", 0, 100, 85)
+    desc = "أثر القيادة المتزكية وإلهام القائد في تحقيق الاستخلاف." if lang == "العربية" else "Impact of spiritual leadership and inspiration."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Zr", 0, 100, 90); v2 = st.slider("Ir", 0, 100, 85)
     st.metric(m_res, f"{(0.6*v1 + 0.4*v2):.2f}")
+
+elif mid == "m3":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"G_r = \alpha + \beta_1 N_r + \beta_2 T_r + \beta_3 M_r")
+    desc = "الحوكمة الرمزية والانسجام المقاصدي والنزاهة المؤسسية." if lang == "العربية" else "Symbolic governance and Maqasid harmony."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Nr", 0, 100, 95); v2 = st.slider("Ar", 0, 100, 90)
+    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
 
 elif mid == "m4":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"R_r = f(K_{spiritual}, K_{social}, K_{financial})")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> الاستثمار التزكوي البديل القائم على تفعيل رأس المال الروحي والاجتماعي بجانب المادي.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Alternative Tazkiyah Investment based on activating spiritual and social capital alongside material capital.</div>', unsafe_allow_html=True)
-    v1 = st.slider("K spirit", 0, 100, 90); v2 = st.slider("K fin", 0, 100, 60)
+    desc = "الاستثمار التزكوي البديل القائم على رأس المال الروحي." if lang == "العربية" else "Alternative Tazkiyah investment based on spiritual capital."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("K Spirit", 0, 100, 90); v2 = st.slider("K Financial", 0, 100, 60)
     st.metric(m_res, f"{(0.7*v1 + 0.3*v2):.2f}")
 
 elif mid == "m5":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Q_r = \frac{\sum Maqasid}{\sum Resources}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> التقييم التزكوي للأداء المؤسسي بناءً على كفاءة تحقيق المقاصد الشرعية السامية.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Tazkiyah assessment of institutional performance based on the efficiency of achieving Maqasid.</div>', unsafe_allow_html=True)
+    desc = "التقييم التزكوي بناءً على كفاءة تحقيق المقاصد الشرعية." if lang == "العربية" else "Tazkiyah assessment based on Maqasid efficiency."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
     v1 = st.slider("Maqasid", 0, 100, 85); v2 = st.slider("Resources", 1, 100, 50)
     st.metric(m_res, f"{(v1/v2):.2f}")
+
+elif mid == "m6":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"V_r = Faith \times Impact")
+    desc = "التحقق الوجودي للأثر الاقتصادي وربطه بمبادئ الاستخلاف." if lang == "العربية" else "Existential verification of economic impact."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Faith", 0, 100, 95); v2 = st.slider("Impact", 0, 100, 80)
+    st.metric(m_res, f"{(v1*v2/100):.2f}")
 
 elif mid == "m7":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"ZVA = EVA + \lambda Z")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> القيمة التزكوية المضافة التي تدمج الربح المادي والبركة المعنوية (Z) في مؤشر واحد.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Tazkiyah Value Added (ZVA) integrating material profit and spiritual blessing (Z) in one index.</div>', unsafe_allow_html=True)
+    desc = "القيمة التزكوية المضافة التي تدمج الربح المادي والبركة." if lang == "العربية" else "Tazkiyah Value Added (Profit + Barakah)."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
     v1 = st.slider("EVA", 0, 1000, 500); v2 = st.slider("Z Factor", 0, 100, 90)
     st.metric(m_res, f"{(v1 + 1.5*v2):.2f}")
 
 elif mid == "m8":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Y = \beta_0 + \beta_1 S + \beta_2 C")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> سنة الشكر والالتزام (C) كمحرك جوهري للنماء والبركة المادية المستدامة.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> The Sunnah of Gratitude and Commitment (C) as a core driver for growth and sustainable material blessing.</div>', unsafe_allow_html=True)
-    v1 = st.slider("S / Gratitude", 0, 100, 95); v2 = st.slider("C / Commitment", 0, 100, 85)
+    desc = "سنة الشكر والالتزام كمحرك جوهري للنماء والبركة." if lang == "العربية" else "Sunnah of Gratitude and Commitment for growth."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("S (Gratitude)", 0, 100, 95); v2 = st.slider("C (Commitment)", 0, 100, 85)
     st.metric(m_res, f"{(0.7*v1 + 0.3*v2 + 15):.2f}")
+
+elif mid == "m9":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"R = \alpha_0 + \alpha_1 Z + \alpha_2 G")
+    desc = "سنة الظلم والغرور ومؤشر الانهيار الاقتصادي." if lang == "العربية" else "Sunnah of Injustice as collapse indicator."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Z (Injustice)", 0, 100, 20); v2 = st.slider("G (Arrogance)", 0, 100, 30)
+    st.metric(m_res, f"{(0.8*v1 + 0.2*v2):.2f}")
 
 elif mid == "m10":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"GINI = \frac{1}{n} \sum (Y_i - \bar{Y}) \cdot Z")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> سنة التداول وضبط توزيع الثروة بمعامل الزكاة (Z) لمنع تركز رأس المال.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> The Sunnah of Circulation and wealth distribution regulation via Zakat coefficient (Z) to prevent capital concentration.</div>', unsafe_allow_html=True)
+    desc = "سنة التداول وضبط توزيع الثروة بمعامل الزكاة." if lang == "العربية" else "Sunnah of Circulation via Zakat pressure."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
     v1 = st.slider("Income Dist", 0, 100, 75); v2 = st.slider("Zakat Press", 0, 100, 85)
     st.metric(m_res, f"{(v1*v2/100):.2f}")
+
+elif mid == "m11":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"R_e = K_h + K_s + K_e")
+    desc = "سنة التمكين وتراكم القوى البشرية والإيمانية." if lang == "العربية" else "Sunnah of Empowerment via human forces."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Human K", 0, 100, 85); v2 = st.slider("Faith K", 0, 100, 90)
+    st.metric(m_res, f"{(v1+v2)/2:.2f}")
+
+elif mid == "m12":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"\Delta Y_{poor} = \alpha_1 Z_d + \alpha_2 MF_v")
+    desc = "سياسة مكافحة الفقر عبر الزكاة والتمويل الأصغر." if lang == "العربية" else "Poverty alleviation via Zakat and microfinance."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Zakat Dist", 0, 100, 85); v2 = st.slider("Microfinance", 0, 100, 75)
+    st.metric(m_res, f"{(0.6*v1 + 0.4*v2):.2f}%")
 
 elif mid == "m13":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"FBi = \beta_1 PCc - \beta_2 MR")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> سياسة التسعير العادل وضبط الاحتكار عبر أدوات الرقابة المقاصدية الصارمة (PCc).</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Fair pricing policy and monopoly control via strict Maqasid monitoring tools (PCc).</div>', unsafe_allow_html=True)
-    v1 = st.slider("Regulation", 0, 100, 80); v2 = st.slider("Monopoly MR", 0, 100, 15)
+    desc = "سياسة التسعير العادل وضبط الاحتكار عبر الرقابة." if lang == "العربية" else "Fair pricing and monopoly control."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Regulation", 0, 100, 80); v2 = st.slider("Monopoly", 0, 100, 15)
     st.metric(m_res, f"{(0.6*v1 - 0.4*v2 + 20):.2f}")
+
+elif mid == "m14":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"ES = \beta_1 LTp + \beta_2 OAr")
+    desc = "سياسة التمكين المهني وتكافؤ الفرص في سوق العمل." if lang == "العربية" else "Vocational empowerment and equal opportunities."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Training", 0, 100, 85); v2 = st.slider("Equality", 0, 100, 80)
+    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
+
+elif mid == "m15":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"CR = \delta_1 NFs + \delta_2 RR")
+    desc = "سياسة الأزمات وفقه الضرورة لتأمين الحاجات الأساسية." if lang == "العربية" else "Crisis policy for basic needs security."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Necessities", 0, 100, 95); v2 = st.slider("Recovery Speed", 0, 100, 80)
+    st.metric(m_res, f"{(0.7*v1 + 0.3*v2):.2f}")
+
+elif mid == "m16":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Yt = \beta_1 Ft + \beta_2 Et")
+    desc = "هندسة العدالة السوقية بين السعر والتوزيع العادل." if lang == "العربية" else "Market justice: Price vs distribution."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Fair Price", 0, 100, 80); v2 = st.slider("Fair Dist", 0, 100, 75)
+    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
+
+elif mid == "m17":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Y_t = \beta_1 Info + \beta_2 Trust")
+    desc = "الشفافية والتدفق المعلوماتي الموثوق في السوق." if lang == "العربية" else "Transparency and reliable information flow."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Info Flow", 0, 100, 90); v2 = st.slider("Trust Index", 0, 100, 85)
+    st.metric(m_res, f"{(0.6*v1 + 0.4*v2):.2f}")
+
+elif mid == "m18":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Y_{anti} = 2500 - HHI")
+    desc = "منع الاحتكار وتوسيع قاعدة المنافسة العادلة." if lang == "العربية" else "Anti-monopoly: expanding fair competition."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("HHI Index", 0, 2500, 1100)
+    st.metric(m_res, f"{(2500-v1)/25:.2f}%")
+
+elif mid == "m19":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Y_{niya} = \sum GoodIntentions")
+    desc = "هندسة النية الصالحة في السلوك الاقتصادي المؤسسي." if lang == "العربية" else "Good Intention engineering in behavior."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Niya Index", 0, 100, 95)
+    st.metric(m_res, f"{(v1*1.1):.2f}")
 
 elif mid == "m20":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"P_k = C + (A_s \times 2.5\%)")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> سعر الكفاية لضمان سد الحاجات الأساسية للمجتمع بربح أخلاقي يمنع الاستغلال.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Sufficiency price (Pk) to ensure basic needs are met with ethical profit, preventing exploitation.</div>', unsafe_allow_html=True)
-    c_val = st.number_input("Cost C", value=100); as_val = st.slider("Security As", 0, 100, 85)
-    st.metric(m_res, f"{c_val + (as_val*0.025*c_val):.2f}")
+    desc = "سعر الكفاية لضمان الحاجات الأساسية بربح أخلاقي." if lang == "العربية" else "Sufficiency price for basic needs."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.number_input("Cost C", value=100); v2 = st.slider("Security As", 0, 100, 80)
+    st.metric(m_res, f"{v1 + (v2*0.025*v1):.2f}")
+
+elif mid == "m21":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Q_s = f(P, Z_f, B)")
+    desc = "العرض الرحيم القائم على تسهيلات الزكاة والبركة." if lang == "العربية" else "Merciful supply via Barakah."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Price", 0, 100, 65); v2 = st.slider("Barakah", 0, 100, 95)
+    st.metric(m_res, f"{(0.4*v1 + 0.6*v2):.2f}")
+
+elif mid == "m22":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Q_d = f(P, Need, Ethics)")
+    desc = "الطلب العادل المرتبط بالحاجة الحقيقية والأخلاق." if lang == "العربية" else "Fair demand linked to real needs."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Price ", 0, 100, 50); v2 = st.slider("Ethics ", 0, 100, 85)
+    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
+
+elif mid == "m23":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"I_s = \frac{Needs - Q_s}{Capacity}")
+    desc = "معيار تدخل الدولة المقاصدي لسد فجوات السوق." if lang == "العربية" else "State intervention for market gaps."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Unmet Needs", 0, 100, 70); v2 = st.slider("Capacity", 1, 100, 50)
+    st.metric(m_res, f"{(v1/v2):.2f}")
+
+elif mid == "m24":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Y_{pub} = \sum Financials")
+    desc = "التمكين المالي العام لضمان سيولة الخدمات الأساسية." if lang == "العربية" else "Public financial empowerment."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Public Finance", 0, 100, 85)
+    st.metric(m_res, f"{(v1*1.05):.2f}")
+
+elif mid == "m25":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"Y_{monetary} = M \cdot V + Z_{speed}")
+    desc = "النظام النقدي وسرعة دوران الزكاة في تفعيل الاقتصاد." if lang == "العربية" else "Monetary system and Zakat velocity."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Money Supply", 0, 100, 70); v2 = st.slider("Velocity Z", 0, 100, 85)
+    st.metric(m_res, f"{(v1*0.6 + v2*0.4):.2f}")
 
 elif mid == "m26":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Y_{fx} = \sqrt{G \cdot S \cdot W}")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> هندسة سعر الصرف السيادي المعتمد على الأصول الحقيقية (ذهب وسلع).</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Sovereign exchange rate engineering based on real assets (Gold and Commodities).</div>', unsafe_allow_html=True)
-    v1 = st.slider("Gold G", 0, 100, 95); v2 = st.slider("Assets S", 0, 100, 85)
+    desc = "هندسة سعر الصرف السيادي المعتمد على الأصول الحقيقية." if lang == "العربية" else "Sovereign exchange rate via real assets."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Gold", 0, 100, 95); v2 = st.slider("Assets", 0, 100, 85)
     st.metric(m_res, f"{(v1*v2)**0.5:.2f}")
 
 elif mid == "m27":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"R = \alpha_1 \pi + \alpha_2 T + \alpha_3 Z")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> العائد المقاصدي البديل للفائدة الربوية، يربط الربح بالتمكين (T) والمشاركة.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Maqasid return as an alternative to usury, linking profit to empowerment (T) and participation.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Profit pi", 0, 100, 80); v2 = st.slider("Empower T", 0, 100, 90)
-    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}%")
+    desc = "العائد المقاصدي البديل للفائدة الربوية." if lang == "العربية" else "Maqasid return: alternative to usury."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Profit", 0, 100, 80); v2 = st.slider("Empowerment", 0, 100, 85)
+    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
+
+elif mid == "m28":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.latex(r"P_{fin} = \frac{R + T}{Risk}")
+    desc = "هندسة المالية المقاصدية وإدارة مخاطر المشاركة." if lang == "العربية" else "Maqasid Finance: risk-sharing management."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Return", 0, 100, 75); v2 = st.slider("Risk Coeff", 1, 100, 50)
+    st.metric(m_res, f"{(v1/v2)*10:.2f}")
 
 elif mid == "m29":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"P_b = 0.6 R + 0.4 Z")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 الشرح:</b> تسعير المنتجات المصرفية الأخلاقية بناءً على العائد المقاصدي والالتزام بضوابط الزكاة.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Concept:</b> Ethical banking products pricing based on Maqasid return and Zakat compliance.</div>', unsafe_allow_html=True)
-    v1 = st.slider("Yield R", 0, 100, 75); v2 = st.slider("Ethics Z", 0, 100, 35)
+    desc = "تسعير المنتجات المصرفية الأخلاقية بناءً على العائد والزكاة." if lang == "العربية" else "Ethical banking product pricing."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    v1 = st.slider("Yield", 0, 100, 75); v2 = st.slider("Ethics", 0, 100, 30)
     st.metric(m_res, f"{(0.6*v1 + 0.4*v2 + 10):.2f}")
-
-# إضافة الكتل المتبقية لضمان الـ 35 نموذجاً
-else:
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Model = f(K, L, \tau) + \epsilon")
-    if lang == "العربية":
-        st.markdown('<div class="explanation-box"><b>💡 حالة النموذج:</b> هذا النموذج قيد التفعيل التفصيلي ضمن بروتوكول 2026.</div>', unsafe_allow_html=True)
-    else:
-        st.markdown('<div class="explanation-box"><b>💡 Status:</b> This model is under detailed activation within the 2026 protocol.</div>', unsafe_allow_html=True)
-    st.metric(m_res, "Operational")
 
 # --- 5. التذييل والسيادة الختامية ---
 st.sidebar.markdown("---")
-# السطر الأهم: اسم البروفيسور د. صالح عرابي بالطريقة الصحيحة برمجياً
-st.sidebar.write(f"© 2026 Developed by: {NAME_STAMP}")
+st.sidebar.write(f"© 2026 Developed by: {Prof. Dr. Saleh Orabi}")
