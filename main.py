@@ -39,7 +39,7 @@ st.markdown(f"""
 # --- 3. الفهرس الموسوعي ---
 menu = {
     "P1. الإدخار الوقفي الذكي": "p1", "P2. المشاركة التمكينية المتدرجة": "p2", "P3. الصكوك الوقفية التنموية": "p3",
-    "P4. المضاربة الاجتماعية التمكينية": "p4", "P5. صندوق الوقف التمكيني المشترك": "p5", "P6. الإجارة الوقفية الموصوفة": "p6",
+    "P4. المضاربة الاجتماعية التمكينية": "p4", "P5. صندوق الوقف التمكيني المشترك": "p5", "P6. الإِجَارَةُ الوَقْفِيَّةُ المَوْصُوفَةُ فِي الذِّمَّةِ": "p6",
     "1. نموذج الأثر الرمزي في الأداء الوظيفي (Pr)": "m1", "2. نموذج القيادة المتزكية (Er)": "m2", "3. نموذج الحوكمة الرمزية (Gr)": "m3",
     "4. نموذج الاستثمار التزكوي (Rr)": "m4", "5. نموذج التقييم التزكوي (Qr)": "m5", "6. نموذج التحقق الوجودي (Vr)": "m6",
     "7. القيمة التزكوية المضافة (ZVA)": "m7", "8. سنة الشكر (Y)": "m8", "9. سنة الظلم (R)": "m9",
@@ -84,20 +84,54 @@ if mid == "p1":
         st.info("النتائج المتوقعة: زيادة المشاريع الوقفية، تعزيز التكافل، ورفع مستوى التفاعل الروحي والاقتصادي.")
 
 elif mid == "p2":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_{it} = \alpha + \beta_1 P_{it} + \beta_2 E_{it} + \beta_3 S_{it} + \epsilon_{it}")
-    desc = "تمويل الفئات المحرومة بمشاركة متدرجة تتناقص فيها نسبة المصرف بنسبة 20% سنوياً حتى التملك الكامل." if lang == "العربية" else "Participatory financing with 20% annual bank-share reduction."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Pit", value=80.0); v2 = st.number_input("Eit", value=70.0); v3 = st.number_input("Sit", value=90.0)
-    st.metric(m_res, f"{(0.4*v1 + 0.3*v2 + 0.3*v3):.2f}")
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. عرض المعادلة الرياضية القياسية للمشاركة التمكينية المتدرجة
+    st.latex(r"Y_{it} = \alpha + \beta_1 P_{it} + \beta_2 E_{it} + \beta_3 S_{it} + \epsilon_{it}")    
+    # 2. شرح الفكرة العامة والفرضية الأساسية
+    desc = "مُنْتَجُ ٱلْمُشَارَكَةِ ٱلتَّمْكِينِيَّةِ ٱلْمُتَدَرِّجَةِ: تمويل الفئات المحرومة بمشاركة متدرجة تتناقص فيها نسبة المصرف بنسبة 20% سنوياً لتمكين العميل من التملك الكامل وتحقيق العدالة التوزيعية." if lang == "العربية" else "Progressive Empowerment Participation: Financing for vulnerable groups through a decreasing bank-share (20% annually) to achieve full ownership and distributive justice."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
+    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
+    st.write("### إدخال قيم متغيرات مؤشر التمكين:")    
+    col1, col2, col3 = st.columns(3)    
+    with col1:
+        v1 = st.number_input("نسبة المشاركة التمكينية (Pit)", min_value=0.0, max_value=100.0, value=80.0, key="pit_p2")
+    with col2:
+        v2 = st.number_input("مؤشر الأداء الإنتاجي (Eit)", min_value=0.0, max_value=100.0, value=70.0, key="eit_p2")
+    with col3:
+        v3 = st.number_input("مؤشر الاستدامة الشرعية (Sit)", min_value=0.0, max_value=100.0, value=90.0, key="sit_p2")    
+    # 4. حساب الناتج النهائي (Yit: مؤشر التمكين الاقتصادي)
+    # استخدام الأوزان القياسية المتوافقة مع النموذج
+    y_empowerment = (0.4 * v1 + 0.3 * v2 + 0.3 * v3)    
+    # 5. ظهور الناتج النهائي
+    st.metric("مؤشر التمكين الاقتصادي النهائي (Yit)", f"{y_empowerment:.2f}")
+    # إضافة ملاحظة حول النتائج المتوقعة وآلية التناقص
+    if lang == "العربية":
+        st.info("الآلية: يبدأ المصرف بنسبة 80% وتتناقص سنوياً بنسبة 20% حتى التملك الكامل للعميل، مما يعزز الشمول المالي الشرعي.")
 
 elif mid == "p3":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"W_{it} = \theta + \lambda_1 C_{it} + \lambda_2 R_{it} + \lambda_3 I_{it} + \nu_{it}")
-    desc = "صكوك وقفية تضمن تمويلاً مستداماً للمشاريع التنموية." if lang == "العربية" else "Waqf Sukuk ensuring sustainable funding for projects."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Cit", value=500.0); v2 = st.number_input("Rit", value=20.0); v3 = st.number_input("Iit", value=80.0)
-    st.metric(m_res, f"{(v1*0.01 + v2*0.4 + v3*0.5):.2f}")
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. عرض المعادلة الرياضية القياسية للصكوك الوقفية الذكية
+    st.latex(r"W_{it} = \theta + \lambda_1 C_{it} + \lambda_2 R_{it} + \lambda_3 I_{it} + \nu_{it}")    
+    # 2. شرح الفكرة العامة والفرضية (نصك الأصلي)
+    desc = "الصُّكُوكُ الوَقْفِيَّةُ التَّنْمَوِيَّةُ الذَّكِيَّةُ: إصدار صكوك لتمويل مشاريع تنموية مستدامة، تجمع بين ربح المستثمر وتخصيص عائد للوقف لضمان التكافل والتمكين." if lang == "العربية" else "Smart Developmental Waqf Sukuk: Issuing sukuk to fund sustainable projects, combining investor profit with waqf-allocated returns for community empowerment."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
+    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
+    st.write("### إدخال قيم متغيرات مؤشر الأثر الوقفي:")    
+    col1, col2, col3 = st.columns(3)    
+    with col1:
+        v1 = st.number_input("قيمة الصك الوقفي المُصدر (Cit)", min_value=0.0, value=500.0, key="cit_p3")
+    with col2:
+        v2 = st.number_input("نسبة العائد المخصص للوقف (Rit)", min_value=0.0, max_value=100.0, value=20.0, key="rit_p3")
+    with col3:
+        v3 = st.number_input("مؤشر الأثر التنموي (Iit)", min_value=0.0, max_value=100.0, value=80.0, key="iit_p3")   
+    # 4. حساب الناتج النهائي (Wit: مؤشر الأثر الوقفي للمشروع)
+    # تم استخدام الأوزان القياسية لتفعيل المعادلة حسابياً
+    w_impact = (0.01 * v1 + 0.4 * v2 + 0.5 * v3)    
+    # 5. ظهور الناتج النهائي
+    st.metric("مؤشر الأثر الوقفي للمشروع (Wit)", f"{w_impact:.2f}")
+    # إضافة ملاحظة حول آلية الذكاء المالي والنتائج
+    if lang == "العربية":
+        st.info("النتائج المتوقعة: تمويل مستدام للمشاريع التنموية، تعزيز ثقافة الاستثمار الوقفي، ورفع مستوى الشفافية والامتثال الشرعي.")
 
 elif mid == "p4":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
@@ -122,21 +156,56 @@ elif mid == "p4":
     st.metric("مؤشر التمكين الاقتصادي للعميل (Yit)", f"{y_empowerment:.2f}")
     # إضافة ملاحظة حول آلية التناقص
     st.info("⚠️ ملاحظة: وفقاً لآلية النموذج، تتناقص نسبة المصرف سنوياً بمعدل 20% لصالح ملكية العميل.")
+    
 elif mid == "p5":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Q_{it} = \psi + \eta_1 V_{it} + \eta_2 D_{it} + \eta_3 B_{it} + \xi_{it}")
-    desc = "صندوق وقفي تمكيني مشترك كضمان للمشاريع الإنتاجية." if lang == "العربية" else "Joint empowerment Waqf fund for productive projects."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Vit (Fund)", value=600.0); v2 = st.number_input("Dit (Guarantee)", value=100.0)
-    st.metric(m_res, f"{(v1*0.02 + v2*0.5):.2f}")
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. عرض المعادلة الرياضية القياسية لصندوق الوقف التمكيني
+    st.latex(r"Q_{it} = \psi + \eta_1 V_{it} + \eta_2 D_{it} + \eta_3 B_{it} + \xi_{it}")    
+    # 2. شرح الفكرة العامة والفرضية (نصك الأصلي)
+    desc = "صُنْدُوقُ الوَقْفِ التَّمْكِينِيِّ المُشْتَرَكِ: يجمع بين أموال الوقف كضمان وأموال المستثمرين لتمويل مشاريع إنتاجية للفئات المحرومة وفق حوكمة شرعية مستقلة." if lang == "العربية" else "Joint Empowerment Waqf Fund: Combines waqf assets as guarantees with investor funds to finance productive projects for vulnerable groups under Sharia governance."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
+    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
+    st.write("### إدخال قيم متغيرات مؤشر الأثر التمكيني:")    
+    col1, col2, col3 = st.columns(3)    
+    with col1:
+        v1 = st.number_input("قيمة التمويل المقدم (Vit)", min_value=0.0, value=600.0, key="vit_p5")
+    with col2:
+        v2 = st.number_input("نسبة الضمان الوقفي (Dit)", min_value=0.0, max_value=100.0, value=100.0, key="dit_p5")
+    with col3:
+        v3 = st.number_input("نسبة الأرباح المخصصة للتمكين (Bit)", min_value=0.0, max_value=100.0, value=15.0, key="bit_p5")    
+    # 4. حساب الناتج النهائي (Qit: مؤشر الأثر التمكيني)
+    # تم استخدام أوزان لتعكس تأثير التمويل والضمان والتدوير الربحي للوقف
+    q_empowerment = (0.02 * v1 + 0.5 * v2 + 0.3 * v3)    
+    # 5. ظهور الناتج النهائي
+    st.metric("مؤشر الأثر التمكيني للمشروع (Qit)", f"{q_empowerment:.2f}")
+    # إضافة ملاحظة حول التفسير والنتائج المتوقعة
+    if lang == "العربية":
+        st.info("النتائج المتوقعة: تمويل المشاريع الصغيرة دون ضمانات تقليدية، تعزيز ثقافة الوقف الإنتاجي، وتحسين مؤشرات العدالة التوزيعية.")
 
 elif mid == "p6":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"H_{it} = \omega + \sigma_1 E_{it} + \sigma_2 Q_{it} + \sigma_3 K_{it} + \varsigma_{it}")
-    desc = "إجارة وقفية موصوفة لتأمين سكن أو تعليم بكرامة." if lang == "العربية" else "Forward Waqf Ijarah for dignified housing or education."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Eit (Rent)", value=80.0); v2 = st.number_input("Kit (Dignity)", value=100.0)
-    st.metric(m_res, f"{(0.4*v1 + 0.6*v2):.2f}")
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. عرض المعادلة الرياضية القياسية للإجارة الوقفية الموصوفة
+    st.latex(r"H_{it} = \omega + \sigma_1 E_{it} + \sigma_2 Q_{it} + \sigma_3 K_{it} + \varsigma_{it}")    
+    # 2. شرح الفكرة العامة والفرضية (نصك الأصلي)
+    desc = "الإِجَارَةُ الوَقْفِيَّةُ المَوْصُوفَةُ فِي الذِّمَّةِ: تمويل سكن أو تعليم أو علاج للفقراء عبر أصل وقفي، حيث تُدفع الأجرة من جهة مانحة لضمان الاستدامة والحفاظ على كرامة المستفيد." if lang == "العربية" else "Forward Waqf Ijarah: Financing housing, education, or healthcare through waqf assets, where rent is covered by a donor to ensure sustainability and preserve beneficiary dignity."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
+    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
+    st.write("### إدخال قيم متغيرات مؤشر التمكين الوقفي:")    
+    col1, col2, col3 = st.columns(3)    
+    with col1:
+        v1 = st.number_input("قيمة الأجرة المدفوعة (Eit)", min_value=0.0, value=80.0, key="eit_p6")
+    with col2:
+        v2 = st.number_input("جودة المنفعة المقدمة (Qit)", min_value=0.0, max_value=100.0, value=85.0, key="qit_p6")
+    with col3:
+        v3 = st.number_input("مؤشر الكرامة (Kit)", min_value=0.0, max_value=100.0, value=100.0, key="kit_p6")    
+    # 4. حساب الناتج النهائي (Hit: مؤشر التمكين الوقفي)
+    # تم توزيع الأوزان لتعكس أهمية الجودة والكرامة في تحقيق الأثر
+    h_empowerment = (0.3 * v1 + 0.3 * v2 + 0.4 * v3)    
+    # 5. ظهور الناتج النهائي
+    st.metric("مؤشر التمكين الوقفي النهائي (Hit)", f"{h_empowerment:.2f}")
+    # إضافة ملاحظة حول النتائج المتوقعة
+    if lang == "العربية":
+        st.info("النتائج المتوقعة: توفير الخدمات الأساسية للفئات المحرومة دون ديون، تعزيز ثقافة الوقف، وتحسين مؤشرات الكرامة والخصوصية.")
 
 elif mid == "m1":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)   
