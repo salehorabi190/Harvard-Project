@@ -1186,12 +1186,10 @@ elif mid == "m32":
         "📜 العقود الذكية الوقفية", 
         "💰 منصة الزكاة الرمزية"
     ])
-
     # --- التبويب الأول: تصنيف الأصول الرمزية (SCS) ---
     with tab_class:
         st.subheader("وحدة التصنيف الشرعي للأصول الرمزية")
-        st.info("قم بإدخال درجات الالتزام (من 0 إلى 1) بناءً على معايير الهيئة الرقمية")
-        
+        st.info("قم بإدخال درجات الالتزام (من 0 إلى 1) بناءً على معايير الهيئة الرقمية")        
         c1, c2 = st.columns(2)
         with c1:
             fiqh_c = st.slider("الضوابط الفقهية (الربا، الغرر)", 0.0, 1.0, 0.95, key="scs_fiqh")
@@ -1199,11 +1197,9 @@ elif mid == "m32":
             trans_c = st.slider("الشفافية والتوثيق (Blockchain)", 0.0, 1.0, 0.85, key="scs_trans")
         with c2:
             gov_c = st.slider("الحوكمة الشرعية (هيئة الرقابة)", 0.0, 1.0, 0.75, key="scs_gov")
-            social_c = st.slider("الأثر الاجتماعي (تمكين، عدالة)", 0.0, 1.0, 0.80, key="scs_social")
-        
+            social_c = st.slider("الأثر الاجتماعي (تمكين، عدالة)", 0.0, 1.0, 0.80, key="scs_social")        
         # حساب النتيجة بناءً على الأوزان المعيارية (30%، 25%، 20%، 15%، 10%)
-        scs_score = (0.30*fiqh_c + 0.25*maqasid_c + 0.20*trans_c + 0.15*gov_c + 0.10*social_c)
-        
+        scs_score = (0.30*fiqh_c + 0.25*maqasid_c + 0.20*trans_c + 0.15*gov_c + 0.10*social_c)       
         st.markdown(f"### مؤشر الامتثال الشرعي (SCS): **{scs_score:.2f}**")
         if scs_score >= 0.80:
             st.success("✅ متوافق شرعيًّا (Shariah-Compliant): صالح للاستثمار والتمويل")
@@ -1211,34 +1207,27 @@ elif mid == "m32":
             st.warning("⚠️ متوافق جزئيًّا (Review Required): يحتاج مراجعة فنية فقهية")
         else:
             st.error("❌ غير متوافق (Non-Compliant): يُوصى بالامتناع أو التعديل الجذري")
-
     # --- التبويب الثاني: العقود الذكية الوقفية ---
     with tab_smart_contract:
         st.subheader("محاكي العقود الذكية الوقفية (Smart Waqf)")
-        st.write("تحويل شروط الواقف إلى أكواد قابلة للتنفيذ الذاتي:")
-        
+        st.write("تحويل شروط الواقف إلى أكواد قابلة للتنفيذ الذاتي:")       
         asset_id = st.text_input("معرف الأصل الوقفي", "Waqf-Asset-2026")
-        intent_signed = st.checkbox("توثيق نية الواقف (النية الوقفية الرقمية)")
-        
+        intent_signed = st.checkbox("توثيق نية الواقف (النية الوقفية الرقمية)")        
         st.code(f"""
         if (asset_verified == True and intent_signed == {intent_signed}):
             execute_waqf_transfer(asset_id)
             log_to_blockchain("Waqf_Execution_Success")
         else:
             stop_transaction("Incomplete_Sharia_Conditions")
-        """, language="python")
-        
+        """, language="python")       
         if intent_signed:
             st.success("🔒 تم تسجيل شرط النفاذ الشرعي في سلسلة الكتلة.")
-
     # --- التبويب الثالث: منصة الزكاة الرمزية ---
     with tab_zakat_platform:
         st.subheader("منصة الزكاة الرمزية: تحويل النية إلى أصول مقاصدية")
-        st.latex(r"Z_{token} = f(Niya, Value, Maqasid\_Map)")
-        
+        st.latex(r"Z_{token} = f(Niya, Value, Maqasid\_Map)")       
         z_value = st.number_input("قيمة الزكاة المراد ترميزها (Z_value)", min_value=0.0, value=1000.0)
-        target_maqsad = st.selectbox("توجيه المصرف (الخوارزمية المقاصدية)", ["حفظ النفس (صحة)", "حفظ العقل (تعليم)", "حفظ المال (تمويل إنتاجي)"])
-        
+        target_maqsad = st.selectbox("توجيه المصرف (الخوارزمية المقاصدية)", ["حفظ النفس (صحة)", "حفظ العقل (تعليم)", "حفظ المال (تمويل إنتاجي)"])        
         if st.button("إصدار رمز الزكاة (Z-Token)"):
             st.balloons()
             st.info(f"تم إصدار الرمز بنجاح وتوجيهه إلى مصرف: {target_maqsad}")
@@ -1248,76 +1237,93 @@ elif mid == "m32":
             })
 
     elif mid == "m33":
-    st.markdown(f"<h1 class='header-style'>هندسة بروتوكول 'أمانة' (المحاكاة الرقمية السيادية)</h1>", unsafe_allow_html=True)    
-    # 1. عرض معادلة مؤشر البركة (Bi) رياضياً
-    st.latex(r"Bi = \frac{\sum (U_v \cdot S_t)}{H_w + D_i}")    
-    desc = """بروتوكول أمانة: خوارزمية استخلافية متكاملة تدير العلاقة بين الجهد والمال، 
-    وتعمل بمحرك تشغيل يمنع الربا ويحفز التداول عبر قياس 'مؤشر البركة' رياضياً."""
+    st.markdown(f"<h1 class='header-style'>بروتوكول 'أمانة' السيادي: المحاكاة الرقمية الشاملة</h1>", unsafe_allow_html=True)    
+    # 1. المعادلات الحاكمة للمحرك (البركة والتداول)
+    st.latex(r"Bi = \frac{\sum (U_v \cdot S_t)}{H_w + D_i} \quad , \quad W_c = \frac{V_{zakat}}{S_{stagnation}}")    
+    desc = """بروتوكول أمانة: نظام ائتماني سيادي يعتمد 'براهين الجدارة' بدلاً من الفائدة. 
+    يستخدم 'بصمة الستر الرقمي' لحماية الخصوصية، و'القيد البرمجي' لمنع الاحتكار والربا آلياً."""
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    # إنشاء التبويبات لمحاكاة البروتوكول
-    tab_inputs, tab_engine, tab_metrics = st.tabs([
-        "📥 مدخلات النظام", 
-        "⚙️ محرك التشغيل الذكي", 
-        "📊 المؤشرات السيادية"
+    # إنشاء التبويبات لمحاكاة المنظومة
+    tab_dash, tab_shock, tab_logic, tab_sovereign = st.tabs([
+        "🖥️ لوحة تحكم الاستخلاف", 
+        "📉 منحنى امتصاص الصدمات", 
+        "⚙️ البوابات المنطقية (PC)", 
+        "🛡️ درع التحصين السيادي"
     ])
-    # --- التبويب الأول: مدخلات النظام ---
-    with tab_inputs:
-        st.subheader("أطراف الاستخلاف وقاعدة التكويد")
+    # --- التبويب الأول: لوحة تحكم الذكاء الاستخلافي ومدخلات النظام ---
+    with tab_dash:
+        st.subheader("لوحة تحكم الذكاء الاستخلافي (Control Dashboard)")        
+        # مدخلات المشروع الأساسية
         col_in1, col_in2 = st.columns(2)
         with col_in1:
-            project_value = st.number_input("قيمة المشروع العينية", value=1000000.0, step=10000.0)
-            work_share = st.slider("نسبة مشاركة الجهد (المنتج)", 0, 100, 40)
+            project_value = st.number_input("قيمة المشروع العينية", value=1000000.0, step=10000.0, key="m33_p_val")
+            uv_val = st.number_input("النفع المتعدي (Utility Value)", 0.0, 100.0, 85.0, key="m33_uv")
         with col_in2:
-            capital_share = st.slider("نسبة مشاركة المال (الممول)", 0, 100, 60)
-            risk_logic = "الغنم بالغرم (تشارك المخاطر)"      
-        st.info(f"قاعدة التكويد النشطة: {risk_logic} - التوزيع المعتمد: {work_share}/{capital_share}")
-    # --- التبويب الثاني: محرك التشغيل (The Core Engine) ---
-    with tab_engine:
-        st.subheader("الرقابة السيبرانية المقاصدية")
-        col_eng1, col_eng2 = st.columns(2)
-        with col_eng1:
-            st.success("🛡️ فلتر الغزالي: نشط (تم حظر الفائدة الثابتة آلياً)")
-            st.success("⚖️ حسبة ابن تيمية: مراقبة الأسعار ومنع الاحتكار لحظياً")
-        with col_eng2:
-            zakat_status = st.checkbox("تفعيل نظام الزكاة التلقائي (2.5%)", value=True)
-            if zakat_status:
-                st.write("🔄 يتم تحويل الزكاة تلقائياً عند بلوغ النصاب والحول.")
-    # --- التبويب الثالث: المؤشرات الرقمية (Bi, Wc, Ei) ---
-    with tab_metrics:
-        st.subheader("قياس 'البركة' والأثر التنموي")        
-        col_m1, col_m2 = st.columns(2)
+            work_share = st.slider("نسبة مشاركة الجهد (المنتج)", 0, 100, 40, key="m33_w_s")
+            st_val = st.number_input("استدامة الأثر (Sustainability)", 0.0, 1.0, 0.9, key="m33_st")           
+        st.markdown("---")        
+        # حساب المؤشرات اللحظية
+        hw_val = 10.0 # الهدر (قيمة افتراضية للمحاكاة)
+        di_val = 5.0  # الديون الوهمية
+        bi_score = (uv_val * st_val) / (hw_val + di_val)        
+        col_m1, col_m2, col_m3, col_m4 = st.columns(4)
         with col_m1:
-            uv_val = st.number_input("النفع المتعدي (Utility Value)", 0.0, 100.0, 85.0, key="bi_uv")
-            st_val = st.number_input("استدامة الأثر (Sustainability)", 0.0, 1.0, 0.9, key="bi_st")
+            st.metric("معامل التداول (Wc)", f"{bi_score * 0.12:.2f}", delta="30% vs Trad")
         with col_m2:
-            hw_val = st.number_input("الهدر والموارد الضائعة (Wasted)", 0.0, 100.0, 10.0, key="bi_hw")
-            di_val = st.number_input("التضخم والديون الوهمية (Debt/Inf)", 0.0, 100.0, 5.0, key="bi_di")
-        # حساب مؤشر البركة Bi
-        # منع القسمة على صفر
-        denominator = hw_val + di_val if (hw_val + di_val) > 0 else 1
-        bi_score = (uv_val * st_val) / denominator
-        st.markdown("---")
-        res_c1, res_c2, res_c3 = st.columns(3)
-        with res_c1:
-            st.metric("مؤشر البركة (Bi)", f"{bi_score:.2f}")
-        with res_c2:
-            wc_speed = bi_score * 1.3 # معامل التداول يتفوق بـ 30%
-            st.metric("معامل التداول (Wc)", f"{wc_speed:.2f}")
-        with res_c3:
-            ei_hope = 100 - (bi_score * 10) # انقباض الآمال ينخفض بزيادة البركة
-            st.metric("مؤشر انقباض الآمال (Ei)", f"{ei_hope:.2f}")
-    # التفسير الهندسي الختامي
+            st.metric("انقباض الآمال (Ei)", f"{100 - (bi_score * 10):.2f}", delta="-15%", delta_color="inverse")
+        with col_m3:
+            st.metric("رصيد الزكاة (Tazkiyah)", "25,000 $", delta="جاهز")
+        with col_m4:
+            st.metric("مؤشر البركة (Bi)", f"{bi_score:.2f}", delta="ممتاز")
+        st.info("💡 الإجراء البرمجي: تم تفعيل 'حسبة ابن تيمية' لمراقبة استقرار الأسعار بناءً على المؤشرات أعلاه.")
+    # --- التبويب الثاني: منحنى امتصاص الصدمات ---
+    with tab_shock:
+        st.subheader("محاكاة صمود العمران vs الانهيار التقليدي")
+        st.write("يوضح الرسم صمود بروتوكول أمانة أمام الأزمات الخارجية مقارنة بانهيار نظام الديون.")        
+        chart_data = {
+            "الأزمة": [0, 1, 2, 3, 4, 5],
+            "النظام التقليدي (القرض)": [1.0, 0.80, 0.45, 0.15, 0.05, 0.0],
+            "بروتوكول أمانة (المشاركة)": [1.0, 0.92, 0.82, 0.70, 0.62, 0.55]
+        }
+        st.line_chart(chart_data, x="الأزمة")
+        st.success("النتيجة: المشاركة في 'الغنم والغرم' تمنع الإفلاس القسري عند النقطة 2 في المنحنى التقليدي.")
+    # --- التبويب الثالث: البوابات المنطقية والقيد البرمجي ---
+    with tab_logic:
+        st.subheader("محرك التشغيل: البوابات المنطقية (Logic Gates)")
+        col_p1, col_p2 = st.columns(2)        
+        with col_p1:
+            st.write("**🛡️ فلتر الغزالي (بوابة القصد)**")
+            flow_type = st.radio("نوع المعاملة المرصودة:", ["عمارة حقيقية (أصول)", "توليد مال من مال (ربا)"], key="gate_p")
+            if flow_type == "عمارة حقيقية (أصول)":
+                st.success("✅ [Access Granted]: تم فتح مسارات السيولة.")
+            else:
+                st.error("❌ [Access Denied]: قيد برمجـي يمنع الفقاعات المالية.")        
+        with col_p2:
+            st.write("**🔄 خوارزمية مكافحة الركود**")
+            stagnation = st.slider("مدة سكون المال (شهور):", 0, 24, 13, key="gate_s")
+            if stagnation >= 12:
+                st.warning("🚨 تنبيه: بلوغ الحول الرقمي. تنفيذ بوابة التزكية الآلية (2.5%).")
+            else:
+                st.write("السيولة في حالة تداول نشط.")
+    # --- التبويب الرابع: درع التحصين السيادي ---
+    with tab_sovereign:
+        st.subheader("السيادة الرقمية وبصمة الستر")
+        col_s1, col_s2 = st.columns(2)        
+        with col_s1:
+            st.write("**🔒 بصمة الستر الرقمي**")
+            st.write("إثبات الجدارة دون كشف الخصوصية (Zero-Knowledge)")
+            if st.button("إصدار صك جدارة مستور", key="bt_sh"):
+                st.info("تم توثيق 'أثرك' في سلسلة الكتلة (Blockchain) مع بقاء هويتك مستورة.")        
+        with col_s2:
+            st.write("**🌍 التوأمة الرقمية للموارد (RWA)**")
+            st.write("ربط 'التراب' بالكود السيادي لمنع التلاعب الجغرافي.")
+            st.code("If (Asset == Real_Estate) -> Disable_Speculation = True", language="python")
     st.markdown("---")
-    if bi_score > 5:
-        st.success("✅ تشخيص المحاكاة: مشروع عالي البركة. يمنح الأولوية الائتمانية في منصة 'أمانة'.")
-    else:
-        st.warning("⚠️ تشخيص المحاكاة: انخفاض النفع المتعدي أو زيادة الهدر. يحتاج المشروع لإعادة هيكلة استخلافية.")
-    # حوكمة الهيئة (Footer)
-    st.markdown("---")
-    st.write("### 🏛️ لوحة التحكم في الهيئة الشرعية الرقمية")
+    st.write("### 🏛️ حوكمة الهيئة الشرعية الرقمية")
     st.table({
-        "الوحدة": ["وحدة الفتوى الذكية", "وحدة التتبع الشرعي", "وحدة التقرير الرقمي"],
-        "الحالة التشغيلية": ["Active (AI-NLP)", "Monitoring (Live)", "Ready (PDF Generator)"],
-        "الارتباط التقني": ["API Jurisprudence", "Audit Trail", "Blockchain Ledger"]
+        "الوحدة": ["الفتوى الذكية", "التتبع الشرعي", "التقرير الرقمي"],
+        "التقنية": ["AI-NLP", "Smart Monitoring", "Blockchain Ledger"],
+        "الحالة": ["نشط", "مراقب", "جاهز"]
     })
+    st.caption(f"حقوق الهندسة البرمجية - بروتوكول أمانة © {AUTHOR_NAME} 2026")
     
