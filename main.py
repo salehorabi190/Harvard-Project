@@ -43,8 +43,7 @@ menu = {
     "1. نموذج الأثر الرمزي في الأداء الوظيفي (Pr)": "m1", "2. نموذج القيادة المتزكية (Er)": "m2", "3. نموذج الحوكمة الرمزية (Gr)": "m3",
     "4. نموذج الاستثمار التزكوي (Rr)": "m4", "5. نموذج التقييم التزكوي للمؤسسات (Qr)": "m5", "6. نموذج التحقق الوجودي (Vr)": "m6",
     "7. القيمة التزكوية المضافة (ZVA)": "m7", "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ": "m8_m11", "تطبيق السياسات الاقتصادية السننية": "m12_m15",
-    "النَّمَاذِجُ التَّطْبِيقِيَّةُ لِهَنْدَسَةِ السُّوقِ: مِنَ التَّبَادُلِ إِلَى التَّزْكِيَةِ": "m16_m19", "20. سعر الكفاية (Pk)": "m20", "21. العرض الرحيم (Qs)": "m21",
-    "22. الطلب العادل (Qd)": "m22", "23. تدخل الدولة المقاصدي (Is)": "m23", "24. التمكين المالي العام (Y)": "m24",
+    "النَّمَاذِجُ التَّطْبِيقِيَّةُ لِهَنْدَسَةِ السُّوقِ: مِنَ التَّبَادُلِ إِلَى التَّزْكِيَةِ": "m16_m19", "نَماذِجُ تَطْبِيقِيَّةٌ لِهَنْدَسَةِ العَرْضِ والطَّلَبِ في ضَوْءِ المَقاصِدِ": "m20_m23", "24. التمكين المالي العام (Y)": "m24",
     "25. النموذج النقدي المركب (Y)": "m25", "26. هندسة سعر الصرف (Y_fx)": "m26", "27. هَنْدَسَةُ سِعْرِ الفَائِدَةِ بَيْنَ الرِّبَا وَالبَدَائِلِ الرَّمْزِيَّةِ": "m27",
     "28. هندسة المالية المقاصدية (P)": "m28", "29. تسعير المنتجات المصرفية (P_b)": "m29"
 }
@@ -813,38 +812,72 @@ elif mid == "m16_m19":
     st.markdown("---")
     st.success("تم تفعيل بروتوكول هندسة السوق التزكوية لضبط كفاءة التبادل وتحقيق المقاصد الشرعية.")
 
-elif mid == "m20":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"P_k = C + (A_s \times 2.5\%)")
-    desc = "سعر الكفاية لمنع الغلاء وضمان حق الفقير في السلعة." if lang == "العربية" else "Sufficiency price for basic needs."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Cost C", value=100.0); v2 = st.number_input("Security Coefficient", value=80.0)
-    st.metric(m_res, f"{v1 + (v2*0.025*v1):.2f}")
-
-elif mid == "m21":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Q_s = f(P, Z_f, B)")
-    desc = "العرض الرحيم القائم على تسهيلات الزكاة والبركة." if lang == "العربية" else "Merciful Supply via Barakah logic."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Price Level", value=65.0); v2 = st.number_input("Barakah Index", value=95.0)
-    st.metric(m_res, f"{(0.4*v1 + 0.6*v2):.2f}")
-
-elif mid == "m22":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Q_d = f(P, Need, Ethics)")
-    desc = "الطلب العادل المرتبط بالحاجة الحقيقية والأخلاق." if lang == "العربية" else "Fair Demand linked to real needs."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Price P", value=50.0); v2 = st.number_input("Ethics Level", value=85.0)
-    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
-
-elif mid == "m23":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"I_s = \frac{Needs - Q_s}{Capacity}")
-    desc = "معيار تدخل الدولة المقاصدي لسد فجوات السوق." if lang == "العربية" else "Maqasid State Intervention criteria."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Unmet Needs (N)", value=70.0); v2 = st.number_input("State Capacity", value=50.0)
-    st.metric(m_res, f"{(v1/max(v2,1)):.2f}")
-
+elif mid == "m20_m23":
+    st.markdown(f"<h1 class='header-style'>نَماذِجُ تَطْبِيقِيَّةٌ لِهَنْدَسَةِ العَرْضِ والطَّلَبِ في ضَوْءِ المَقاصِدِ</h1>", unsafe_allow_html=True)    
+    # تعريف التبويبات للنماذج الأربعة
+    tab_suff, tab_mercy, tab_fair, tab_state = st.tabs([
+        "⚖️ سعر الكفاية", 
+        "🤍 العرض الرحيم", 
+        "🛒 الطلب العادل", 
+        "🏛️ التدخل المقاصدي"
+    ])
+    # --- 1. سِعْرُ الكِفايَةِ (Pk) ---
+    with tab_suff:
+        st.subheader("سِعْرُ الكِفايَةِ: توازن الحقوق والكرامة")
+        st.latex(r"P_k = \delta_0 + \delta_1 C + \delta_2 Mr + \delta_3 As + \epsilon")
+        st.info("الفرضية: السعر العادل هو الذي يحقق الكفاية للمنتج والمستهلك معاً دون إخلال بالتوازن.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            c_cost = st.number_input("تكلفة الإنتاج (C)", min_value=0.0, value=100.0, key="m20_c")
+            mr_profit = st.number_input("هامش الربح المشروع (Mr)", min_value=0.0, value=15.0, key="m20_mr")
+        with col2:
+            as_index = st.number_input("معامل الكفاية الاجتماعية (As)", 0.0, 100.0, 80.0, key="m20_as")            
+        # حساب سعر الكفاية بناءً على الأوزان الهندسية
+        pk_res = (1.0 * c_cost + 1.0 * mr_profit + 0.5 * as_index)
+        st.metric("سعر الكفاية المقترح (Pk)", f"{pk_res:.2f}")
+        st.write("**الأثر المتوقع:** تقليل الفقر ومنع الاحتكار واستقرار السوق.")
+    # --- 2. العَرْضُ الرَّحِيمُ (QS) ---
+    with tab_mercy:
+        st.subheader("العَرْضُ الرَّحِيمُ: العطاء في زمن الأزمات")
+        st.latex(r"QS = \gamma_0 + \gamma_1 H + \gamma_2 I + \gamma_3 S + \epsilon")
+        st.info("الفرضية: العرض الرحيم يرتفع في الأزمات لتقليل التقلبات وزيادة الثقة المجتمعية.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            h_need = st.number_input("مستوى الحاجة المجتمعية (H)", 0.0, 100.0, 90.0, key="m21_h")
+            i_intent = st.number_input("نية الإحسان والمبادرات (I)", 0.0, 100.0, 85.0, key="m21_i")
+        with col2:
+            s_avail = st.number_input("وفرة السلعة والمخزون (S)", 0.0, 100.0, 70.0, key="m21_s")           
+        qs_res = (0.4 * h_need + 0.4 * i_intent + 0.2 * s_avail)
+        st.metric("كمية العرض الرحيم (QS)", f"{qs_res:.2f}")
+    # --- 3. الطَّلَبُ العَادِلُ (Qd) ---
+    with tab_fair:
+        st.subheader("الطَّلَبُ العَادِلُ: ترشيد الاستهلاك")
+        st.latex(r"Q_d = \alpha_0 + \alpha_1 Y + \alpha_2 A + \alpha_3 N + \epsilon")
+        st.info("الفرضية: زيادة الوعي الاستهلاكي تقلل الهدر وتحقق التوازن السوقي.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            y_income = st.number_input("دخل الفرد (Y)", min_value=0.0, value=5000.0, key="m22_y")
+            a_awareness = st.number_input("وعي الاستهلاك (A)", 0.0, 100.0, 75.0, key="m22_a")
+        with col2:
+            n_real_need = st.number_input("الحاجة الحقيقية (N)", 0.0, 100.0, 85.0, key="m22_n")            
+        # نموذج الطلب العادل (الوعي A يقلل من الطلب المفرط)
+        qd_res = (0.01 * y_income - 0.2 * a_awareness + 0.5 * n_real_need + 30)
+        st.metric("كمية الطلب العادل (Qd)", f"{qd_res:.2f}")
+    # --- 4. تَدَخُّلُ الدَّوْلَةِ المَقاصِدِيُّ (Is) ---
+    with tab_state:
+        st.subheader("تَدَخُّلُ الدَّوْلَةِ المَقاصِدِيُّ: ضبط الموازين")
+        st.latex(r"Is = \beta_0 + \beta_1 M + \beta_2 D + \beta_3 R + \epsilon")
+        st.warning("الفرضية: تدخل الدولة ضروري عند اختلال السوق لتحقيق مقاصد العدل والرحمة.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            m_imbalance = st.number_input("مستوى اختلال السوق (M)", 0.0, 100.0, 60.0, key="m23_m")
+            d_tools = st.number_input("أدوات التدخل والرقابة (D)", 0.0, 100.0, 70.0, key="m23_d")
+        with col2:
+            r_maqasid = st.number_input("تحقيق المقاصد الشرعية (R)", 0.0, 100.0, 90.0, key="m23_r")            
+        is_res = (0.4 * m_imbalance + 0.3 * d_tools + 0.3 * r_maqasid)
+        st.metric("درجة التدخل المقاصدي (Is)", f"{is_res:.2f}")
+    st.markdown("---")
+    st.success("تم دمج نماذج هندسة العرض والطلب بنجاح لضمان كفاية المجتمع واستقرار الأسواق.")
 elif mid == "m24":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     st.latex(r"Y_{pub} = \sum Financials")
