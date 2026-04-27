@@ -60,22 +60,27 @@ mid = menu[choice]
 # --- 4. محرك التشغيل التفصيلي (الـ 35 كتلة سطر بسطر) ---
 
 if mid == "p1":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)  
-    # عرض المعادلة الرياضية القياسية
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    
+    # 1. عرض المعادلة الرياضية
     st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it} + \mu_{it}")
-    # شرح المعادلة (يبقى كما هو)
+    
+    # 2. شرح المنتج (نفس النص الذي أرسلته)
     desc = "مُنْتَجُ الإِدِّخَارِ الوَقْفِيِّ الذَّكِيِّ: يتيح للعميل تخصيص نسبة من مدخراته كوقف دائم أو مؤقت، يُستثمر في مشاريع تنموية." if lang == "العربية" else "Smart Endowment Savings Product: Allows allocating a percentage of savings as an endowment for developmental projects."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    # إضافة خانات إدخال رقمية لكل رمز من رموز المعادلة
+    
+    # 3. خانات إدخال الرموز (المتغيرات)
     st.write("### إدخال قيم متغيرات النموذج:")
-    # إنشاء ثلاث خانات لإدخال الأرقام
-    v1 = st.number_input("نسبة الوقف من الادخار (Wit)", min_value=0.0, value=80.0, step=1.0)
-    v2 = st.number_input("عائد الاستثمار الوقفي (Rit)", min_value=0.0, value=70.0, step=1.0)
-    v3 = st.number_input("مؤشر التفاعل الروحي (Tit)", min_value=0.0, value=90.0, step=1.0)
-    # حساب الناتج النهائي (مؤشر الأثر الوقفي Zit)
-    # ملاحظة: تم الإبقاء على الأوزان المستخدمة سابقاً لإتمام العملية الحسابية
-    z_it = (0.4 * v1 + 0.3 * v2 + 0.3 * v3)
-    # عرض الناتج النهائي
+    
+    v1 = st.number_input("نسبة الوقف من الادخار (Wit)", value=0.0)
+    v2 = st.number_input("عائد الاستثمار الوقفي (Rit)", value=0.0)
+    v3 = st.number_input("مؤشر التفاعل الروحي (Tit)", value=0.0)
+    
+    # 4. حساب الناتج النهائي (بناءً على الأرقام في الخانات)
+    # ملاحظة: تم استخدام معامل افتراضي 1.0 لكل متغير ليعطي مجموع القيم مباشرة ما لم تحدد أوزان أخرى
+    z_it = (v1 + v2 + v3) 
+    
+    # 5. ظهور الناتج النهائي
     st.metric("مؤشر الأثر الوقفي النهائي (Zit)", f"{z_it:.2f}")
 
 elif mid == "p2":
