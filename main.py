@@ -338,13 +338,61 @@ elif mid == "m3":
         st.write(f"**الحالة التنظيمية الرمزية:** {status}")
     st.success("تم تقييم عمق الحوكمة في تجسيد الرسالة وتفعيل المعنى بناءً على نموذج السيادة التزكوية.")
 
-elif mid == "m4":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"R_r = f(K_{spiritual}, K_{social}, K_{financial})")
-    desc = "الاستثمار التزكوي البديل القائم على رأس المال الروحي والقيمي." if lang == "العربية" else "Alternative Tazkiyah investment based on spiritual capital."
+elif mid == "p4":
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. المعادلة الرمزية الأساسية للاستثمار التزكوي
+    st.latex(r"R_r = \alpha + \beta_1 N_r + \beta_2 Z_r + \beta_3 S_r + \beta_4 E_r + \epsilon_r")    
+    desc = "الاستثمار التزكوي: دليل رمزي يُعيد تعريف الاستثمار بوصفه فعلاً يحمل نية وتزكية ورسالة، لا مجرد عائد مادي." if lang == "العربية" else "Tazkiyah-based Investment: A symbolic guide redefining investment as an act of intention, purification, and mission."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("K Spirit", value=90.0); v2 = st.number_input("K Financial", value=60.0)
-    st.metric(m_res, f"{(0.7*v1 + 0.3*v2):.2f}")
+    # 2. استبانة الأثر الرمزي في الاستثمار التزكوي
+    st.markdown("### 📊 استبانة قياس أثر الاستثمار التزكوي")
+    st.info("يرجى تقييم المحاور التالية (من 1 إلى 5) بناءً على واقع المشروع الاستثماري")
+    # استخدام التبويبات لتنظيم المحاور الستة
+    tabs = st.tabs([
+        "النية التأسيسية (α)", "نية المستثمر (Nr)", "تزكية المال (Zr)", 
+        "رسالة الاستثمار (Sr)", "الأثر الرمزي (Er)", "الأثر غير المرئي (ε)"
+    ])
+    with tabs[0]:
+        st.subheader("النية التأسيسية (α)")
+        a1 = st.number_input("تم توثيق نية واضحة ومقاصد تزكوية عند التأسيس", 1, 5, 5, key="a1_p4")
+        a2 = st.number_input("تُراجع النية دورياً في القرارات الكبرى والتقييم", 1, 5, 4, key="a2_p4")
+        alpha = (a1 + a2) / 2
+    with tabs[1]:
+        st.subheader("نية المستثمر (Nr)")
+        n1 = st.number_input("الاستثمار وسيلة لتحقيق رسالة شخصية عليا", 1, 5, 4, key="n1_p4")
+        n2 = st.number_input("تُستحضر النية عند تقييم النجاح والتوسع", 1, 5, 4, key="n2_p4")
+        Nr = (n1 + n2) / 2
+    with tabs[2]:
+        st.subheader("تزكية المال (Zr)")
+        z1 = st.number_input("مصدر المال نزيه ويُخصّص جزء من الأرباح لأغراض تزكوية", 1, 5, 5, key="z1_p4")
+        z2 = st.number_input("يُراجع أثر المال على النفس والمجتمع دورياً", 1, 5, 4, key="z2_p4")
+        Zr = (z1 + z2) / 2
+    with tabs[3]:
+        st.subheader("رسالة الاستثمار (Sr)")
+        s1 = st.number_input("للمشروع رسالة معلنة تتجاوز الربح وتُجسّد يومياً", 1, 5, 5, key="s1_p4")
+        s2 = st.number_input("يُستخدم بيان الرسالة كمرجعية في التوجيه والتقييم", 1, 5, 4, key="s2_p4")
+        Sr = (s1 + s2) / 2
+    with tabs[4]:
+        st.subheader("الأثر الرمزي (Er)")
+        e1 = st.number_input("يُنتج المشروع أثرًا معنويًا يُغيّر حياة المستفيدين", 1, 5, 4, key="e1_p4")
+        e2 = st.number_input("يُحتفى بالقيم والرموز التي تعزز المعنى لا فقط الأرباح", 1, 5, 4, key="e2_p4")
+        Er_val = (e1 + e2) / 2
+    with tabs[5]:
+        st.subheader("الأثر غير المرئي (ε)")
+        epsilon = st.number_input("تظهر نتائج إيجابية وبركة غير مفسرة ماليًا", 1, 5, 5, key="eps_p4")
+    # 3. حساب العائد التزكوي الرمزي Rr
+    # توزيع الأوزان لتعكس النية والرسالة وتزكية المال
+    Rr = alpha + (0.25 * Nr) + (0.2 * Zr) + (0.2 * Sr) + (0.15 * Er_val) + (0.1 * epsilon)
+    st.markdown("---")
+    st.subheader("🏛️ تحليل مؤشر العائد التزكوي النهائي")    
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
+        st.metric("مؤشر العائد التزكوي (Rr)", f"{Rr:.2f}")
+    with col_res2:
+        # تقييم درجة التزكية الاستثمارية
+        status = "استثمار رسالي (مبارك)" if Rr > 4.2 else "استثمار قيمي (ناشئ)" if Rr > 3.5 else "استثمار تجاري (مادي)"
+        st.write(f"**تصنيف الاستثمار الرمزي:** {status}")
+    st.success("تم تحليل الاستثمار بناءً على معايير التزكية والرسالة وعمق الأثر المعنوي.")
 
 elif mid == "m5":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
