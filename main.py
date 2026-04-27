@@ -310,11 +310,76 @@ elif mid == "m25":
 
 elif mid == "m26":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"Y_{fx} = \sqrt{G \cdot S \cdot W}")
-    desc = "هندسة سعر الصرف السيادي المعتمد على الأصول الحقيقية." if lang == "العربية" else "Sovereign exchange rate via real assets."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Gold G", value=95.0); v2 = st.number_input("Assets S", value=85.0)
-    st.metric(m_res, f"{(v1*v2)**0.5:.2f}")
+    # تعريف التبويبات للنماذج الأربعة
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "1. النموذج القيمي (الزكاة)", 
+        "2. النموذج السلعي", 
+        "3. النموذج الوقفي", 
+        "4. النموذج الذهبي الرمزي"
+    ])
+    # --- أولاً: النموذج القيمي ---
+    with tab1:
+        st.subheader("أولاً: النموذج القيمي – ربط العملة بمؤشر الزكاة")
+        st.latex(r"Y_1 = \beta_0 + \beta_1 Z + \beta_2 E - \beta_3 C - \beta_4 P + \epsilon")
+        st.info("الفرضية: الزكاة تخرج المال من الاكتناز للتداول، مما يعزز الاستقرار النقدي والعدالة.")    
+        col1, col2 = st.columns(2)
+        with col1:
+            z_val = st.number_input("معدل الزكاة المحصلة (Z)", value=2.5, key="z_val")
+            e_val = st.number_input("معدل التوظيف (E)", value=90.0, key="e_val")
+        with col2:
+            c_val = st.number_input("معدل التضخم (C)", value=5.0, key="c_val_z")
+            p_val = st.number_input("مؤشر الفقر (P)", value=15.0, key="p_val_z")  
+        y1 = (0.4 * z_val + 0.3 * e_val - 0.2 * c_val - 0.1 * p_val)
+        st.metric("مؤشر الاستقرار القيمي (Y1)", f"{y1:.2f}")
+    # --- ثانياً: النموذج السلعي ---
+    with tab2:
+        st.subheader("ثانياً: النموذج السلعي – ربط العملة بسلة السلع الأساسية")
+        st.latex(r"Y_2 = \beta_0 + \beta_1 S - \beta_2 I - \beta_3 V - \beta_4 P + \epsilon")
+        st.info("الفرضية: ربط العملة بالقمح والزيت والتمر يحقق استقراراً حقيقياً وعدالة شرائية للفقراء.")       
+        col1, col2 = st.columns(2)
+        with col1:
+            s_val = st.number_input("مؤشر أسعار السلع (S)", value=85.0, key="s_commodity")
+            i_val = st.number_input("معدل التضخم (I)", value=4.0, key="i_commodity")
+        with col2:
+            v_val_c = st.number_input("تقلبات سعر الصرف (V)", value=10.0, key="v_commodity")
+            p_val_c = st.number_input("مؤشر الفقر (P)", value=20.0, key="p_commodity")          
+        y2 = (0.5 * s_val - 0.2 * i_val - 0.2 * v_val_c - 0.1 * p_val_c)
+        st.metric("مؤشر الاستقرار السلعي (Y2)", f"{y2:.2f}")
+    # --- ثالثاً: النموذج الوقفي ---
+    with tab3:
+        st.subheader("ثالثاً: النموذج الوقفي – ربط العملة بالوقف الإنتاجي")
+        st.latex(r"Y_3 = \beta_0 + \beta_1 W + \beta_2 R - \beta_3 C - \beta_4 P + \epsilon")
+        st.info("الفرضية: الوقف يوفر تمويلاً تنموياً غير ربوي، مما يقلل الاعتماد على أدوات الفائدة.")        
+        col1, col2 = st.columns(2)
+        with col1:
+            w_val = st.number_input("حجم الوقف الإنتاجي (W)", value=30.0, key="w_waqf")
+            r_val_w = st.number_input("معدل العائد الوقفي (R)", value=12.0, key="r_waqf")
+        with col2:
+            c_val_w = st.number_input("معدل التضخم (C)", value=3.5, key="c_waqf")
+            p_val_w = st.number_input("مؤشر الفقر (P)", value=10.0, key="p_waqf")          
+        y3 = (0.4 * w_val + 0.3 * r_val_w - 0.2 * c_val_w - 0.1 * p_val_w)
+        st.metric("مؤشر الاستقرار الوقفي (Y3)", f"{y3:.2f}")
+    # --- رابعاً: النموذج الذهبي الرمزي ---
+    with tab4:
+        st.subheader("رابعاً: النموذج الذهبي الرمزي – ربط العملة بالمعادن النفيسة")
+        st.latex(r"Y_4 = \beta_0 + \beta_1 G + \beta_2 F - \beta_3 V - \beta_4 C + \epsilon")
+        st.info("الفرضية: الذهب والفضة يمثلان قيمة حقيقية غير قابلة للتلاعب، مما يقلل أثر المضاربات.")   
+        col1, col2 = st.columns(2)
+        with col1:
+            g_val = st.number_input("نسبة تغطية الذهب (G)", value=95.0, key="g_gold")
+            f_val = st.number_input("نسبة تغطية الفضة (F)", value=80.0, key="f_gold")
+        with col2:
+            v_val_g = st.number_input("تقلبات سعر الصرف (V)", value=5.0, key="v_gold")
+            c_val_g = st.number_input("معدل التضخم (C)", value=2.0, key="c_gold")           
+        y4 = (0.4 * g_val + 0.3 * f_val - 0.2 * v_val_g - 0.1 * c_val_g)
+        st.metric("مؤشر الاستقرار الذهبي (Y4)", f"{y4:.2f}")
+    # --- النتيجة الإجمالية (سعر الصرف المقاصدي) ---
+    st.markdown("---")
+    st.subheader("🏛️ النتيجة النهائية: هندسة سعر الصرف السيادي")    
+    # حساب المتوسط المرجح للنماذج الأربعة ليعطي سعر الصرف النهائي
+    final_exchange_stability = (y1 + y2 + y3 + y4) / 4    
+    st.metric("مؤشر سعر الصرف السيادي المجمع", f"{final_exchange_stability:.2f}")
+    st.success("هذا المؤشر يمثل القيمة الحقيقية للعملة بناءً على الأصول الحقيقية والمقاصد الشرعية.")
 
 elif mid == "m27":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
