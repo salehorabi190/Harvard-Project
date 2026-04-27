@@ -83,13 +83,23 @@ if mid == "p1":
     # 5. ظهور الناتج النهائي
     st.metric("مؤشر الأثر الوقفي النهائي (Zit)", f"{z_it:.2f}")
 
-elif mid == "p2":
+if mid == "p1":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    # 1. عرض المعادلة الرياضية
     st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it} + \mu_{it}")
-    desc = "دمج الوقف في المدخرات لتحقيق استدامة تنموية وتفاعل روحي." if lang == "العربية" else "Integrating Waqf in savings for developmental sustainability."
+    # 2. شرح المنتج (نفس النص الذي أرسلته)
+    desc = "مُنْتَجُ الإِدِّخَارِ الوَقْفِيِّ الذَّكِيِّ: يتيح للعميل تخصيص نسبة من مدخراته كوقف دائم أو مؤقت، يُستثمر في مشاريع تنموية." if lang == "العربية" else "Smart Endowment Savings Product: Allows allocating a percentage of savings as an endowment for developmental projects."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.slider("Wit", 0, 100, 30); v2 = st.slider("Rit", 0, 100, 60); v3 = st.slider("Tit", 0, 100, 85)
-    st.metric(m_res, f"{(0.5*v1 + 0.3*v2 + 0.2*v3):.2f}")
+    # 3. خانات إدخال الرموز (المتغيرات)
+    st.write("### إدخال قيم متغيرات النموذج:")
+    v1 = st.number_input("نسبة الوقف من الادخار (Wit)", value=0.0)
+    v2 = st.number_input("عائد الاستثمار الوقفي (Rit)", value=0.0)
+    v3 = st.number_input("مؤشر التفاعل الروحي (Tit)", value=0.0)
+    # 4. حساب الناتج النهائي (بناءً على الأرقام في الخانات)
+    # ملاحظة: تم استخدام معامل افتراضي 1.0 لكل متغير ليعطي مجموع القيم مباشرة ما لم تحدد أوزان أخرى
+    z_it = (v1 + v2 + v3) 
+    # 5. ظهور الناتج النهائي
+    st.metric("مؤشر الأثر الوقفي النهائي (Zit)", f"{z_it:.2f}")
 
 elif mid == "p3":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
