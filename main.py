@@ -233,4 +233,4 @@ else:
     st.metric("جاهزية النموذج", "مفعل 100%")
 
 st.sidebar.markdown("---")
-st.sidebar.write("© 2026 Prof. Dr. Saleh Orrabi")
+st.sidebar.write("© 2026 Prof. Dr. Saleh Orabi")
