@@ -45,7 +45,7 @@ menu = {
     "7. القيمة التزكوية المضافة (ZVA)": "m7", "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ": "m8_m11", "تطبيق السياسات الاقتصادية السننية": "m12_m15",
     "النَّمَاذِجُ التَّطْبِيقِيَّةُ لِهَنْدَسَةِ السُّوقِ: مِنَ التَّبَادُلِ إِلَى التَّزْكِيَةِ": "m16_m19", "نَماذِجُ تَطْبِيقِيَّةٌ لِهَنْدَسَةِ العَرْضِ والطَّلَبِ في ضَوْءِ المَقاصِدِ": "m20_m23", "24. التمكين المالي العام (Y)": "m24",
     "25. النموذج النقدي المركب (Y)": "m25", "26. هندسة سعر الصرف (Y_fx)": "m26", "27. هَنْدَسَةُ سِعْرِ الفَائِدَةِ بَيْنَ الرِّبَا وَالبَدَائِلِ الرَّمْزِيَّةِ": "m27",
-    "28. هندسة المالية المقاصدية (P)": "m28", "29. تسعير المنتجات المصرفية (P_b)": "m29"
+    "28. هندسة المالية المقاصدية (P)": "m28", "29. تسعير المنتجات المصرفية (P_b)": "m29", "30. خوارزمية التقييم الشرعي التنبؤية (M_impact)": "m30"
 }
 
 st.sidebar.header(sidebar_head)
@@ -1073,3 +1073,54 @@ elif mid == "m29":
     p_price = (0.3*v1 + 0.2*v2 + 0.2*v3 + 0.2*v4 + 0.1*v5)
     # 5. ظهور الناتج النهائي
     st.metric("سعر المنتج المصرفي الإسلامي (P)", f"{p_price:.2f}")
+
+elif mid == "m30":
+    st.markdown(f"<h1 class='header-style'>خوارزمية التقييم الشرعي التنبؤية (المدينة المقاصدية)</h1>", unsafe_allow_html=True)    
+    # 1. دالة التقييم الشرعي التنبؤية
+    st.latex(r"M_{impact} = \sum_{i=1}^{5} (\omega_i \cdot P_i) + \epsilon")    
+    desc = """خوارزمية التقييم الشرعي التنبؤية: خوارزمية رقمية تُحاكي أثر السياسات الحضرية والاقتصادية على المقاصد الشرعية الخمسة 
+    لترشيد القرارات الوقفية والبلدية قبل تنفيذها في المدينة الذكية.""" if lang == "العربية" else "Predictive Sharia Assessment Algorithm: Simulates the impact of urban policies on the five Sharia objectives (Maqasid) to guide decision-making."    
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
+    # 2. مدخلات الخوارزمية (السياسات المقترحة)
+    st.write("### 🛠️ مدخلات سياسات المحاكاة:")
+    col_in1, col_in2, col_in3 = st.columns(3)    
+    with col_in1:
+        policy_waqf = st.number_input("حجم الاستثمار الوقفي (Wp)", 0.0, 1000.0, 500.0, key="m30_waqf")
+        policy_zakat = st.number_input("معدل توزيع الزكاة (Zd)", 0.0, 1000.0, 300.0, key="m30_zakat")
+    with col_in2:
+        policy_infra = st.number_input("تطوير البنية التحتية (In)", 0.0, 1000.0, 400.0, key="m30_infra")
+        policy_edu = st.number_input("الإنفاق التعليمي/الصحي (Ed)", 0.0, 1000.0, 450.0, key="m30_edu")
+    with col_in3:
+        policy_security = st.number_input("مؤشر الأمن والرقابة (Se)", 0.0, 1000.0, 600.0, key="m30_sec")
+    # 3. خريطة المقاصد الشرعية (المخرجات التنبؤية)
+    st.markdown("---")
+    st.write("### 📊 نتائج المحاكاة ولائحة الأثر المقاصدي:")    
+    # حساب الأثر التنبؤي لكل مقصد (بناءً على معاملات التأثير التقديرية)
+    m_religion = (0.4 * policy_waqf + 0.2 * policy_edu) / 10
+    m_life = (0.3 * policy_infra + 0.5 * policy_edu + 0.2 * policy_security) / 10
+    m_intellect = (0.7 * policy_edu + 0.3 * policy_waqf) / 10
+    m_progeny = (0.4 * policy_zakat + 0.4 * policy_infra + 0.2 * policy_edu) / 10
+    m_wealth = (0.5 * policy_zakat + 0.3 * policy_waqf + 0.2 * policy_infra) / 10
+    # عرض النتائج في بطاقات ذكية
+    res_col1, res_col2, res_col3, res_col4, res_col5 = st.columns(5)    
+    with res_col1:
+        st.metric("حفظ الدين", f"{m_religion:.1f}", delta="إيجابي" if m_religion > 50 else "ضعيف")
+    with res_col2:
+        st.metric("حفظ النفس", f"{m_life:.1f}", delta="إيجابي" if m_life > 50 else "ضعيف")
+    with res_col3:
+        st.metric("حفظ العقل", f"{m_intellect:.1f}", delta="إيجابي" if m_intellect > 50 else "ضعيف")
+    with res_col4:
+        st.metric("حفظ النسل", f"{m_progeny:.1f}", delta="إيجابي" if m_progeny > 50 else "ضعيف")
+    with res_col5:
+        st.metric("حفظ المال", f"{m_wealth:.1f}", delta="إيجابي" if m_wealth > 50 else "ضعيف")
+    # 4. تحليل النتائج داخل بيئة المحاكاة
+    st.markdown("---")
+    total_impact = (m_religion + m_life + m_intellect + m_progeny + m_wealth) / 5
+    if total_impact >= 75:
+        st.success(f"✅ السياسة المقترحة مطابقة للمقاصد العليا (مؤشر الاستخلاف: {total_impact:.2f})")
+    elif total_impact >= 50:
+        st.warning(f"⚠️ السياسة تحتاج إلى ضبط لتحسين الأثر المقاصدي (مؤشر الاستخلاف: {total_impact:.2f})")
+    else:
+        st.error(f"🚨 السياسة قد تؤدي إلى خلل في التوازن المقاصدي (مؤشر الاستخلاف: {total_impact:.2f})")
+    # 5. المنظومة الرمزية (الابتكار)
+    st.info("💡 **الابتكار الرمزي:** يتم ربط هذه النتائج بلحظة محاكاة بصرية داخل المدينة الذكية لتوجيه الهيئات الشرعية والمؤسسات الوقفية بلغة رقمية.")
