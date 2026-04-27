@@ -326,11 +326,27 @@ elif mid == "m27":
 
 elif mid == "m28":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"P_{fin} = \frac{R + T}{Risk}")
-    desc = "هندسة المالية المقاصدية وإدارة مخاطر المشاركة." if lang == "العربية" else "Maqasid Finance: risk-sharing management."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Expected Return", value=75.0); v2 = st.number_input("Risk Coeff", value=50.0)
-    st.metric(m_res, f"{(v1/max(v2,1))*10:.2f}")
+    # 1. عرض المعادلة القياسية المقترحة للهندسة المالية
+    st.latex(r"P = \beta_1 R + \beta_2 T + \beta_3 S + \beta_4 \pi + \beta_5 Z + \epsilon")
+    # 2. شرح الفكرة العامة للنموذج (نصك الأصلي)
+    desc = """نَمُوذَجُ الهَنْدَسَةِ المَالِيَّةِ الإِسْلَامِيَّةِ المَقَاصِدِيَّةِ: 
+    إعادة هندسة الوظيفة المالية بحيث يُنظر للمال كأمانة لا سلعة، وربط التمويل بمقاصد العدالة والتزكية والتمكين.""" if lang == "العربية" else "Maqasid Islamic Financial Engineering: Re-engineering finance as a trust (Amanah), linking funding to justice, purification, and empowerment."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)   
+    # 3. خانات إدخال الرموز (المتغيرات)
+    st.write("### إدخال قيم متغيرات الهندسة المالية المقاصدية:")   
+    col1, col2 = st.columns(2)
+    with col1:
+        v1 = st.number_input("معدل العائد الإسلامي المقاصدي (R)", value=75.0, key="m28_v1")
+        v2 = st.number_input("مؤشر التمكين (T)", value=80.0, key="m28_v2")
+        v3 = st.number_input("درجة الالتزام الشرعي (S)", value=90.0, key="m28_v3")
+    with col2:
+        v4 = st.number_input("الربحية المتوقعة (π)", value=65.0, key="m28_v4")
+        v5 = st.number_input("معدل الزكاة كمقياس أخلاقي (Z)", value=2.5, key="m28_v5")
+    # 4. حساب الناتج النهائي (P: سعر الأداة المالية)
+    # تم توزيع معاملات الانحدار (Beta) لتعكس التأثير الطردي للتمكين والالتزام والربحية
+    p_financial = (0.3*v1 + 0.2*v2 + 0.25*v3 + 0.15*v4 + 0.1*v5)
+    # 5. ظهور الناتج النهائي
+    st.metric("سعر الأداة المالية الإسلامية (P)", f"{p_financial:.2f}")
 
 elif mid == "m29":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
