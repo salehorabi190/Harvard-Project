@@ -382,28 +382,62 @@ elif mid == "m26":
     st.success("هذا المؤشر يمثل القيمة الحقيقية للعملة بناءً على الأصول الحقيقية والمقاصد الشرعية.")
 
 elif mid == "m27":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
-    # 1. عرض المعادلة القياسية لمعدل العائد الإسلامي المقاصدي
-    st.latex(r"R = \alpha_1 \pi + \alpha_2 T + \alpha_3 Z + \alpha_4 E + \epsilon")    
-    # 2. شرح الفكرة العامة للنموذج (نصك الأصلي)
-    desc = """مُعَدَّلُ العَائِدِ الإِسْلَامِيُّ المَقَاصِدِيُّ: 
-    بديل شرعي للفائدة يُراعي المقاصد (العدالة، التمكين، التكافل) ويُدمج البعد الأخلاقي مع الأثر الاقتصادي في حياة المستفيد.""" if lang == "العربية" else "Maqasid Islamic Return Rate: A Sharia-compliant alternative to interest that integrates ethics, justice, and the impact of funding on the beneficiary's life."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
-    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
-    st.write("### إدخال قيم متغيرات العائد المقاصدي:")    
-    col1, col2 = st.columns(2)
-    with col1:
-        v1 = st.number_input("الربحية المتوقعة (π)", value=75.0, key="m27_v1")
-        v2 = st.number_input("مؤشر التمكين (T)", value=85.0, key="m27_v2")
-    with col2:
-        v3 = st.number_input("معدل الزكاة (Z)", value=2.5, key="m27_v3")
-        v4 = st.number_input("معدل التضخم المتوقع (E)", value=5.0, key="m27_v4")
-    # 4. حساب الناتج النهائي (R: معدل العائد الإسلامي المقاصدي)
-    # تم استخدام أوزان لتعكس تأثير الربحية والتمكين والحفاظ على القوة الشرائية
-    # الأوزان الافتراضية: π=0.4, T=0.3, Z=0.1, E=0.2
-    r_return = (0.4*v1 + 0.3*v2 + 0.1*v3 + 0.2*v4)    
-    # 5. ظهور الناتج النهائي
-    st.metric("معدل العائد الإسلامي المقاصدي (R)", f"{r_return:.2f}%")
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.markdown("### هَنْدَسَةُ سِعْرِ الفَائِدَةِ بَيْنَ الرِّبَا وَالبَدَائِلِ الرَّمْزِيَّةِ")
+    # تعريف التبويبات للنماذج الثلاثة
+    tab1, tab2, tab3 = st.tabs([
+        "1. معدل العائد الإسلامي المقاصدي", 
+        "2. الهندسة المالية الإسلامية", 
+        "3. تسعير المنتجات المصرفية"
+    ])
+    # --- النموذج الأول: معدل العائد الإسلامي المقاصدي ---
+    with tab1:
+        st.subheader("النموذج الأول: مُعَدَّلُ العَائِدِ الإِسْلَامِيُّ المَقَاصِدِيُّ")
+        st.latex(r"R = \alpha_1 \pi + \alpha_2 T + \alpha_3 Z + \alpha_4 E + \epsilon")
+        st.info("الهدف: بناء معدل عائد بديل للفائدة يُراعي العدالة والتمكين والحفاظ على القوة الشرائية.")       
+        col1, col2 = st.columns(2)
+        with col1:
+            pi_1 = st.number_input("الربحية المتوقعة (π)", value=70.0, key="n1_pi")
+            t_1 = st.number_input("مؤشر التمكين (T)", value=80.0, key="n1_t")
+        with col2:
+            z_1 = st.number_input("معدل الزكاة (Z)", value=2.5, key="n1_z")
+            e_1 = st.number_input("التضخم المتوقع (E)", value=4.0, key="n1_e")       
+        # حساب R (بأوزان افتراضية للمعاملات)
+        r_final = (0.4 * pi_1 + 0.3 * t_1 + 0.1 * z_1 + 0.2 * e_1)
+        st.metric("معدل العائد المقاصدي (R)", f"{r_final:.2f}%")
+    # --- النموذج الثاني: الهندسة المالية الإسلامية المقاصدية ---
+    with tab2:
+        st.subheader("النموذج الثاني: نَمُوذَجُ الهَنْدَسَةِ المَالِيَّةِ الإِسْلَامِيَّةِ المَقَاصِدِيَّةِ")
+        st.latex(r"P = \beta_1 R + \beta_2 T + \beta_3 S + \beta_4 \pi + \beta_5 Z + \epsilon")
+        st.info("الهدف: إعادة هندسة الوظيفة المالية ليكون المال أمانة استخلافية، وتسعير الأدوات (كصكوك المشاركة).")      
+        c1, c2 = st.columns(2)
+        with c1:
+            r_2 = st.number_input("معدل العائد المقاصدي (R)", value=r_final, key="n2_r")
+            t_2 = st.number_input("مؤشر التمكين (T)", value=85.0, key="n2_t")
+            s_2 = st.number_input("درجة الالتزام الشرعي (S)", value=95.0, key="n2_s")
+        with c2:
+            pi_2 = st.number_input("الربحية المتوقعة (π)", value=60.0, key="n2_pi")
+            z_2 = st.number_input("معدل الزكاة (Z)", value=2.5, key="n2_z")      
+        p_finance = (0.3 * r_2 + 0.2 * t_2 + 0.2 * s_2 + 0.2 * pi_2 + 0.1 * z_2)
+        st.metric("سعر الأداة المالية (P)", f"{p_finance:.2f}")
+    # --- النموذج الثالث: تسعير المنتجات المصرفية ---
+    with tab3:
+        st.subheader("النموذج الثالث: تَسْعِيرُ المُنْتَجَاتِ المَصْرَفِيَّةِ بالعائد المقاصدي")
+        st.latex(r"P = \beta_1 R + \beta_2 T + \beta_3 S + \beta_4 \pi + \beta_5 Z + \epsilon")
+        st.info("الهدف: تسعير الودائع والتمويل بناءً على المشاركة والمضاربة، والوظيفة التزكوية للمال.")       
+        cc1, cc2 = st.columns(2)
+        with cc1:
+            r_3 = st.number_input("العائد الإسلامي (R)", value=r_final, key="n3_r")
+            t_3 = st.number_input("التمكين (T)", value=75.0, key="n3_t")
+            s_3 = st.number_input("الالتزام الشرعي (S)", value=100.0, key="n3_s")
+        with cc2:
+            pi_3 = st.number_input("الربحية المشروعة (π)", value=55.0, key="n3_pi")
+            z_3 = st.number_input("معدل الزكاة (Z)", value=2.5, key="n3_z")    
+        p_product = (0.25 * r_3 + 0.25 * t_3 + 0.2 * s_3 + 0.2 * pi_3 + 0.1 * z_3)
+        st.metric("سعر المنتج المصرفي (P)", f"{p_product:.2f}")
+    # استنتاج نهائي للمنصة
+    st.markdown("---")
+    st.success("تم تطبيق النماذج التطبيقية الثلاثة بنجاح، مما يعزز الاستقلال عن سعر الفائدة الربوي وتفعيل الوظيفة التمكينية للمال.")
 
 elif mid == "m28":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
