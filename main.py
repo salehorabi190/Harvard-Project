@@ -167,12 +167,70 @@ elif mid == "m1":
     st.success("تم تحليل الأداء بناءً على استنطاق المعاني العميقة خلف السلوك الوظيفي.")
 
 elif mid == "m2":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"E_r = \alpha + \beta_1 Z_r + \beta_2 M_r + \beta_3 I_r")
-    desc = "أثر القيادة المتزكية وإلهام القائد في تحقيق الاستخلاف." if lang == "العربية" else "Impact of spiritual leadership and inspiration."
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. المعادلة الرمزية الأساسية للقيادة المتزكية
+    st.latex(r"E_r = \alpha + \beta_1 Z_r + \beta_2 M_r + \beta_3 I_r + \beta_4 C_r + \beta_5 V_r + \beta_6 R_r + \epsilon_r")   
+    desc = "القيادة المتزكية: نموذج رمزي عالمي يقيس أثر تزكية القائد وإلهامه في جودة الأداء المؤسسي وتحقيق الاستخلاف." if lang == "العربية" else "Tazkiyah-Based Leadership: A symbolic model measuring the impact of a leader's purification and inspiration on institutional performance."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Zr", value=90.0); v2 = st.number_input("Ir", value=85.0)
-    st.metric(m_res, f"{(0.6*v1 + 0.4*v2):.2f}")
+    # 2. استبانة الأثر الرمزي في القيادة المتزكية
+    st.markdown("### 🏛️ استبانة قياس الأثر القيادي المتزكي")
+    st.info("يرجى تقييم المحاور التالية (من 1 إلى 5) بناءً على الممارسة القيادية الفعلية")
+    # استخدام التبويبات لتنظيم المحاور الثمانية
+    tabs = st.tabs([
+        "تزكية الذات (Zr)", "المعنى (Mr)", "الإلهام (Ir)", "التواصل (Cr)", 
+        "التوافق (Vr)", "الرسالة (Rr)", "النية (α)", "الأثر (ε)"
+    ])
+    with tabs[0]:
+        st.subheader("تزكية القائد (Zr)")
+        z1 = st.number_input("أمارس التأمل أو مراجعة النية بانتظام", 1, 5, 4, key="z1_m2")
+        z2 = st.number_input("أمتلك خطة شخصية للنمو الروحي والسلوكي", 1, 5, 3, key="z2_m2")
+        z3 = st.number_input("أحرص على ضبط الأنا في المواقف القيادية", 1, 5, 4, key="z3_m2")
+        Zr = (z1 + z2 + z3) / 3
+    with tabs[1]:
+        st.subheader("المعنى والانتماء (Mr)")
+        m1 = st.number_input("أشعر أن عملي يحمل رسالة تتجاوز المادة", 1, 5, 5, key="m1_m2")
+        m2 = st.number_input("أساهم في بناء روابط معنوية داخل الفريق", 1, 5, 4, key="m2_m2")
+        m3 = st.number_input("أحتفي بالمعاني لا فقط بالنتائج", 1, 5, 4, key="m3_m2")
+        Mr = (m1 + m2 + m3) / 3
+    with tabs[2]:
+        st.subheader("الإلهام الرمزي (Ir)")
+        i1 = st.number_input("أستخدم القصص الرمزية في التحفيز والتوجيه", 1, 5, 4, key="i1_m2")
+        i2 = st.number_input("أبتكر قيم روحية تعزز الحافز الداخلي", 1, 5, 4, key="i2_m2")
+        Ir = (i1 + i2) / 2
+    with tabs[3]:
+        st.subheader("التواصل الرمزي (Cr)")
+        c1 = st.number_input("أستخدم لغة رمزية تعكس القيم في الاجتماعات", 1, 5, 3, key="c1_m2")
+        c2 = st.number_input("أوظّف إشارات بصرية وسلوكية تُجسّد الرسالة", 1, 5, 4, key="c2_m2")
+        Cr = (c1 + c2) / 2
+    with tabs[4]:
+        st.subheader("توافق القيم (Vr)")
+        v1 = st.number_input("أجد توافقًا بين قيمي الشخصية ورسالة المؤسسة", 1, 5, 5, key="v1_m2")
+        v2 = st.number_input("أساهم في تطوير ثقافة مؤسسية رمزية", 1, 5, 4, key="v2_m2")
+        Vr = (v1 + v2) / 2
+    with tabs[5]:
+        st.subheader("تجسيد الرسالة (Rr)")
+        r1 = st.number_input("أحوّل رسالة المؤسسة إلى خطوات عملية رمزية", 1, 5, 4, key="r1_m2")
+        r2 = st.number_input("أستخدم الرسالة كمرجعية في التوجيه والتقييم", 1, 5, 5, key="r2_m2")
+        Rr = (r1 + r2) / 2
+    with tabs[6]:
+        st.subheader("النية التأسيسية (α)")
+        alpha = st.number_input("أراجع نيتي قبل اتخاذ القرارات الكبرى", 1, 5, 5, key="alpha_m2")
+    with tabs[7]:
+        st.subheader("الأثر غير المرئي (ε)")
+        epsilon = st.number_input("أستشعر البركة في القرارات التي تنبع من الرسالة", 1, 5, 5, key="eps_m2")
+    # 3. حساب الأثر المؤسسي المتزكي Er
+    # تم توزيع الأوزان بناءً على أهمية تزكية القائد والإلهام وتجسيد الرسالة
+    Er = alpha + (0.2 * Zr) + (0.15 * Mr) + (0.15 * Ir) + (0.1 * Cr) + (0.15 * Vr) + (0.15 * Rr) + (0.1 * epsilon)
+    st.markdown("---")
+    st.subheader("📊 تحليل الأثر القيادي المتزكي النهائي")    
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
+        st.metric("مؤشر الأثر المؤسسي (Er)", f"{Er:.2f}")
+    with col_res2:
+        # تقييم المستوى القيادي
+        status = "قائد متزكٍ (ملهم)" if Er > 4.2 else "قائد في مرحلة التزكية" if Er > 3.5 else "قائد إجرائي (مادي)"
+        st.write(f"**التصنيف القيادي الرمزي:** {status}")
+    st.success("تم تحليل الأداء القيادي بناءً على نموذج السيادة التزكوية والمقاصدية.")
 
 elif mid == "m3":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
