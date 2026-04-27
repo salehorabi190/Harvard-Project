@@ -507,20 +507,114 @@ elif mid == "m5":
     st.success("تم التقييم بناءً على استنطاق المعاني العميقة والنية المؤسسية وفق نموذج السيادة التزكوية.")
 
 elif mid == "m6":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"V_r = Faith \times Impact")
-    desc = "التحقق الوجودي للأثر الاقتصادي وربطه بمبادئ الاستخلاف." if lang == "العربية" else "Existential verification of economic impact."
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. المعادلة الرمزية الأساسية للتحقق الوجودي
+    st.latex(r"V_r = \alpha + \beta_1 M_r + \beta_2 P_r + \beta_3 N_r + \beta_4 Z_r + \epsilon_r")    
+    desc = "التحقق الوجودي الرمزي: يقيس مدى شعور الفرد بأن وجوده داخل المؤسسة له معنى ورسالة وأثر يتجاوز المهام الوظيفية التقليدية." if lang == "العربية" else "Symbolic Existential Validation: Measures the individual's sense of meaning, mission, and impact within the organization."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Faith Index", value=95.0); v2 = st.number_input("Impact Index", value=80.0)
-    st.metric(m_res, f"{(v1*v2/100):.2f}")
+    # 2. استبانة الأثر الرمزي في التحقق الوجودي
+    st.markdown("### 🧬 استبانة التحقق الوجودي في بيئة العمل")
+    st.info("يرجى تقييم المحاور التالية (من 1 إلى 5) بناءً على شعورك الشخصي وتجربتك داخل المؤسسة")
+    # استخدام التبويبات لتنظيم المحاور الستة
+    tabs = st.tabs([
+        "النية المؤسسية (α)", "المعنى الشخصي (Mr)", "المشاركة الرمزية (Pr)", 
+        "نية الفرد (Nr)", "التزكية الذاتية (Zr)", "الأثر غير المرئي (ε)"
+    ])
+    with tabs[0]:
+        st.subheader("النية التأسيسية للمؤسسة (α)")
+        a1 = st.number_input("تأسست المؤسسة على نية واضحة تتجاوز الربح المادي", 1, 5, 5, key="a1_m6")
+        a2 = st.number_input("تُستخدم النية كمرجعية في التقييم والتطوير المؤسسي", 1, 5, 4, key="a2_m6")
+        alpha = (a1 + a2) / 2
+    with tabs[1]:
+        st.subheader("المعنى الشخصي (Mr)")
+        m1 = st.number_input("أشعر أن عملي يحمل قيمة ومعنى يتجاوز تنفيذ المهام", 1, 5, 5, key="m1_m6")
+        m2 = st.number_input("أجد فرصة للتعبير عن قناعاتي وقيمي الشخصية في عملي", 1, 5, 4, key="m2_m6")
+        Mr = (m1 + m2) / 2
+    with tabs[2]:
+        st.subheader("المشاركة الرمزية (Pr)")
+        p1 = st.number_input("أشارك بفعالية في طقوس وقرارات جماعية ذات بعد رمزي", 1, 5, 4, key="p1_m6")
+        p2 = st.number_input("أشعر أن صوتي مسموع في السياقات المعنوية والرمزية", 1, 5, 4, key="p2_m6")
+        Pr = (p1 + p2) / 2
+    with tabs[3]:
+        st.subheader("نية الفرد (Nr)")
+        n1 = st.number_input("لدي نية واضحة وموثقة لأهدافي من العمل هنا", 1, 5, 4, key="n1_m6")
+        n2 = st.number_input("أراجع نواياي دورياً لضمان ترجمتها إلى أثر حقيقي", 1, 5, 5, key="n2_m6")
+        Nr = (n1 + n2) / 2
+    with tabs[4]:
+        st.subheader("التزكية الذاتية (Zr)")
+        z1 = st.number_input("بيئة العمل تساعدني على النمو الروحي والتطهير الذاتي", 1, 5, 3, key="z1_m6")
+        z2 = st.number_input("أشعر أن العمل يزكّي نفسي ولا يرهق قيمها الأخلاقية", 1, 5, 4, key="z2_m6")
+        Zr = (z1 + z2) / 2
+    with tabs[5]:
+        st.subheader("الأثر غير المرئي (ε)")
+        epsilon = st.number_input("أستشعر بركة وتوفيقاً وانجاماً غير مفسر في نتائجي", 1, 5, 5, key="eps_m6")
+    # 3. حساب التحقق الوجودي الرمزي Vr
+    # تم توزيع الأوزان لتعكس قوة تأثير المعنى والنية والتزكية
+    Vr = alpha + (0.25 * Mr) + (0.2 * Pr) + (0.2 * Nr) + (0.15 * Zr) + (0.1 * epsilon)
+    st.markdown("---")
+    st.subheader("📊 تحليل مؤشر التحقق الوجودي النهائي")    
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
+        st.metric("مؤشر التحقق الوجودي (Vr)", f"{Vr:.2f}")
+    with col_res2:
+        # تقييم درجة التحقق الوجودي
+        status = "تحقق وجودي كامل (رسالي)" if Vr > 4.2 else "تحقق وجودي جزئي (باحث)" if Vr > 3.5 else "وجود إجرائي (مادي)"
+        st.write(f"**الحالة الوجودية في العمل:** {status}")
+    st.success("تم التقييم بناءً على استنطاق المعاني العميقة للانتماء والنمو الروحي وفق نموذج السيادة التزكوية.")
 
 elif mid == "m7":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+    st.markdown("### نَمُوذَجُ القِيمَةِ التَّزْكِيَّةِ المُضَافَةِ (ZVA)")
+    # 1. المعادلات الرياضية للنموذج
     st.latex(r"ZVA = EVA + \lambda Z")
-    desc = "القيمة التزكوية المضافة التي تدمج الربح المادي والبركة المعنوية." if lang == "العربية" else "Tazkiyah Value Added (Profit + Barakah)."
+    st.latex(r"Z = \theta N + \mu A + \nu R")    
+    desc = "نموذج ZVA لتقييم التزكية الصناعية: يُعيد تعريف الأداء المؤسسي عبر دمج البعد التزكوي (النية، المعنى، الانسجام) مع المؤشرات التقليدية وقياس أثرها على الإنتاجية." if lang == "العربية" else "ZVA Model: Redefining industrial performance by integrating Tazkiyah (Intention, Meaning, Harmony) with traditional indicators."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("EVA (Material)", value=500.0); v2 = st.number_input("Z factor", value=90.0)
-    st.metric(m_res, f"{(v1 + 1.5*v2):.2f}")
+    # 2. إدخال المؤشرات التقليدية (EVA)
+    st.subheader("أولاً: مؤشر القيمة الاقتصادية المضافة (التقليدي)")
+    col_eva1, col_eva2 = st.columns(2)
+    with col_eva1:
+        eva_val = st.number_input("القيمة الاقتصادية المضافة (EVA)", value=500.0, key="eva_input")
+    with col_eva2:
+        lambda_val = st.number_input("معامل التحويل (λ) - قدرة المؤسسة على تحويل القيم لأثر", value=1.5, key="lambda_input")
+    # 3. استبانة مؤشر التزكية المركب (Z)
+    st.subheader("ثانياً: قياس مؤشر التزكية المركب (Z)")
+    st.info("يرجى تقييم الأبعاد التزكوية التالية في المؤسسة (من 1 إلى 100)")    
+    tab_n, tab_a, tab_r = st.tabs(["النية (N)", "الانسجام (A)", "الالتزام (R)"])    
+    with tab_n:
+        st.write("**مؤشر النية المؤسسية (N):** وضوح الرسالة، الهدف غير الربحي، النية في المشاريع.")
+        n_val = st.number_input("درجة النية المؤسسية", 0.0, 100.0, 85.0, key="n_zva")
+        theta = 0.4 # معامل ترجيح النية
+    with tab_a:
+        st.write("**الانسجام الداخلي (A):** رضا العاملين، الانتماء، غياب التناقضات الرمزية.")
+        a_val = st.number_input("درجة الانسجام الداخلي", 0.0, 100.0, 80.0, key="a_zva")
+        mu = 0.3 # معامل ترجيح الانسجام
+    with tab_r:
+        st.write("**الالتزام الروحي (R):** القرارات الأخلاقية، العدالة الداخلية، الأثر الرمزي.")
+        r_val = st.number_input("درجة الالتزام الروحي", 0.0, 100.0, 90.0, key="r_zva")
+        nu = 0.3 # معامل ترجيح الالتزام
+    # 4. الحسابات البرمجية
+    # حساب مؤشر التزكية المركب Z
+    Z_composite = (theta * n_val) + (mu * a_val) + (nu * r_val)
+    
+    # حساب القيمة التزكوية المضافة ZVA
+    zva_result = eva_val + (lambda_val * Z_composite)
+    # 5. عرض النتائج والتحليل الصناعي
+    st.markdown("---")
+    st.subheader("📊 تحليل القيمة التزكوية المضافة النهائية")    
+    col_res1, col_res2 = st.columns(2)
+    with col_res1:
+        st.metric("القيمة التزكوية المضافة (ZVA)", f"{zva_result:.2f}")
+    with col_res2:
+        st.metric("مؤشر التزكية المركب (Z)", f"{Z_composite:.2f}")
+    # مصفوفة الأثر (ارتباط التزكية بالمؤشرات التقليدية)
+    st.write("### 📉 أثر التزكية المتوقع على المؤشرات التقليدية:")
+    st.table({
+        "المؤشر الاقتصادي": ["العائد على الأصول (ROA)", "الإنتاجية الفردية", "معدل دوران الموظفين"],
+        "العلاقة مع التزكية": ["ارتفاع (بفعل الانسجام)", "تحسن (بفعل المعنى)", "انخفاض (بفعل النية الصافية)"],
+        "القيمة المتوقعة": [f"{zva_result*0.02:.2f}%", "مرتفعة", "منخفضة جداً"]
+    })
+    st.success("تم تحليل الأداء الصناعي وفق نموذج ZVA لدمج الربح المادي بالبركة المعنوية.")
 
 elif mid == "m8":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
