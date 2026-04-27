@@ -389,7 +389,7 @@ elif mid == "m3":
         st.write(f"**الحالة التنظيمية الرمزية:** {status}")
     st.success("تم تقييم عمق الحوكمة في تجسيد الرسالة وتفعيل المعنى بناءً على نموذج السيادة التزكوية.")
 
-elif mid == "p4":
+elif mid == "m4":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
     # 1. المعادلة الرمزية الأساسية للاستثمار التزكوي
     st.latex(r"R_r = \alpha + \beta_1 N_r + \beta_2 Z_r + \beta_3 S_r + \beta_4 E_r + \epsilon_r")    
