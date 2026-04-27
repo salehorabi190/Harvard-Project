@@ -60,32 +60,23 @@ mid = menu[choice]
 # --- 4. محرك التشغيل التفصيلي (الـ 35 كتلة سطر بسطر) ---
 
 if mid == "p1":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    
-    # عرض المعادلة الرياضية
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)  
+    # عرض المعادلة الرياضية القياسية
     st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it} + \mu_{it}")
-    
     # شرح المعادلة (يبقى كما هو)
-    desc = "منتج الإدخار الوقفي الذكي: يتيح للعميل تخصيص نسبة من مدخراته كوقف يُستثمر في مشاريع تنموية." if lang == "العربية" else "Smart Endowment Savings Product: Allows allocating a percentage of savings as an endowment for developmental projects."
+    desc = "مُنْتَجُ الإِدِّخَارِ الوَقْفِيِّ الذَّكِيِّ: يتيح للعميل تخصيص نسبة من مدخراته كوقف دائم أو مؤقت، يُستثمر في مشاريع تنموية." if lang == "العربية" else "Smart Endowment Savings Product: Allows allocating a percentage of savings as an endowment for developmental projects."
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    
-    # إضافة خانات إدخال للأرقام المقترحة لكل رمز من رموز المعادلة
-    st.subheader("إدخال قيم متغيرات النموذج:")
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        v1 = st.number_input("نسبة الوقف من الادخار (Wit)", min_value=0.0, max_value=100.0, value=80.0)
-    with col2:
-        v2 = st.number_input("عائد الاستثمار الوقفي (Rit)", min_value=0.0, max_value=100.0, value=70.0)
-    with col3:
-        v3 = st.number_input("مؤشر التفاعل الروحي (Tit)", min_value=0.0, max_value=100.0, value=90.0)
-    
-    # حساب الناتج النهائي (مؤشر الأثر الوقفي Zit) بناءً على الأرقام المدخلة
-    # ملاحظة: تم استخدام أوزان افتراضية (0.4, 0.3, 0.3) لعملية الحساب كما في الكود الأصلي
-    result = (0.4 * v1 + 0.3 * v2 + 0.3 * v3)
-    
-    st.metric("مؤشر الأثر الوقفي (Zit)", f"{result:.2f}")
+    # إضافة خانات إدخال رقمية لكل رمز من رموز المعادلة
+    st.write("### إدخال قيم متغيرات النموذج:")
+    # إنشاء ثلاث خانات لإدخال الأرقام
+    v1 = st.number_input("نسبة الوقف من الادخار (Wit)", min_value=0.0, value=80.0, step=1.0)
+    v2 = st.number_input("عائد الاستثمار الوقفي (Rit)", min_value=0.0, value=70.0, step=1.0)
+    v3 = st.number_input("مؤشر التفاعل الروحي (Tit)", min_value=0.0, value=90.0, step=1.0)
+    # حساب الناتج النهائي (مؤشر الأثر الوقفي Zit)
+    # ملاحظة: تم الإبقاء على الأوزان المستخدمة سابقاً لإتمام العملية الحسابية
+    z_it = (0.4 * v1 + 0.3 * v2 + 0.3 * v3)
+    # عرض الناتج النهائي
+    st.metric("مؤشر الأثر الوقفي النهائي (Zit)", f"{z_it:.2f}")
 
 elif mid == "p2":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
