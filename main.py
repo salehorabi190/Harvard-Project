@@ -317,12 +317,28 @@ elif mid == "m26":
     st.metric(m_res, f"{(v1*v2)**0.5:.2f}")
 
 elif mid == "m27":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-    st.latex(r"R = \alpha_1 \pi + \alpha_2 T + \alpha_3 Z")
-    desc = "العائد المقاصدي البديل للفائدة الربوية." if lang == "العربية" else "Maqasid Return: alternative to usury."
-    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-    v1 = st.number_input("Profit π", value=80.0); v2 = st.number_input("Empowerment T", value=85.0)
-    st.metric(m_res, f"{(0.5*v1 + 0.5*v2):.2f}")
+    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
+    # 1. عرض المعادلة القياسية لمعدل العائد الإسلامي المقاصدي
+    st.latex(r"R = \alpha_1 \pi + \alpha_2 T + \alpha_3 Z + \alpha_4 E + \epsilon")    
+    # 2. شرح الفكرة العامة للنموذج (نصك الأصلي)
+    desc = """مُعَدَّلُ العَائِدِ الإِسْلَامِيُّ المَقَاصِدِيُّ: 
+    بديل شرعي للفائدة يُراعي المقاصد (العدالة، التمكين، التكافل) ويُدمج البعد الأخلاقي مع الأثر الاقتصادي في حياة المستفيد.""" if lang == "العربية" else "Maqasid Islamic Return Rate: A Sharia-compliant alternative to interest that integrates ethics, justice, and the impact of funding on the beneficiary's life."
+    st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)    
+    # 3. خانات إدخال الرموز (المتغيرات) بناءً على عناصر النموذج
+    st.write("### إدخال قيم متغيرات العائد المقاصدي:")    
+    col1, col2 = st.columns(2)
+    with col1:
+        v1 = st.number_input("الربحية المتوقعة (π)", value=75.0, key="m27_v1")
+        v2 = st.number_input("مؤشر التمكين (T)", value=85.0, key="m27_v2")
+    with col2:
+        v3 = st.number_input("معدل الزكاة (Z)", value=2.5, key="m27_v3")
+        v4 = st.number_input("معدل التضخم المتوقع (E)", value=5.0, key="m27_v4")
+    # 4. حساب الناتج النهائي (R: معدل العائد الإسلامي المقاصدي)
+    # تم استخدام أوزان لتعكس تأثير الربحية والتمكين والحفاظ على القوة الشرائية
+    # الأوزان الافتراضية: π=0.4, T=0.3, Z=0.1, E=0.2
+    r_return = (0.4*v1 + 0.3*v2 + 0.1*v3 + 0.2*v4)    
+    # 5. ظهور الناتج النهائي
+    st.metric("معدل العائد الإسلامي المقاصدي (R)", f"{r_return:.2f}%")
 
 elif mid == "m28":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
