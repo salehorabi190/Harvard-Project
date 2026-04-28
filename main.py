@@ -2,6 +2,40 @@ import streamlit as st
 import numpy as np
 # --- 1. الإعدادات والسيادة البصرية (ابتكار أ.د. صالح عرابي 2026) ---
 st.set_page_config(page_title="S.E.P 2026 | Prof. Dr. Saleh Orabi", layout="wide")
+# رابط الصورة الخاص بك
+logo_url = "https://kommodo.ai/i/MIbJb8bOCEjKBixkblw5"
+st.markdown(f"""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+    .stApp {{ background-color: #f4f7f6; }}
+    /* الحاوية الرئيسية للشعار */
+    .logo-container {{ 
+        text-align: center; 
+        padding: 30px; 
+        background: linear-gradient(135deg, #1e4d2b 0%, #11301a 100%); 
+        border-radius: 30px; 
+        border-bottom: 12px solid #d4af37; 
+        margin-bottom: 40px; 
+        color: white; 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+    }}   
+    /* تنسيق الصورة داخل الحاوية */
+    .logo-img {{
+        width: 280px; /* يمكنك التحكم في حجم الشعار من هنا */
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+        margin-bottom: 10px;
+    }}
+    .logo-text {{ font-family: 'Playfair Display', serif; font-size: 50px; letter-spacing: 5px; margin-top: 10px; }}
+    .explanation-box {{ background-color: #ffffff; padding: 35px; border-radius: 20px; border-right: 20px solid #2e7d32; color: #1b5e20; line-height: 2.2; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); font-family: 'Cairo', sans-serif; font-size: 18px; }}
+    .header-style {{ color: #1e4d2b; font-family: 'Cairo', sans-serif; font-weight: bold; border-bottom: 8px solid #d4af37; padding-bottom: 20px; margin-bottom: 40px; text-align: right; }}
+    .stMetric {{ background: #ffffff; padding: 30px; border-radius: 25px; border: 2px solid #e0e0e0; box-shadow: 0 8px 20px rgba(0,0,0,0.03); }}
+    </style>
+    <div class="logo-container">
+        <img src="{logo_url}" class="logo-img">
+        <div class="logo-text">S.E.P 2026</div>
+        <p style="font-family: 'Cairo'; font-size: 20px; opacity: 0.9;">بروتوكول هندسة الاستخلاف الاقتصادي</p>
+    </div>
+    """, unsafe_allow_html=True)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Playfair+Display:wght@700&display=swap');
