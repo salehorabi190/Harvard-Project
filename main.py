@@ -42,8 +42,8 @@ menu = {
 }
 st.sidebar.header(sidebar_head)
 choice = st.sidebar.selectbox(select_msg, list(menu.keys()))
-mid = menu[choice]  
-   if mid == "p1":
+mid = menu[choice] 
+if mid == "p1":
         st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
         # ضع كود p1 الأصلي هنا...        
     elif mid == "m33":
