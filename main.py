@@ -99,15 +99,8 @@ tab_main, tab_sharia, tab_market, tab_advanced = st.tabs([
     "📈 هندسة السياسات والسوق", 
     "🔐 الأنظمة السيادية والذكاء"
 ])
-# وظيفة مساعدة لرسم الأزرار
-def draw_model_button(col, label, key, icon):
-    with col:
-        if st.button(f"{icon}\n{label}", key=key, use_container_width=True):
-            st.session_state.selected_model = key
-# تعريف الحالة الافتراضية
-if 'selected_model' not in st.session_state:
-    st.session_state.selected_model = None
-# --- توزيع الأزرار داخل التبويبات ---
+# # --- 1. توزيع الأزرار داخل التبويبات (هذا الجزء يوضع بعد تعريف الدالة draw_model_button) ---
+
 with tab_main:
     c1, c2, c3 = st.columns(3)
     draw_model_button(c1, "P1. الإدخار الوقفي الذكي", "p1", "🌙")
@@ -117,6 +110,7 @@ with tab_main:
     draw_model_button(c4, "P4. المضاربة الاجتماعية التمكينية", "p4", "🤝")
     draw_model_button(c5, "P5. صندوق الوقف التمكيني المشترك", "p5", "🏦")
     draw_model_button(c6, "P6. الإجارة الوقفية الموصوفة", "p6", "🏠")
+
 with tab_sharia:
     c1, c2, c3 = st.columns(3)
     draw_model_button(c1, "1. الأثر الرمزي (Pr)", "m1", "✨")
@@ -126,6 +120,7 @@ with tab_sharia:
     draw_model_button(c4, "4. الاستثمار التزكوي (Rr)", "m4", "💎")
     draw_model_button(c5, "5. التقييم التزكوي للمؤسسات (Qr)", "m5", "🏛️")
     draw_model_button(c6, "6. التحقق الوجودي (Vr)", "m6", "🧬")
+
 with tab_market:
     c1, c2 = st.columns(2)
     draw_model_button(c1, "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ", "m8_m11", "📖")
@@ -133,6 +128,7 @@ with tab_market:
     c3, c4 = st.columns(2)
     draw_model_button(c3, "هَنْدَسَةِ السُّوقِ: مِنَ التَّبَادُلِ إِلَى التَّزْكِيَةِ", "m16_m19", "📉")
     draw_model_button(c4, "هَنْدَسَةِ العَرْضِ والطَّلَبِ المَقاصِدِيَّةِ", "m20_m23", "⚖️")
+
 with tab_advanced:
     c1, c2, c3 = st.columns(3)
     draw_model_button(c1, "30. خوارزمية التقييم الشرعي التنبؤية", "m30", "🤖")
@@ -142,20 +138,36 @@ with tab_advanced:
     draw_model_button(c4, "33. بروتوكول أمانة (مؤشر البركة Bi)", "m33", "🌿")
     draw_model_button(c5, "7. القيمة التزكوية المضافة (ZVA)", "m7", "➕")
     draw_model_button(c6, "27. هندسة سعر الفائدة والبدائل", "m27", "📊")
-# --- 4. محرك التشغيل التفصيلي (بناءً على اختيار الزر) ---
-if st.session_state.selected_model:
-    mid = st.session_state.selected_model
+
+# --- 2. محرك التشغيل والربط (المنطقة الحساسة) ---
+
+# استرجاع المعرف المختار من الحالة
+mid = st.session_state.selected_model
+
+if mid:
+    # استخراج اسم النموذج من القاموس لاستخدامه في العناوين داخل الأكواد الأصلية
+    choice = [k for k, v in menu.items() if v == mid][0] if mid in menu.values() else ""
     st.markdown("---")
-    # مثال لتنفيذ m33 (بروتوكول أمانة) كمثال للتطبيق داخل الواجهة الجديدة
-    if mid == "m33":
-        st.markdown(f"<h1 class='header-style'>بروتوكول 'أمانة' السيادي: المحاكاة الرقمية الشاملة</h1>", unsafe_allow_html=True)
-        st.latex(r"Bi = \frac{\sum (U_v \cdot S_t)}{H_w + D_i}")
-        # ... باقي كود m33 كما تم برمجته سابقاً ...
-        st.success("تم تفعيل بروتوكول أمانة بنجاح.")
-    # (هنا يتم وضع بقية الـ elif لجميع النماذج p1-m33 التي برمجناها سابقاً)
-    else:
-        st.info(f"تم اختيار النموذج: {mid} - جاري تحميل البيئة الهندسية...")
-# إضافة لمسة جمالية في ذيل الصفحة
+    
+    # --- هــنــا تــبــدأ الأكــواد الأصــلــيــة (الـ 1460 سطر) ---
+    # تأكد أن كل جملة if أو elif تبدأ من هذا المستوى (أدنى الـ if mid:)
+    
+    if mid == "p1":
+        st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+        # ضع كود p1 الأصلي هنا...
+        
+    elif mid == "m33":
+        st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+        # ضع كود m33 الأصلي هنا... (البركة، المحاكاة، الرسوم)
+
+    # ... وهكذا لبقية النماذج ...
+
+else:
+    # ما يظهر قبل اختيار أي زر
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.info("🏛️ مرحباً بك دكتور صالح في منصة الاستخلاف.. يرجى اختيار نموذج من الأزرار أعلاه للبدء في المحاكاة الهندسية.")
+
+# --- 3. ذيل الصفحة البصري ---
 st.markdown(f"""
     <div style="text-align: center; color: #1e4d2b; padding: 50px; font-family: Cairo;">
         <hr style="border-top: 3px solid #d4af37; width: 50%; margin: auto;">
@@ -164,16 +176,6 @@ st.markdown(f"""
         <b>نحو اقتصاد استخلافي سيادي</b>
     </div>
     """, unsafe_allow_html=True)
-# --- جسر الربط لتفعيل الأزرار ومنع الخطأ ---
-if 'selected_model' in st.session_state and st.session_state.selected_model:
-    mid = st.session_state.selected_model
-    # استخراج اسم النموذج لعرضه كعنوان
-    choice = [k for k, v in menu.items() if v == mid][0] if mid in menu.values() else ""
-else:
-    # القيمة الافتراضية إذا لم يتم الضغط على أي زر بعد
-    mid = None
-    st.info("🏛️ مرحباً بك دكتور صالح في منصة الاستخلاف.. يرجى اختيار نموذج من الأزرار أعلاه للبدء.")
-
 if mid == "p1":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
     # 1. المعادلة الرياضية القياسية للإدخار الوقفي الذكي
