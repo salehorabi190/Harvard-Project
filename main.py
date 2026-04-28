@@ -1,101 +1,90 @@
 import streamlit as st
-import numpy as np
 
-# --- 1. الإعدادات والسيادة البصرية ---
+# ------------------ الإعدادات ------------------
 st.set_page_config(page_title="S.E.P 2026 | Prof. Dr. Saleh Orabi", layout="wide")
-# --- 2. تنسيق بصري إسلامي فاخر ---
+
+# ------------------ تنسيق بصري إسلامي ------------------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&display=swap');
-.stApp { 
-    background-color: #f4f7f6;
-}
+
+.stApp { background-color: #f4f7f6; }
+
 /* رأس الصفحة */
 .logo-container {
-    text-align: center; 
-    padding: 45px; 
+    text-align: center;
+    padding: 45px;
     background: linear-gradient(135deg, #0f3d2e 0%, #08251b 100%);
-    border-radius: 30px; 
-    border-bottom: 12px solid #d4af37; 
-    margin-bottom: 40px; 
-    color: white; 
+    border-radius: 30px;
+    border-bottom: 12px solid #d4af37;
+    margin-bottom: 40px;
+    color: white;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 .logo-text {
-    font-family: 'Amiri', serif; 
-    font-size: 80px; 
+    font-family: 'Amiri', serif;
+    font-size: 80px;
     letter-spacing: 4px;
 }
-/* العناوين */
-.header-style {
-    color: #0f3d2e; 
-    font-family: 'Cairo', sans-serif; 
-    font-weight: bold; 
-    border-bottom: 8px solid #d4af37; 
-    padding-bottom: 20px; 
-    margin-bottom: 40px; 
-    text-align: right;
-}
-/* بطاقات النماذج */
-.model-card {
+
+/* بطاقة زر */
+.card-btn {
     background: white;
+    border: 3px solid #d4af37;
     padding: 25px;
     border-radius: 20px;
-    border: 3px solid #d4af37;
-    text-align: center;
     font-family: 'Cairo', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     color: #0f3d2e;
+    width: 100%;
+    text-align: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     transition: 0.3s;
 }
-.model-card:hover {
+.card-btn:hover {
     background: #0f3d2e;
     color: white;
-    cursor: pointer;
     transform: scale(1.03);
+    cursor: pointer;
 }
+
 /* شبكة البطاقات */
-.grid-container {
+.grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 20px;
-    margin-top: 30px;
 }
 </style>
 """, unsafe_allow_html=True)
-# --- 3. نظام اللغات ---
-lang = st.sidebar.selectbox("🌐 اختر اللغة / Select Language", ["العربية", "English"])
-AUTHOR_NAME = "Prof. Dr. Saleh Orabi" if lang == "English" else "أ.د. صالح عرابي"
-if lang == "العربية":
-    m_res, m_auth, m_title = "النتيجة النهائية", f"إعداد وتطوير: {AUTHOR_NAME} - 2026", "بروتوكول هندسة الاستخلاف الاقتصادي"
-else:
-    m_res, m_auth, m_title = "Final Result", f"Developed by: {AUTHOR_NAME} - 2026", "Economic Stewardship Engineering Protocol"
-# --- 4. رأس الصفحة ---
-st.markdown(f"""
+
+# ------------------ رأس الصفحة ------------------
+st.markdown("""
 <div class="logo-container">
     <div class="logo-text">S.E.P 2026</div>
-    <div style="font-size: 32px; color: #d4af37; font-weight: bold; margin-top:15px;">{m_title}</div>
-    <div style="font-size: 20px; opacity: 0.9;">{m_auth}</div>
+    <div style="font-size: 32px; color: #d4af37; font-weight: bold; margin-top:15px;">
+        بروتوكول هندسة الاستخلاف الاقتصادي
+    </div>
+    <div style="font-size: 20px; opacity: 0.9;">إعداد وتطوير: أ.د. صالح عرابي - 2026</div>
 </div>
 """, unsafe_allow_html=True)
-# --- 5. قائمة النماذج (بطاقات) ---
-menu = {
+
+# ------------------ قائمة النماذج ------------------
+models = {
     "P1. الإدخار الوقفي الذكي": "p1",
     "P2. المشاركة التمكينية المتدرجة": "p2",
     "P3. الصكوك الوقفية التنموية": "p3",
     "P4. المضاربة الاجتماعية التمكينية": "p4",
     "P5. صندوق الوقف التمكيني المشترك": "p5",
-    "P6. الإِجَارَةُ الوَقْفِيَّةُ المَوْصُوفَةُ فِي الذِّمَّةِ": "p6",
-    "1. نموذج الأثر الرمزي (Pr)": "m1",
-    "2. نموذج القيادة المتزكية (Er)": "m2",
-    "3. نموذج الحوكمة الرمزية (Gr)": "m3",
-    "4. نموذج الاستثمار التزكوي (Rr)": "m4",
-    "5. نموذج التقييم التزكوي (Qr)": "m5",
-    "6. نموذج التحقق الوجودي (Vr)": "m6",
-    "7. القيمة التزكوية المضافة (ZVA)": "m7",
-    "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ": "m8_m11",
+    "P6. الإجارة الوقفية الموصوفة في الذمة": "p6",
+    "1. نموذج الأثر الرمزي": "m1",
+    "2. نموذج القيادة المتزكية": "m2",
+    "3. نموذج الحوكمة الرمزية": "m3",
+    "4. نموذج الاستثمار التزكوي": "m4",
+    "5. نموذج التقييم التزكوي": "m5",
+    "6. نموذج التحقق الوجودي": "m6",
+    "7. القيمة التزكوية المضافة": "m7",
+    "السُّنن في السياسات الاقتصادية": "m8_m11",
     "تطبيق السياسات الاقتصادية السننية": "m12_m15",
     "هندسة السوق: من التبادل إلى التزكية": "m16_m19",
     "هندسة العرض والطلب المقاصدية": "m20_m23",
@@ -110,34 +99,32 @@ menu = {
     "32. بروتوكول الإشراف وتصنيف الأصول": "m32",
     "33. بروتوكول أمانة (مؤشر البركة)": "m33"
 }
-st.markdown("<h2 class='header-style'>النماذج الهندسية</h2>", unsafe_allow_html=True)
-# --- شبكة البطاقات ---
-st.markdown("<div class='grid-container'>", unsafe_allow_html=True)
-cols = list(menu.keys())
-for item in cols:
-    if st.button(item, key=item):
-        st.session_state["selected_model"] = item
-    st.markdown(f"<div class='model-card'>{item}</div>", unsafe_allow_html=True)
+
+st.markdown("<h2 style='text-align:right; font-family:Cairo;'>النماذج الهندسية</h2>", unsafe_allow_html=True)
+
+# ------------------ شبكة البطاقات ------------------
+st.markdown("<div class='grid'>", unsafe_allow_html=True)
+
+for label, key in models.items():
+    if st.button(label, key=key):
+        st.session_state["model"] = key
+
 st.markdown("</div>", unsafe_allow_html=True)
-# --- 6. عرض النموذج المختار ---
-if "selected_model" in st.session_state:
-    choice = st.session_state["selected_model"]
-    mid = menu[choice]
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
-if mid == "p1":
-        st.write("ضع كود p1 هنا…")
-    elif mid == "m33":
-        st.write("ضع كود m33 هنا…")
-    else:
-        st.write("النموذج جاهز…")
+
+# ------------------ عرض النموذج المختار ------------------
+if "model" in st.session_state:
+    selected = st.session_state["model"]
+    st.markdown(f"<h1 style='text-align:right; font-family:Cairo;'>{selected}</h1>", unsafe_allow_html=True)
+    st.write("ضع كود النموذج هنا…")
 else:
-    st.info("🏛️ مرحباً بك دكتور صالح… اختر نموذجاً من البطاقات أعلاه للبدء.")
-# --- 7. ذيل الصفحة ---
-st.markdown(f"""
+    st.info("اختر نموذجاً من البطاقات أعلاه للبدء.")
+
+# ------------------ ذيل الصفحة ------------------
+st.markdown("""
 <div style="text-align: center; color: #0f3d2e; padding: 50px; font-family: Cairo;">
     <hr style="border-top: 3px solid #d4af37; width: 50%; margin: auto;">
     <br>
-    جميع الحقوق محفوظة © {AUTHOR_NAME} 2026<br>
+    جميع الحقوق محفوظة © أ.د. صالح عرابي 2026<br>
     <b>نحو اقتصاد استخلافي سيادي</b>
 </div>
 """, unsafe_allow_html=True)
