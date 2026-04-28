@@ -3,18 +3,15 @@ import numpy as np
 
 # --- 1. الإعدادات والسيادة البصرية المبدعة (ابتكار أ.د. صالح عرابي 2026) ---
 st.set_page_config(page_title="S.E.P 2026 | Prof. Dr. Saleh Orabi", layout="wide")
-
 # تصميم CSS متقدم يدمج الزخرفة الإسلامية بالواجهة الرقمية الحديثة
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&family=Playfair+Display:wght@700&display=swap');
-    
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&family=Playfair+Display:wght@700&display=swap');    
     /* خلفية التطبيق مع لمسة زخرفية خفيفة */
     .stApp {
         background-color: #f8faf9;
         background-image: url("https://www.transparenttextures.com/patterns/islamic-art.png");
-    }
-    
+    }    
     /* حاوية الشعار الرئيسية - نمط المحراب الرقمي */
     .logo-container {
         text-align: center;
@@ -26,10 +23,8 @@ st.markdown("""
         color: white;
         box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         position: relative;
-    }
-    
-    .logo-text { font-family: 'Playfair Display', serif; font-size: 85px; letter-spacing: 8px; text-shadow: 3px 3px 10px rgba(0,0,0,0.5); }
-    
+    }    
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 85px; letter-spacing: 8px; text-shadow: 3px 3px 10px rgba(0,0,0,0.5); }    
     /* تصميم الأزرار التفاعلية للنماذج */
     .model-card {
         background: white;
@@ -45,18 +40,15 @@ st.markdown("""
         justify-content: center;
         align-items: center;
         box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    }
-    
+    }   
     .model-card:hover {
         transform: translateY(-10px);
         border-color: #d4af37;
         background: #f1f8f3;
         box-shadow: 0 15px 30px rgba(30, 77, 43, 0.2);
-    }
-    
+    }  
     .model-icon { font-size: 40px; margin-bottom: 15px; }
     .model-name { font-family: 'Cairo', sans-serif; font-weight: bold; color: #1e4d2b; font-size: 16px; }
-
     /* صندوق الشرح المقاصدي */
     .explanation-box {
         background-color: #ffffff;
@@ -72,30 +64,24 @@ st.markdown("""
         font-size: 20px;
         text-align: justify;
     }
-
     .header-style { 
         color: #1e4d2b; font-family: 'Amiri', serif; font-size: 45px;
         border-bottom: 5px solid #d4af37; display: inline-block; margin-bottom: 30px;
-    }
-    
+    } 
     /* إخفاء القائمة الجانبية الأصلية للتركيز على واجهة الأزرار */
     [data-testid="stSidebar"] { display: none; }
     </style>
     """, unsafe_allow_html=True)
-
 # --- 2. نظام اللغات والبيانات الأساسية ---
 # تم وضع اللغة في أعلى الصفحة كجزء من الواجهة بدلاً من الجانب
 lang = st.radio("🌐 Language / اللغة", ["العربية", "English"], horizontal=True)
-
 AUTHOR_NAME = "Prof. Dr. Saleh Orabi" if lang == "English" else "أ.د. صالح عرابي"
-
 if lang == "العربية":
     m_res, m_auth, m_title = "النتيجة النهائية", f"إعداد وتطوير: {AUTHOR_NAME} - 2026", "بـروتوكـول هـنـدسـة الاسـتـخـلاف الاقـتـصـادي"
     main_head = "🏛️ مـركـز قـيادة الـنـمـاذج الـهـنـدسيـة"
 else:
     m_res, m_auth, m_title = "Final Result", f"Developed by: {AUTHOR_NAME} - 2026", "Economic Stewardship Engineering Protocol"
     main_head = "🏛️ Engineering Models Command Center"
-
 # عرض الهوية البصرية السيادية
 st.markdown(f"""
     <div class="logo-container">
@@ -104,10 +90,8 @@ st.markdown(f"""
         <div style="font-size: 22px; opacity: 0.9; font-family: 'Cairo';">{m_auth}</div>
     </div>
     """, unsafe_allow_html=True)
-
 # --- 3. الفهرس الموسوعي المبوب (Tabs) لتقسيم النماذج ---
 st.markdown(f"<h2 style='text-align:center; color:#1e4d2b; font-family:Cairo;'>{main_head}</h2>", unsafe_allow_html=True)
-
 # تقسيم النماذج إلى قطاعات هندسية كبرى
 tab_main, tab_sharia, tab_market, tab_advanced = st.tabs([
     "📂 المنتجات الوقفية والتمكينية", 
@@ -115,19 +99,15 @@ tab_main, tab_sharia, tab_market, tab_advanced = st.tabs([
     "📈 هندسة السياسات والسوق", 
     "🔐 الأنظمة السيادية والذكاء"
 ])
-
 # وظيفة مساعدة لرسم الأزرار
 def draw_model_button(col, label, key, icon):
     with col:
         if st.button(f"{icon}\n{label}", key=key, use_container_width=True):
             st.session_state.selected_model = key
-
 # تعريف الحالة الافتراضية
 if 'selected_model' not in st.session_state:
     st.session_state.selected_model = None
-
 # --- توزيع الأزرار داخل التبويبات ---
-
 with tab_main:
     c1, c2, c3 = st.columns(3)
     draw_model_button(c1, "P1. الإدخار الوقفي الذكي", "p1", "🌙")
@@ -137,7 +117,6 @@ with tab_main:
     draw_model_button(c4, "P4. المضاربة الاجتماعية التمكينية", "p4", "🤝")
     draw_model_button(c5, "P5. صندوق الوقف التمكيني المشترك", "p5", "🏦")
     draw_model_button(c6, "P6. الإجارة الوقفية الموصوفة", "p6", "🏠")
-
 with tab_sharia:
     c1, c2, c3 = st.columns(3)
     draw_model_button(c1, "1. الأثر الرمزي (Pr)", "m1", "✨")
@@ -147,7 +126,6 @@ with tab_sharia:
     draw_model_button(c4, "4. الاستثمار التزكوي (Rr)", "m4", "💎")
     draw_model_button(c5, "5. التقييم التزكوي للمؤسسات (Qr)", "m5", "🏛️")
     draw_model_button(c6, "6. التحقق الوجودي (Vr)", "m6", "🧬")
-
 with tab_market:
     c1, c2 = st.columns(2)
     draw_model_button(c1, "السُّنَنِ فِي السِّيَاسَاتِ الِاقْتِصَادِيَّةِ", "m8_m11", "📖")
@@ -155,7 +133,6 @@ with tab_market:
     c3, c4 = st.columns(2)
     draw_model_button(c3, "هَنْدَسَةِ السُّوقِ: مِنَ التَّبَادُلِ إِلَى التَّزْكِيَةِ", "m16_m19", "📉")
     draw_model_button(c4, "هَنْدَسَةِ العَرْضِ والطَّلَبِ المَقاصِدِيَّةِ", "m20_m23", "⚖️")
-
 with tab_advanced:
     c1, c2, c3 = st.columns(3)
     draw_model_button(c1, "30. خوارزمية التقييم الشرعي التنبؤية", "m30", "🤖")
@@ -165,23 +142,19 @@ with tab_advanced:
     draw_model_button(c4, "33. بروتوكول أمانة (مؤشر البركة Bi)", "m33", "🌿")
     draw_model_button(c5, "7. القيمة التزكوية المضافة (ZVA)", "m7", "➕")
     draw_model_button(c6, "27. هندسة سعر الفائدة والبدائل", "m27", "📊")
-
 # --- 4. محرك التشغيل التفصيلي (بناءً على اختيار الزر) ---
 if st.session_state.selected_model:
     mid = st.session_state.selected_model
     st.markdown("---")
-    
     # مثال لتنفيذ m33 (بروتوكول أمانة) كمثال للتطبيق داخل الواجهة الجديدة
     if mid == "m33":
         st.markdown(f"<h1 class='header-style'>بروتوكول 'أمانة' السيادي: المحاكاة الرقمية الشاملة</h1>", unsafe_allow_html=True)
         st.latex(r"Bi = \frac{\sum (U_v \cdot S_t)}{H_w + D_i}")
         # ... باقي كود m33 كما تم برمجته سابقاً ...
         st.success("تم تفعيل بروتوكول أمانة بنجاح.")
-
     # (هنا يتم وضع بقية الـ elif لجميع النماذج p1-m33 التي برمجناها سابقاً)
     else:
         st.info(f"تم اختيار النموذج: {mid} - جاري تحميل البيئة الهندسية...")
-
 # إضافة لمسة جمالية في ذيل الصفحة
 st.markdown(f"""
     <div style="text-align: center; color: #1e4d2b; padding: 50px; font-family: Cairo;">
@@ -1309,15 +1282,12 @@ elif mid == "m31":
     st.caption(f"تم تطوير هذا المؤشر بناءً على معايير الأمان الشرعي الذكي - {AUTHOR_NAME} 2026")
 
 elif mid == "m32":
-    st.markdown(f"<h1 class='header-style'>بروتوكول الإشراف الرقمي وتصنيف الأصول الرمزية</h1>", unsafe_allow_html=True)
-    
+    st.markdown(f"<h1 class='header-style'>بروتوكول الإشراف الرقمي وتصنيف الأصول الرمزية</h1>", unsafe_allow_html=True)    
     # 1. الإطار المفاهيمي للهيئة الشرعية الرقمية
-    st.latex(r"SCS = \sum_{i=1}^{n} (\omega_i \cdot C_i)")
-    
+    st.latex(r"SCS = \sum_{i=1}^{n} (\omega_i \cdot C_i)")    
     desc = """بروتوكول الإشراف الرقمي (m32): منظومة ذكية متكاملة لإدارة الأصول الرمزية (Tokens)، 
     تجمع بين تصنيف الالتزام الشرعي (SCS)، وإدارة العقود الذكية الوقفية، ومنصة الزكاة الرمزية لضمان سيادة المقاصد في الاقتصاد الرقمي."""
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
-
     # إنشاء التبويبات الثلاثة للمنظومة
     tab_class, tab_smart_contract, tab_zakat_platform = st.tabs([
         "🛡️ تصنيف الأصول الرمزية", 
