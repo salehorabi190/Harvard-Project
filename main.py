@@ -164,6 +164,15 @@ st.markdown(f"""
         <b>نحو اقتصاد استخلافي سيادي</b>
     </div>
     """, unsafe_allow_html=True)
+# --- جسر الربط لتفعيل الأزرار ومنع الخطأ ---
+if 'selected_model' in st.session_state and st.session_state.selected_model:
+    mid = st.session_state.selected_model
+    # استخراج اسم النموذج لعرضه كعنوان
+    choice = [k for k, v in menu.items() if v == mid][0] if mid in menu.values() else ""
+else:
+    # القيمة الافتراضية إذا لم يتم الضغط على أي زر بعد
+    mid = None
+    st.info("🏛️ مرحباً بك دكتور صالح في منصة الاستخلاف.. يرجى اختيار نموذج من الأزرار أعلاه للبدء.")
 
 if mid == "p1":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
