@@ -46,7 +46,7 @@ mid = menu[choice]
 if mid == "p1":
         st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
         # ضع كود p1 الأصلي هنا...        
-    elif mid == "m33":
+elif mid == "m33":
         st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
         # ضع كود m33 الأصلي هنا... (البركة، المحاكاة، الرسوم)
     # ... وهكذا لبقية النماذج ...
