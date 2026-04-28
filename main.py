@@ -2,14 +2,11 @@ import streamlit as st
 
 # ------------------ الإعدادات ------------------
 st.set_page_config(page_title="S.E.P 2026 | Prof. Dr. Saleh Orabi", layout="wide")
-
 # ------------------ تنسيق بصري إسلامي ------------------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&display=swap');
-
 .stApp { background-color: #f4f7f6; }
-
 /* رأس الصفحة */
 .logo-container {
     text-align: center;
@@ -26,9 +23,8 @@ st.markdown("""
     font-size: 80px;
     letter-spacing: 4px;
 }
-
 /* بطاقة زر */
-.card-btn {
+.card {
     background: white;
     border: 3px solid #d4af37;
     padding: 25px;
@@ -42,13 +38,12 @@ st.markdown("""
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     transition: 0.3s;
 }
-.card-btn:hover {
+.card:hover {
     background: #0f3d2e;
     color: white;
     transform: scale(1.03);
     cursor: pointer;
 }
-
 /* شبكة البطاقات */
 .grid {
     display: grid;
@@ -57,7 +52,6 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
-
 # ------------------ رأس الصفحة ------------------
 st.markdown("""
 <div class="logo-container">
@@ -68,7 +62,6 @@ st.markdown("""
     <div style="font-size: 20px; opacity: 0.9;">إعداد وتطوير: أ.د. صالح عرابي - 2026</div>
 </div>
 """, unsafe_allow_html=True)
-
 # ------------------ قائمة النماذج ------------------
 models = {
     "P1. الإدخار الوقفي الذكي": "p1",
@@ -99,18 +92,13 @@ models = {
     "32. بروتوكول الإشراف وتصنيف الأصول": "m32",
     "33. بروتوكول أمانة (مؤشر البركة)": "m33"
 }
-
 st.markdown("<h2 style='text-align:right; font-family:Cairo;'>النماذج الهندسية</h2>", unsafe_allow_html=True)
-
 # ------------------ شبكة البطاقات ------------------
 st.markdown("<div class='grid'>", unsafe_allow_html=True)
-
 for label, key in models.items():
-    if st.button(label, key=key):
+    if st.button(label):
         st.session_state["model"] = key
-
 st.markdown("</div>", unsafe_allow_html=True)
-
 # ------------------ عرض النموذج المختار ------------------
 if "model" in st.session_state:
     selected = st.session_state["model"]
