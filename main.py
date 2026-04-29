@@ -65,47 +65,40 @@ st.markdown(f"""
     """, unsafe_allow_html=True)
 
 if mid == "p1":
-    st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)
     # 1. عرض المعادلة القياسية
     st.latex(r"Z_{it} = \gamma + \delta_1 W_{it} + \delta_2 R_{it} + \delta_3 T_{it} + \mu_{it}")
     # 2. الوصف العام
     desc = (
         "هذا النموذج يقدّم قياسًا كميًا للأثر الوقفي بناءً على ثلاثة متغيرات: "
         "نسبة الوقف من الادخار، عائد الاستثمار الوقفي، ومؤشر التفاعل الروحي."
-        if lang == "العربية"
-        else "This model quantifies waqf impact based on savings allocation, waqf return, and spiritual interaction."
     )
     st.markdown(f'<div class="explanation-box"><b>💡 {desc}</b></div>', unsafe_allow_html=True)
     # 3. إدخال قيم المتغيرات W, R, T
     st.write("### إدخال قيم المتغيرات الأساسية:")
     col1, col2, col3 = st.columns(3)
     with col1:
-        W = st.number_input("نسبة الوقف من الادخار (Wit)", min_value=0.0, max_value=100.0, value=80.0, key="wit_p1")
+        W = st.number_input("نسبة الوقف من الادخار (Wit)", min_value=0.0, max_value=100.0, value=80.0)
     with col2:
-        R = st.number_input("عائد الاستثمار الوقفي (Rit)", min_value=0.0, max_value=100.0, value=70.0, key="rit_p1")
+        R = st.number_input("عائد الاستثمار الوقفي (Rit)", min_value=0.0, max_value=100.0, value=70.0)
     with col3:
-        T = st.number_input("مؤشر التفاعل الروحي (Tit)", min_value=0.0, max_value=100.0, value=90.0, key="tit_p1")
-    # 4. إدخال معاملات النموذج δ1 δ2 δ3 + الثابت γ
-    st.write("### إدخال معاملات النموذج (يمكن تعديلها حسب التقدير الإحصائي):")
-    col4, col5, col6, col7 = st.columns(4)
-    with col4:
-        gamma = st.number_input("الثابت γ", value=5.0, key="gamma_p1")
-    with col5:
-        d1 = st.number_input("δ1 معامل نسبة الوقف", value=0.4, key="d1_p1")
-    with col6:
-        d2 = st.number_input("δ2 معامل العائد الوقفي", value=0.3, key="d2_p1")
-    with col7:
-        d3 = st.number_input("δ3 معامل التفاعل الروحي", value=0.3, key="d3_p1")
-    # 5. حساب Z_it وفق النموذج القياسي
+        T = st.number_input("مؤشر التفاعل الروحي (Tit)", min_value=0.0, max_value=100.0, value=90.0)
+    # 4. إدخال معاملات النموذج
+    st.write("### معاملات المعادلة القياسية:")
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        gamma = st.number_input("الثابت γ", value=5.0)
+    with c2:
+        d1 = st.number_input("δ1 معامل نسبة الوقف", value=0.4)
+    with c3:
+        d2 = st.number_input("δ2 معامل العائد الوقفي", value=0.3)
+    with c4:
+        d3 = st.number_input("δ3 معامل التفاعل الروحي", value=0.3)
+    # 5. حساب Z_it
     Z = gamma + d1 * W + d2 * R + d3 * T
     # 6. عرض النتيجة
     st.metric("مؤشر الأثر الوقفي النهائي (Zit)", f"{Z:.2f}")
-    # 7. ملاحظة تفسيرية
-    if lang == "العربية":
-        st.info(
-            "تفسير النتائج: كل معامل δ يمثل مقدار الزيادة في الأثر الوقفي عند زيادة المتغير المرتبط به بوحدة واحدة، "
-            "مع ثبات باقي المتغيرات. يمكن تعديل المعاملات وفق نتائج التقدير الإحصائي الحقيقي."
-        )
+    st.info("تفسير: كل معامل δ يمثل مقدار الزيادة في الأثر الوقفي عند زيادة المتغير المرتبط به بوحدة واحدة.")
 
 elif mid == "p2":
     st.markdown(f"<h1 class='header-style'>{choice}</h1>", unsafe_allow_html=True)    
