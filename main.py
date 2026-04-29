@@ -1327,3 +1327,39 @@ elif mid == "m33":
         "الحالة": ["نشط", "مراقب", "جاهز"]
     })
     
+# --- الخاتمة وتوقيع المبتكر (إضافة برمجية لنهاية الكود) ---
+st.markdown("---")  # خط فاصل
+
+# استخدام حاوية مخصصة للخاتمة بتنسيق ذهبي وأخضر ملكي
+st.markdown("""
+    <div style="
+        text-align: center; 
+        padding: 40px; 
+        background: linear-gradient(135deg, #11301a 0%, #1e4d2b 100%); 
+        border-radius: 20px; 
+        border-top: 5px solid #d4af37;
+        margin-top: 50px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    ">
+        <h2 style="color: #d4af37; font-family: 'Cairo', sans-serif; margin-bottom: 10px;">
+            تَمَّتْ بِحَمْدِ اللهِ وَتَوْفِيقِهِ
+        </h2>
+        <p style="color: white; font-size: 20px; font-family: 'Cairo', sans-serif; opacity: 0.9;">
+            هذا العمل يمثل رؤية علمية هندسية لدمج القيم المقاصدية في المنظومة الاقتصادية المعاصرة
+        </p>
+        <div style="
+            display: inline-block; 
+            margin-top: 20px; 
+            padding: 10px 30px; 
+            border: 1px solid rgba(212, 175, 55, 0.5); 
+            border-radius: 50px;
+        ">
+            <span style="color: #d4af37; font-weight: bold; font-size: 22px;">
+                تصميم د. صالح عرابي 2026
+            </span>
+        </div>
+        <p style="color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 20px;">
+            جميع الحقوق الفكرية محفوظة لبروتوكول هندسة الاستخلاف © 2026
+        </p>
+    </div>
+""", unsafe_allow_html=True)
